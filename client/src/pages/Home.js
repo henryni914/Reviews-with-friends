@@ -1,12 +1,30 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import AboutUs from '../components/AboutUs';
+import Footer from '../components/Footer';
+import API from '../utils/API';
 
-export default function Home(){
+export default function Home() {
 
-    return(
+    useEffect(() => {
+        API.popularMovies()
+        .then(
+            res => {
+                console.log(res.data.results)
+            }
+        )
+    })
+
+    return (
         <>
-            <Navbar/>
-            <h1>Hello World!</h1>
+            <section id='main-landing-section'>
+                <Navbar />
+                <h1>Hello </h1>
+            </section>
+            <AboutUs />
+            {/* <section id='footer'>
+                <Footer />
+            </section> */}
         </>
     )
 }

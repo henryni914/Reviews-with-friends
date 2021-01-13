@@ -5,21 +5,22 @@ import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 
 export default function Nav() {
-  const { isLoading, user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
+  console.log(user)
 
   return (
     <>
-      <Menu inverted>
+      <Menu inverted borderless> 
         <Menu.Item
           name='home'
         // onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='messages'
+          name='movies'
         // onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='friends'
+          name='profile'
         // onClick={this.handleItemClick}
         />
         <Menu.Menu position='right'>
