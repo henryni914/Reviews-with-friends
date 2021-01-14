@@ -1,6 +1,16 @@
 import { createStore } from 'redux'
 
 const initialState = {
+    currentUser: {
+        id: "",
+        nickname: "",
+        picture: "",
+        watchlist: [],
+        favorites: [],
+        friends: [],
+        // following: [],
+        // followers: [],
+    },
     posts: [],
 }
 
@@ -11,6 +21,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 posts: [...state.posts, action.payload]
             }
+            case 'SET_USER':
+                return {
+                    ...state,
+                    currentUser: action.payload
+                }
     }
 
 

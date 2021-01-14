@@ -3,30 +3,34 @@ import Navbar from '../components/Navbar';
 import AboutUs from '../components/AboutUs';
 import Footer from '../components/Footer';
 import ReduxTest from '../components/ReduxTest';
+import { useAuth0 } from '../utils/auth0context';
 import API from '../utils/API';
 
 export default function Home() {
 
-    useEffect(() => {
-        API.popularMovies()
-        .then(
-            res => {
-                console.log(res.data.results)
-            }
-        )
-    })
+    const { user, isAuthenticated } = useAuth0();
+    console.log('home', user)
+
+    // useEffect(() => {
+    //     API.popularMovies()
+    //     .then(
+    //         res => {
+    //             console.log(res.data.results)
+    //         }
+    //     )
+    // })
 
     return (
         <>
             <section id='main-landing-section'>
-                <Navbar />
+                <Navbar userInfo={user}/>
                 <h1>Hello </h1>
             </section>
             <AboutUs />
             <ReduxTest />
-            {/* <section id='footer'>
+            <section id='footer'>
                 <Footer />
-            </section> */}
+            </section>
         </>
     )
 }

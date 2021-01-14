@@ -18,12 +18,12 @@ class ReduxTest extends Component {
             type: 'ADD_POSTS',
             payload: { id: this.state.postId, title: this.state.value }
         });
-        this.setState({ postId: this.state.postId + 1 });
+        this.setState({ value: "",postId: this.state.postId + 1 });
     };
 
     render() {
-        console.log("props", this.props);
-        console.log('state', this.state);
+        // console.log("props", this.props);
+        // console.log('state', this.state);
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
