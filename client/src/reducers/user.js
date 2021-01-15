@@ -10,7 +10,6 @@ export default function userReducer(state = {
     friends: [],
     // following: [],
     // followers: [],
-    posts: []
 }, action) {
     switch (action.type) {
         case 'SET_USER':

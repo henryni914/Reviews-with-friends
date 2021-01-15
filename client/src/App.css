@@ -3,11 +3,11 @@
 }
 
 #main-landing-section {
-  height: 75vh;
-  background-image: url("https://images.unsplash.com/photo-1460355976672-71c3f0a4bdac?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=2100&q=80");
+  height: 70vh;
+  background-image: url("https://image.tmdb.org/t/p/original/srYya1ZlI97Au4jUYAktDe3avyA.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
+  background-position: top;
   color: white;
   margin-bottom: 10px;
 }
@@ -21,4 +21,12 @@
   background-color: red;
   color: white;
   text-align: center;
+}
+
+.popular-img {
+  /* max-width:300px; */
+  object-fit: cover;
+  max-height:300px;
+  width: 100%;
+  height: auto;
 }
