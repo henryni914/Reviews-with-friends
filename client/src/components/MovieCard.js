@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 
 export default function MovieCard(props) {
-    console.log('movieCard', props)
+    // console.log('movieCard', props)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
     let shortSummary = props.overview.split(" ").slice(0,20).join(" ") + "...";
 

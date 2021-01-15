@@ -16,7 +16,7 @@ export default function PopularSection() {
             .catch(err => console.log(err));
     }, [])
 
-    console.log('movies', movies)
+    // console.log('movies', movies)
 
 // Using redux to store movie to state, and retrieving from state to render
 // The below was a test and works, use as reference if needed.
