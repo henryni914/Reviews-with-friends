@@ -14,6 +14,8 @@ export default function App() {
         <div className="App">
           <Route exact path="/" component={Home} />
           <Route exact path="/results" component={MoviePage}/>
+          {/* add movie component  */}
+          <Route path="/movie/:movieId" /> 
         </div>
       </Auth0Provider>
     </Router>
