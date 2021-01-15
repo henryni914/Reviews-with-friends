@@ -8,21 +8,21 @@ import { setUser } from '../actions/user';
 
 export default function Nav() {
 
-  const { user, isAuthenticated } = useAuth0();
-  console.log('nav', user);
+  const { user } = useAuth0();
+  // console.log('from auth0', user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
       dispatch(setUser(user));
-      console.log('user set');
+      // console.log('user set');
     }
   }, [user])
 
 
   const stateUser = useSelector(state => state.user)
-  console.log('stateUser', stateUser)
+  // console.log('stateUser', stateUser)
 
   return (
     <>

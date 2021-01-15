@@ -1,28 +1,20 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import AboutUs from '../components/AboutUs';
 import Footer from '../components/Footer';
-import { useAuth0 } from '../utils/auth0context';
 import API from '../utils/API';
+import PopularSection from '../components/PopularSection';
 
 export default function Home() {
-
-    // useEffect(() => {
-    //     API.popularMovies()
-    //     .then(
-    //         res => {
-    //             console.log(res.data.results)
-    //         }
-    //     )
-    // })
 
     return (
         <>
             <section id='main-landing-section'>
                 <Navbar />
-                <h1>Hello </h1>
+                {/* <h1>Hello </h1> */}
             </section>
             <AboutUs />
+            <PopularSection />
             <section id='footer'>
                 <Footer />
             </section>
