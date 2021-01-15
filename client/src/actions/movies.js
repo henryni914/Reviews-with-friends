@@ -4,3 +4,11 @@ export const setTopFive = (movies) => ({
         topFive: movies
     }
 })
+
+export const updateSearch = (query, arr) => ({
+    type: 'SET_SEARCH',
+    payload: {
+        search: query,
+        results: arr
+    }
+})

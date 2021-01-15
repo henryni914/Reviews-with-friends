@@ -2,6 +2,7 @@
 
 export default function movieReducer(state = {
     topFive: [],
+    search: "",
     searchResults: [],
 }, action) {
     switch (action.type) {
@@ -10,7 +11,12 @@ export default function movieReducer(state = {
                 ...state,
                 topFive: action.payload.topFive
             };
-
+        case 'SET_SEARCH':
+            return {
+                ...state,
+                search: action.payload.search,
+                searchResults: action.payload.results
+            }
         default:
             return state;
     }
