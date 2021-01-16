@@ -12,12 +12,12 @@ import API from '../utils/API';
 export default function Nav() {
 
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([]);
+  // const [results, setResults] = useState([]);
   const [redirect, setRedirect] = useState(null);
   const { user } = useAuth0();
   // console.log('from auth0', user);
   const dispatch = useDispatch();
-  const stateUser = useSelector(state => state.movies)
+  // const stateUser = useSelector(state => state.movies)
 
   function handleInputChange(event) {
     // console.log('event', event.target.value)
@@ -32,7 +32,7 @@ export default function Nav() {
       .then(res => {
         console.log('from API', res.data)
         dispatch(updateSearch(search, res.data.results))
-        setResults(res.data.results);
+        // setResults(res.data.results);
         // create an API that pulls a req params /results/q=:search so if user manually uses url bar
         setRedirect("/results/q=" + search);
         setSearch("");
@@ -47,7 +47,7 @@ export default function Nav() {
       // console.log('user set');
       // console.log('stateMovies',stateUser)
     }
-  }, [results]);
+  }, [user]);
 
   return (
     <>

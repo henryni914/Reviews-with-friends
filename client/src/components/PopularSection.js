@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Card, Container } from 'semantic-ui-react';
 import MovieCard from './MovieCard';
 import API from '../utils/API';
-import { useDispatch, useSelector } from "react-redux";
-import { setTopFive } from '../actions/movies';
+// import { setTopFive } from '../actions/movies';
 
 export default function PopularSection() {
- 
+
     const [movies, setMovies] = useState([])
 
     // call API or pass props to load the first 5 popular movies from TMDB
@@ -18,8 +17,8 @@ export default function PopularSection() {
 
     // console.log('movies', movies)
 
-// Using redux to store movie to state, and retrieving from state to render
-// The below was a test and works, use as reference if needed.
+    // Using redux to store movie to state, and retrieving from state to render
+    // The below was a test and works, use as reference if needed.
 
     // const dispatch = useDispatch();
     // useEffect(() => {
@@ -38,6 +37,7 @@ export default function PopularSection() {
             <Card.Group itemsPerRow={5} stackable>
                 {movies.map(element => (
                     <MovieCard
+                        key={element.id}
                         id={element.id}
                         title={element.original_title}
                         overview={element.overview}
@@ -51,4 +51,4 @@ export default function PopularSection() {
     )
 }
 
-{/* <MovieCard test = {stateMovies}/> */}
+{/* <MovieCard test = {stateMovies}/> */ }

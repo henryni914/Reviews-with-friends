@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
 export default function MovieCard(props) {
     // console.log('movieCard', props)
@@ -7,7 +7,7 @@ export default function MovieCard(props) {
     let shortSummary = props.overview.split(" ").slice(0,20).join(" ") + "...";
 
     return (
-        <Card >
+        <Card key={props.id} >
             <img 
             class='popular-img'
             src={posterUrl}

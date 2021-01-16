@@ -6,7 +6,7 @@ export default function MovieItem(props) {
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
 
     return (
-        <Item>
+        <Item key={props.id}>
             <img
                 class='search-img'
                 src={posterUrl}

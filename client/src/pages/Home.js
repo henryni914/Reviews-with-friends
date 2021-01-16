@@ -1,8 +1,5 @@
-import { React, useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
+import React from 'react';
 import AboutUs from '../components/AboutUs';
-import Footer from '../components/Footer';
-import API from '../utils/API';
 import PopularSection from '../components/PopularSection';
 
 export default function Home() {
