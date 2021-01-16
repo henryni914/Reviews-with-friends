@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <>
             <section id='main-landing-section'>
-                <Navbar />
+                {/* <Navbar /> */}
                 {/* <h1>Hello </h1> */}
             </section>
             <AboutUs />

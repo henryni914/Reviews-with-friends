@@ -30,11 +30,12 @@ export default function Nav() {
     }
     API.searchMovies(search)
       .then(res => {
-        console.log('from API', res.data)
+        console.log('from API', search)
         dispatch(updateSearch(search, res.data.results))
         setResults(res.data.results);
+        // create an API that pulls a req params /results/q=:search so if user manually uses url bar
+        setRedirect("/results/q=" + search);
         setSearch("");
-        setRedirect("/results")
       })
       .catch(err => console.log(err)); 
   }
@@ -61,7 +62,7 @@ export default function Nav() {
         />
         <Menu.Item
           name='movies'
-          href="/results"
+          // href="/"
         />
         <Menu.Item
           name='profile'

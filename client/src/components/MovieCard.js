@@ -16,10 +16,10 @@ export default function MovieCard(props) {
             ></img>
             <Card.Content>
                 <Card.Header>{props.title}</Card.Header>
-                <Card.Meta>Release Date: {props.release}</Card.Meta>
-                <Card.Description>
+                <Card.Meta><strong>Release Date: </strong> {props.release}</Card.Meta>
+                {/* <Card.Description>
                     {shortSummary}
-                </Card.Description>
+                </Card.Description> */}
             </Card.Content>
             {/* the extra content can be removed or changed later */}
             {/* <Card.Content extra>
