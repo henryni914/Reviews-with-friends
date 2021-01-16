@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import MovieItem from '../components/MovieItem';
 import { useSelector } from "react-redux";
@@ -9,6 +9,18 @@ export default function MovieDisplay() {
     const storeMovies = useSelector(state => state.movies);
     const resultsArr = storeMovies.searchResults;
     console.log("stateMovies", storeMovies);
+    const [search, setSearch] = useState(storeMovies.search)
+
+    // ************
+    // Need to save the search keyword and the result either to local storage or another method to keep state before page refresh
+
+    // useEffect(() => {
+    //     if (storeMovies.search !== ""){
+    //         setSearch(storeMovies.search)
+    //         console.log('search', search)
+
+    //     }
+    // },[search]);
 
     return (
         <>

@@ -30,7 +30,7 @@ export default function Nav() {
     }
     API.searchMovies(search)
       .then(res => {
-        console.log('from API', search)
+        console.log('from API', res.data)
         dispatch(updateSearch(search, res.data.results))
         setResults(res.data.results);
         // create an API that pulls a req params /results/q=:search so if user manually uses url bar

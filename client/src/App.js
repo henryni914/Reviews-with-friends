@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 import 'semantic-ui-css/semantic.min.css';
 import { Auth0Provider } from './utils/auth0context';
 import Nav from './components/Navbar';
+import Footer from './components/Footer';
+
 
 export default function App() {
 
@@ -14,11 +16,16 @@ export default function App() {
     <Router>
       <Auth0Provider>
         <div className="App">
-          <Navbar />
+          <Nav />
           <Route exact path="/" component={Home} />
-          <Route path="/results/q=:search" component={MoviePage}/>
+          <Route path="/results/q=:search" component={MoviePage} />
           {/* add movie component  */}
-          <Route path="/movie/:movieId" /> 
+          <Route path="/movie/:movieId" />
+          {/* Need to make content take up 100vh or something to fill up
+           empty space or else footer will rise */}
+          <section id='footer'>
+            <Footer />
+          </section>
         </div>
       </Auth0Provider>
     </Router>
