@@ -9,15 +9,9 @@ export default function Home() {
 
     return (
         <>
-            <section id='main-landing-section'>
-                {/* <Navbar /> */}
-                {/* <h1>Hello </h1> */}
-            </section>
+            <section id='main-landing-section'></section>
             <AboutUs />
             <PopularSection />
-            <section id='footer'>
-                <Footer />
-            </section>
         </>
     )
 }
