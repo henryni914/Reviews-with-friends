@@ -13,16 +13,11 @@ export default function Nav() {
 
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
+  const [redirect, setRedirect] = useState(null);
   const { user } = useAuth0();
   // console.log('from auth0', user);
   const dispatch = useDispatch();
   const stateUser = useSelector(state => state.movies)
-
-
-  //   // API.searchMovies(searchRef.current.value)
-  //   // .then(res => console.log('res', res))
-  //   // .catch(err => console.log('err', err));
-  // }
 
   function handleInputChange(event) {
     // console.log('event', event.target.value)
@@ -35,20 +30,28 @@ export default function Nav() {
     }
     API.searchMovies(search)
       .then(res => {
+        console.log('from API', search)
         dispatch(updateSearch(search, res.data.results))
         setResults(res.data.results);
-        <Redirect to="/results" />
+        // create an API that pulls a req params /results/q=:search so if user manually uses url bar
+        setRedirect("/results/q=" + search);
         setSearch("");
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err)); 
   }
+  
 
   useEffect(() => {
     if (user) {
       dispatch(setUser(user));
       // console.log('user set');
+      // console.log('stateMovies',stateUser)
     }
   }, [results]);
+
+  if (redirect) {
+    return <Redirect to={redirect} />
+  }
 
   return (
     <>
@@ -59,7 +62,7 @@ export default function Nav() {
         />
         <Menu.Item
           name='movies'
-          href="/search"
+          // href="/"
         />
         <Menu.Item
           name='profile'
