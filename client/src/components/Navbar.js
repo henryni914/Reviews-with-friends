@@ -49,10 +49,6 @@ export default function Nav() {
     }
   }, [results]);
 
-  if (redirect) {
-    return <Redirect to={redirect} />
-  }
-
   return (
     <>
       <Menu inverted borderless>
@@ -85,6 +81,9 @@ export default function Nav() {
           </Menu.Item>
         </Menu.Menu>
       </Menu>
+      {redirect && (
+        <Redirect to={redirect} />
+      )}      
     </>
   )
 }
