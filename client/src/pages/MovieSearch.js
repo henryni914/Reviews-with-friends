@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import MovieItem from '../components/MovieItem';
 import { useSelector } from "react-redux";
-import { Container, Item } from 'semantic-ui-react'
+import { Container, Divider, Item } from 'semantic-ui-react'
 
 export default function MovieDisplay() {
 
@@ -12,27 +12,29 @@ export default function MovieDisplay() {
 
     return (
         <>
-            {/* <Navbar /> */}
-            {resultsArr.length < 1 ?
-                <h1>No results</h1>
-                :
-                <>
-                    <Container>
+            <Container>
+                <h3>Search results from "{storeMovies.search}"</h3>
+                {resultsArr.length < 1 ?
+                    <h1>No results</h1>
+                    :
+                    <>
                         <Item.Group>
                             {resultsArr.map(element => (
-                                <MovieItem
-                                    id={element.id}
-                                    title={element.original_title}
-                                    overview={element.overview}
-                                    poster={element.poster_path}
-                                    release={element.release_date}
-                                />
+                                <>
+                                    <MovieItem
+                                        id={element.id}
+                                        title={element.original_title}
+                                        overview={element.overview}
+                                        poster={element.poster_path}
+                                        release={element.release_date}
+                                    />
+                                    <Divider section />
+                                </>
                             ))}
                         </Item.Group>
-                    </Container>
-                </>
-            }
-
+                    </>
+                }
+            </Container>
         </>
     )
 }
