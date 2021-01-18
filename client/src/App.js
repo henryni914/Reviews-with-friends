@@ -2,7 +2,8 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './pages/Home';
-import MoviePage from './pages/MovieSearch';
+import SearchPage from './pages/MovieSearch';
+import MoviePage from './pages/MoviePage';
 import Navbar from './components/Navbar';
 import 'semantic-ui-css/semantic.min.css';
 import { Auth0Provider } from './utils/auth0context';
@@ -18,9 +19,9 @@ export default function App() {
         <div className="App">
           <Nav />
           <Route exact path="/" component={Home} />
-          <Route path="/results/q=:search" component={MoviePage} />
+          <Route path="/results" component={SearchPage} />
           {/* add movie component  */}
-          <Route path="/movie/:movieId" />
+          <Route path="/film/id=:filmId" component={MoviePage} />
           {/* Need to make content take up 100vh or something to fill up
            empty space or else footer will rise */}
           <section id='footer'>

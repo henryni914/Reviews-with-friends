@@ -1,19 +1,22 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export default function MovieCard(props) {
     // console.log('movieCard', props)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
-    let shortSummary = props.overview.split(" ").slice(0,20).join(" ") + "...";
+    let shortSummary = props.overview.split(" ").slice(0, 20).join(" ") + "...";
 
     return (
         <Card >
-            <img 
-            class='popular-img'
-            src={posterUrl}
-            alt={props.title}
-            height="300px"
-            ></img>
+            <Link to={`/film/id=${props.id}`}>
+                <img
+                    class='popular-img'
+                    src={posterUrl}
+                    alt={props.title}
+                    height="300px"
+                ></img>
+            </Link>
             <Card.Content>
                 <Card.Header>{props.title}</Card.Header>
                 <Card.Meta><strong>Release Date: </strong> {props.release}</Card.Meta>
