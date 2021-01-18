@@ -4,6 +4,7 @@ export default function movieReducer(state = {
     topFive: [],
     search: "",
     searchResults: [],
+    currentFilmId: "",
 }, action) {
     switch (action.type) {
         case 'SET_TOPFIVE':
@@ -16,6 +17,11 @@ export default function movieReducer(state = {
                 ...state,
                 search: action.payload.search,
                 searchResults: action.payload.results
+            }
+        case 'SET_FILM':
+            return {
+                ...state,
+                currentFilmId: action.payload.selected
             }
         default:
             return state;

@@ -10,17 +10,20 @@ export default function MovieDisplay() {
     const resultsArr = storeMovies.searchResults;
     console.log("stateMovies", storeMovies);
     const [search, setSearch] = useState(storeMovies.search)
+    const [results, setResults] = useState(storeMovies.searchResults)
+    // console.log('search', search)
 
     // ************
     // Need to save the search keyword and the result either to local storage or another method to keep state before page refresh
 
-    // useEffect(() => {
-    //     if (storeMovies.search !== ""){
-    //         setSearch(storeMovies.search)
-    //         console.log('search', search)
+    useEffect(() => {
+            // setSearch(storeMovies.search)
+            // setResults(storeMovies.searchResults)
+            // console.log('search', search);
+            // console.log('results', results);
 
-    //     }
-    // },[search]);
+        
+    },[]);
 
     return (
         <>
@@ -52,7 +55,7 @@ export default function MovieDisplay() {
                             <h1>No results</h1>
                             :
                             <>
-                                <Item.Group>
+                                <Item.Group >
                                     {resultsArr.map(element => (
                                         <>
                                             <MovieItem
