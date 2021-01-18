@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import MovieItem from '../components/MovieItem';
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Divider, Grid, Item, Menu } from 'semantic-ui-react'
+import { Container, Divider, Grid, Item, Menu } from 'semantic-ui-react';
 import API from '../utils/API';
-import { updateSearch } from '../actions/movies'
+import { updateSearch } from '../actions/movies';
 
 export default function MovieDisplay() {
 

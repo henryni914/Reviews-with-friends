@@ -48,7 +48,7 @@ export default function Nav() {
 
   return (
     <>
-      <Menu inverted borderless>
+      <Menu inverted borderless stackable>
         <Link to="/">
           <Menu.Item
             name='home'
