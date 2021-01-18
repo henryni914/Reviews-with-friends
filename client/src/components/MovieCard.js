@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { setFilm } from '../actions/movies';
 
 export default function MovieCard(props) {
-    // console.log('movieCard', props)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
     let shortSummary = props.overview.split(" ").slice(0, 20).join(" ") + "...";
     const dispatch = useDispatch();

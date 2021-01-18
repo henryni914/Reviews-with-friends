@@ -19,11 +19,10 @@ export default function App() {
         <div className="App">
           <Nav />
           <Route exact path="/" component={Home} />
+          {/* Need to make content take up 100vh in SearchPage to fill up
+           empty space or else footer will rise ex. when no results*/}
           <Route path="/results/q=:query" component={SearchPage} />
-          {/* add movie component  */}
           <Route path="/film/id=:filmId" component={MoviePage} />
-          {/* Need to make content take up 100vh or something to fill up
-           empty space or else footer will rise */}
           <section id='footer'>
             <Footer />
           </section>

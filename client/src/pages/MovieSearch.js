@@ -10,7 +10,6 @@ export default function MovieDisplay() {
     const dispatch = useDispatch();
     const storeMovies = useSelector(state => state.movies);
     const resultsArr = storeMovies.searchResults;
-    // console.log("stateMovies", storeMovies);
     const [search, setSearch] = useState(storeMovies.search);
     const currentSearch = window.location.href.slice(32);
 
@@ -22,8 +21,6 @@ export default function MovieDisplay() {
     useEffect(() => {
         if (currentSearch !== search) {
             console.log('different')
-            setSearch(currentSearch);
-
             API.searchMovies(currentSearch)
                 .then(res => {
                     dispatch(updateSearch(search, res.data.results))

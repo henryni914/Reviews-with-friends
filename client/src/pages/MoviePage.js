@@ -10,7 +10,6 @@ export default function MoviePage() {
 
     useEffect(() => {
         API.findByMovieId(filmId).then(res => {
-            // console.log('res', res.data)
             setResults(res.data)
         })
     },[])

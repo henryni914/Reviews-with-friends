@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilm } from '../actions/movies'
 
 export default function MovieItem(props) {
-    // console.log('props', props.id)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
     const dispatch = useDispatch();
     // const storeMoviesArr = useSelector(state => state.movies.searchResults)
@@ -13,7 +12,6 @@ export default function MovieItem(props) {
         dispatch(setFilm(id));
         // Finds the current selected film inside the array and returns the movie id === selected id
         // let selected = storeMoviesArr.filter(element => element.id === id);
-        // console.log('selected', selected);
     }
     
     return (
