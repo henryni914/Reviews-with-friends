@@ -1,15 +1,21 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setFilm } from '../actions/movies';
 
 export default function MovieCard(props) {
-    // console.log('movieCard', props)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
     let shortSummary = props.overview.split(" ").slice(0, 20).join(" ") + "...";
+    const dispatch = useDispatch();
+
+    function storeId(id) {
+        dispatch(setFilm(id));
+    }
 
     return (
         <Card >
-            <Link to={`/film/id=${props.id}`}>
+            <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`}>
                 <img
                     class='popular-img'
                     src={posterUrl}

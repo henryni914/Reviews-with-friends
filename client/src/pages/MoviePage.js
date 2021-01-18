@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import API from '../utils/API';
 
 export default function MoviePage() {
 
-    const stateMovie = useSelector(state => state.movies)
-    console.log('stateMovie', stateMovie);
-    // function loadMovie() {
-    //     API.findByMovieId().then(res => {
-    //         // 
-    //     })
-    // }
-    // useEffect(() => {
-    //     API.findByMovieId()
-    // })
+    const stateMovie = useSelector(state => state.movies);
+    const filmId = stateMovie.currentFilmId;
+    const [results, setResults] = useState([])
 
+    useEffect(() => {
+        API.findByMovieId(filmId).then(res => {
+            setResults(res.data)
+        })
+    },[])
+
+    console.log('results', results)
     return(
-        <h1>Testing</h1>
+        <h1>{results.original_title}</h1>
     )
 }

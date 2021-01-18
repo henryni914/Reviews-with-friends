@@ -1,29 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilm } from '../actions/movies'
 
 export default function MovieItem(props) {
-    // console.log('props', props.id)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
-    let filmId = props.id
     const dispatch = useDispatch();
-    const storeMovies = useSelector(state => state.movies)
+    // const storeMoviesArr = useSelector(state => state.movies.searchResults)
     function storeId(id) {
-        console.log('id',id)
-        // let selected = stateMovies.filter(element => element.id === id);
         dispatch(setFilm(id));
-        // console.log('selected', selected);
+        // Finds the current selected film inside the array and returns the movie id === selected id
+        // let selected = storeMoviesArr.filter(element => element.id === id);
     }
-
-    // useEffect(() => {
-    //     storeId()
-    // }, []);
     
     return (
         <Item >
-            <Link onClick={() => storeId(filmId)} to={`/film/id=${props.id}`} >
+            <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`} >
                 <img
                     class='search-img'
                     src={posterUrl}
@@ -31,7 +24,7 @@ export default function MovieItem(props) {
                 ></img>
             </Link>
             <Item.Content>
-                <Link to={`/film/id=${props.id}`} >
+                <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`} >
                     <Item.Header as='a' >{props.title}</Item.Header>
                 </Link>
                 <Item.Description>

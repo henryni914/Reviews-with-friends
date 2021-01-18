@@ -11,9 +11,13 @@ export default {
         return axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${tmdbAPI}&language=en-US`)
     },
     findByMovieId: function(id){
-        return axios.get("/film/id=" + id)
+        return axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbAPI}&language=en-US`)
     },
     findProviders: function(id){
         return axios.get(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${tmdbAPI}`)
     }
 }
+
+// findByMovieId: function(id){
+//     //     return axios.get("/film/id=" + id)
+//     // },
