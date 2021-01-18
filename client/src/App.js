@@ -19,7 +19,7 @@ export default function App() {
         <div className="App">
           <Nav />
           <Route exact path="/" component={Home} />
-          <Route path="/results" component={SearchPage} />
+          <Route path="/results/q=:query" component={SearchPage} />
           {/* add movie component  */}
           <Route path="/film/id=:filmId" component={MoviePage} />
           {/* Need to make content take up 100vh or something to fill up

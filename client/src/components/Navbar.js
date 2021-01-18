@@ -91,6 +91,7 @@ export default function Nav() {
       </Menu>
       {redirect && (
         <Redirect to={redirect} />
+        // <Link to={'/results/q=' + search }></Link>
       )}
     </>
   )

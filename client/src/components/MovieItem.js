@@ -8,7 +8,7 @@ export default function MovieItem(props) {
     // console.log('props', props.id)
     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
     const dispatch = useDispatch();
-    const storeMoviesArr = useSelector(state => state.movies.searchResults)
+    // const storeMoviesArr = useSelector(state => state.movies.searchResults)
     function storeId(id) {
         dispatch(setFilm(id));
         // Finds the current selected film inside the array and returns the movie id === selected id
