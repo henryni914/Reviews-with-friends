@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import API from '../utils/API';
-import { Breadcrumb, Container, Divider, Grid, Header, Image, Input, Menu, Segment } from 'semantic-ui-react';
+import { Breadcrumb, Container, Divider, Grid, Header, Icon, Image, Input, Label, Menu, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 
@@ -10,19 +10,20 @@ export default function MoviePage() {
     const stateMovie = useSelector(state => state.movies);
     const filmId = stateMovie.currentFilmId;
     const [results, setResults] = useState([])
+    const tabs = ["overview", "cast", "watch"]
     const [tab, setTab] = useState("overview")
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path
     const handleTabChange = page => {
         setTab(page)
     };
 
-    const renderComponent = component => {
-        switch(tab){
+    const renderComponent = tab => {
+        switch (tab) {
             case "overview": {
-                return <Overview />
+                return <Overview info={results} />
             }
             case "cast": {
-                return <Cast />
+                return <Cast info={results} />
             }
         }
     }
@@ -31,9 +32,9 @@ export default function MoviePage() {
         API.findByMovieId(filmId).then(res => {
             setResults(res.data);
         });
-        API.findProviders(filmId).then(res => {
-            console.log('providers', res.data.results);
-        })
+        // API.findProviders(filmId).then(res => {
+        //     console.log('providers', res.data.results);
+        // })
     }, [])
 
     console.log('results', results)
@@ -52,28 +53,37 @@ export default function MoviePage() {
                             <Header>{results.original_title}</Header>
                             <>
                                 <p><i>{results.tagline}</i></p>
-                                <p>Testing</p>
-                                <p>Testing</p>
-                                <p>Testing</p>
+                                {results.homepage && (
+                                    <a href={results.homepage} target="_blank">Official Movie Website</a>
+                                )}
+                                <Divider hidden />
+                                {results.genres && (
+                                    <>
+                                        <Header>Genres: </Header>
+                                        <Label.Group size='medium'>
+                                            {results.genres.map(el => (
+                                                <Label key={el.id}> {el.name}</Label>
+                                            ))}
+                                        </Label.Group>
+                                    </>
+                                )}
+
                             </>
                         </Grid.Column>
                     </Grid>
                 </Grid.Row>
                 <Divider hidden></Divider>
             </Container>
-            
-            <Container textAlign='center'>
+
+            <Container >
                 <Menu attached='top' tabular>
-                    <Menu.Item
-                        name='overview'
-                        active={tab === 'overview'}
-                        onClick={() => handleTabChange("overview")}
-                    />
-                    <Menu.Item
-                        name='cast'
-                        active={tab === 'cast'}
-                        onClick={() => handleTabChange("cast")}
-                    />
+                    {tabs.map(ele => (
+                        <Menu.Item
+                            name={ele}
+                            active={tab === ele}
+                            onClick={() => handleTabChange(ele)}
+                        />
+                    ))}
                 </Menu>
                 {/* Below will be conditionally rendered depending on which tab is 'active' */}
                 <Segment attached='bottom'>
