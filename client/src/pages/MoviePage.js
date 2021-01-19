@@ -11,7 +11,7 @@ export default function MoviePage() {
     const stateMovie = useSelector(state => state.movies);
     const filmId = stateMovie.currentFilmId;
     const [results, setResults] = useState([])
-    const tabs = ["overview", "cast", "watch"]
+    const tabs = ["overview", "cast", "reviews"]
     const [tab, setTab] = useState("overview")
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path
     const handleTabChange = page => {
@@ -25,6 +25,9 @@ export default function MoviePage() {
             }
             case "cast": {
                 return <Cast info={results.credits} />
+            }
+            case "reviews": {
+                return <CommentSection />
             }
         }
     };
@@ -91,7 +94,7 @@ export default function MoviePage() {
             </Container>
             <Divider hidden></Divider>
             <Container>
-                <CommentSection />
+                {/* Add a related movies section here? */}
             </Container>
         </>
     )
