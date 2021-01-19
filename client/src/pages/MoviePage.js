@@ -43,20 +43,20 @@ export default function MoviePage() {
             <Container >
                 <Grid.Row>
                     <Grid stackable>
-                        <Grid.Column width={6}>
-                            <Image src={backdrop} size='large' alt={results.original_title}></Image>
+                        <Grid.Column width={7}>
+                            <Image src={backdrop} size='huge' alt={results.original_title}></Image>
                         </Grid.Column>
 
-                        <Grid.Column width={10}>
+                        <Grid.Column width={9}>
                             <Header>{results.original_title}</Header>
                             <>
                                 <p><i>{results.tagline}</i></p>
+                                <p>Release Date: {results.release_date}</p>
+                                <p>Runtime: <b>{results.runtime} mins</b></p>
                                 {results.homepage && (
-                                    <a href={results.homepage} target="_blank">Official Movie Website</a>
+                                    <p><a href={results.homepage} target="_blank">Official Movie Website</a></p>
                                 )}
                             </>
-                            <p>Runtime: <b>{results.runtime} mins</b></p>
-                            <p>Release Date: {results.release_date}</p>
                             {results.genres && (
                                 <>
                                     <Header>Genres: </Header>
@@ -91,7 +91,7 @@ export default function MoviePage() {
             </Container>
             <Divider hidden></Divider>
             <Container>
-                {/* <CommentSection /> */}
+                <CommentSection />
             </Container>
         </>
     )

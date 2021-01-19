@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { Grid, GridColumn, Image, List } from 'semantic-ui-react';
 
 export default function CastTab(props) {
-    console.log('props', props.info)
+    // console.log('props', props.info)
     let castResults = props.info.cast;
-
 
     function renderGrid() {
         let renderArr = [], columns = [];
@@ -13,13 +12,14 @@ export default function CastTab(props) {
             if (count === 10) {
                 return renderArr;
             }
-            let avatarUrl = "https://image.tmdb.org/t/p/original" + el.profile_path
+            let avatarUrl = "https://image.tmdb.org/t/p/original" + el.profile_path;
+            let tmdbProfileUrl = "https://www.themoviedb.org/person/" + el.id + "?language=en-US";
             columns.push(
-                <List.Item>
+                <List.Item key={el.id} href={tmdbProfileUrl} target="_blank">
                     <Image avatar src={avatarUrl} rounded size='mini' />
                     <List.Content>
                         <List.Header>{el.name}</List.Header>
-                        <List.Description>{el.character}</List.Description>
+                        <List.Description>as {el.character}</List.Description>
                     </List.Content>
                 </List.Item>
             );
@@ -40,8 +40,7 @@ export default function CastTab(props) {
 
     return (
         <>
-
-            <Grid columns='two' stackable>
+            <Grid columns='two' stackable rows={2}>
                 {renderGrid()}
             </Grid>
         </>
