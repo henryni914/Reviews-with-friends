@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Comment, Form, Header, Rating } from 'semantic-ui-react'
+import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-react'
 
 export default function CommentSection() {
 
@@ -13,12 +13,14 @@ export default function CommentSection() {
             userAvatar: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
             commentId: 1,
             comment: "Hello this is...",
+            likes: 20,
             replies: [
                 {
                     user: 100,
                     userAvatar: 'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
                     commentId: 3,
-                    comment: "...this is nuts!"
+                    comment: "...this is nuts!",
+                    likes: 20
                 }
             ]
         },
@@ -26,7 +28,8 @@ export default function CommentSection() {
             user: 2,
             userAvatar: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
             commentId: 2,
-            comment: "Testing comments..."
+            comment: "Testing comments...",
+            likes: 20,
         }
     ]);
 
@@ -41,7 +44,7 @@ export default function CommentSection() {
         // console.log('text', event.target.value)
     }
 
-    function handleStarClick(event){
+    function handleStarClick(event) {
         console.log('starClick', event.target)
     }
 
@@ -116,10 +119,11 @@ export default function CommentSection() {
                                 {/* <div>Just now</div> */}
                                 <Rating defaultRating={3} maxRating={5} disabled />
                             </Comment.Metadata>
-                            <Comment.Text>{el.comment}</Comment.Text>
+                            <Comment.Text><b>Title</b> <br/>{el.comment}</Comment.Text>
                             <Comment.Actions>
+                            <Comment.Action><Icon name="heart" /> {el.likes} likes</Comment.Action>
                                 <Comment.Action>Reply</Comment.Action>
-                                <Comment.Action>Save</Comment.Action>
+                                {/* <Comment.Action>Save</Comment.Action> */}
                                 <Comment.Action>Hide</Comment.Action>
                             </Comment.Actions>
                         </Comment.Content>
@@ -129,7 +133,7 @@ export default function CommentSection() {
             <Form reply>
                 {/* <Rating icon='star' defaultRating={rating} maxRating={5} size='large' clearable onClick={handleStarClick} /> */}
                 <Form.TextArea placeholder="Enter review here..." value={text} onChange={handleInputChange} />
-                <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={handleFormSubmit} />
+                <Button content='Add Review' labelPosition='left' icon='edit' primary onClick={handleFormSubmit} />
             </Form>
         </>
     )
