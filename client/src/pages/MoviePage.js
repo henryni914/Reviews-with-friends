@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import API from '../utils/API';
-import { Breadcrumb, Container, Divider, Grid, Header, Icon, Image, Input, Label, Menu, Segment } from 'semantic-ui-react';
+import { Breadcrumb, Container, Divider, Grid, Header, Icon, Image, Input, Item, Label, Menu, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
+import CommentSection from '../components/CommentSection';
 
 export default function MoviePage() {
 
@@ -23,21 +24,18 @@ export default function MoviePage() {
                 return <Overview info={results} />
             }
             case "cast": {
-                return <Cast info={results} />
+                return <Cast info={results.credits} />
             }
         }
-    }
+    };
 
     useEffect(() => {
         API.findByMovieId(filmId).then(res => {
             setResults(res.data);
         });
-        // API.findProviders(filmId).then(res => {
-        //     console.log('providers', res.data.results);
-        // })
-    }, [])
+    }, []);
 
-    console.log('results', results)
+    // console.log('results', results)
     return (
         <>
             {/* style={{height: '500px'}} */}
@@ -45,30 +43,31 @@ export default function MoviePage() {
             <Container >
                 <Grid.Row>
                     <Grid stackable>
-                        <Grid.Column width={6}>
-                            <Image src={backdrop} size='large' alt={results.original_title}></Image>
+                        <Grid.Column width={7}>
+                            <Image src={backdrop} size='huge' alt={results.original_title}></Image>
                         </Grid.Column>
 
-                        <Grid.Column width={10}>
+                        <Grid.Column width={9}>
                             <Header>{results.original_title}</Header>
                             <>
                                 <p><i>{results.tagline}</i></p>
+                                <p>Release Date: {results.release_date}</p>
+                                <p>Runtime: <b>{results.runtime} mins</b></p>
                                 {results.homepage && (
-                                    <a href={results.homepage} target="_blank">Official Movie Website</a>
+                                    <p><a href={results.homepage} target="_blank">Official Movie Website</a></p>
                                 )}
-                                <Divider hidden />
-                                {results.genres && (
-                                    <>
-                                        <Header>Genres: </Header>
-                                        <Label.Group size='medium'>
-                                            {results.genres.map(el => (
-                                                <Label key={el.id}> {el.name}</Label>
-                                            ))}
-                                        </Label.Group>
-                                    </>
-                                )}
-
                             </>
+                            {results.genres && (
+                                <>
+                                    <Header>Genres: </Header>
+                                    <Label.Group size='medium'>
+                                        {results.genres.map(el => (
+                                            <Label key={el.id}> {el.name}</Label>
+                                        ))}
+                                    </Label.Group>
+                                </>
+                            )}
+
                         </Grid.Column>
                     </Grid>
                 </Grid.Row>
@@ -89,6 +88,10 @@ export default function MoviePage() {
                 <Segment attached='bottom'>
                     {renderComponent(tab)}
                 </Segment>
+            </Container>
+            <Divider hidden></Divider>
+            <Container>
+                <CommentSection />
             </Container>
         </>
     )
