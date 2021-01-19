@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Comment, Form, Header } from 'semantic-ui-react'
+import { Button, Comment, Form, Header, Rating } from 'semantic-ui-react'
 
 export default function CommentSection() {
 
@@ -38,7 +38,11 @@ export default function CommentSection() {
 
     function handleInputChange(event) {
         setText(event.target.value);
-        console.log('text', event.target.value)
+        // console.log('text', event.target.value)
+    }
+
+    function handleStarClick(event){
+        console.log('starClick', event.target)
     }
 
     function handleFormSubmit(e) {
@@ -65,6 +69,7 @@ export default function CommentSection() {
         // then save to db inside of current user's reviews (as well as movie table review?)
         console.log("button is working", text)
         setComments([...comments, replyObj])
+        console.log("comments", comments)
         setText("")
     }
 
@@ -73,7 +78,7 @@ export default function CommentSection() {
             <Comment.Group>
                 <Header as='h3' dividing>
                     Comments
-            </Header>
+                </Header>
 
                 <Comment>
                     <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
@@ -101,14 +106,15 @@ export default function CommentSection() {
                         </Form>
                     </Comment.Content>
                 </Comment>
-
+                {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
                 {comments.map(el => (
                     <Comment>
                         <Comment.Avatar src={el.userAvatar} />
                         <Comment.Content>
                             <Comment.Author as='a'>{el.user}</Comment.Author>
                             <Comment.Metadata>
-                                <div>Just now</div>
+                                {/* <div>Just now</div> */}
+                                <Rating defaultRating={3} maxRating={5} disabled />
                             </Comment.Metadata>
                             <Comment.Text>{el.comment}</Comment.Text>
                             <Comment.Actions>
@@ -119,11 +125,10 @@ export default function CommentSection() {
                         </Comment.Content>
                     </Comment>
                 ))}
-
-
             </Comment.Group>
             <Form reply>
-                <Form.TextArea placeholder="Enter text here..." value={text} onChange={handleInputChange} />
+                {/* <Rating icon='star' defaultRating={rating} maxRating={5} size='large' clearable onClick={handleStarClick} /> */}
+                <Form.TextArea placeholder="Enter review here..." value={text} onChange={handleInputChange} />
                 <Button content='Add Reply' labelPosition='left' icon='edit' primary onClick={handleFormSubmit} />
             </Form>
         </>
