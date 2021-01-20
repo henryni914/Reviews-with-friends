@@ -14,10 +14,10 @@ export default function MovieCard(props) {
     }
 
     return (
-        <Card >
+        <Card animated>
             <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`}>
                 <img
-                    class='popular-img'
+                    className='popular-img'
                     src={posterUrl}
                     alt={props.title}
                     height="300px"
@@ -25,10 +25,7 @@ export default function MovieCard(props) {
             </Link>
             <Card.Content>
                 <Card.Header>{props.title}</Card.Header>
-                <Card.Meta><strong>Release Date: </strong> {props.release}</Card.Meta>
-                {/* <Card.Description>
-                    {shortSummary}
-                </Card.Description> */}
+                <Card.Meta>{props.release.slice(0, 4)}</Card.Meta>
             </Card.Content>
             {/* the extra content can be removed or changed later */}
             {/* <Card.Content extra>
