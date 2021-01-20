@@ -43,6 +43,7 @@ export default function Nav() {
     }
     if (user) {
       dispatch(setUser(user));
+      // sessionStorage.setItem("user", user) need to grab user from DB and store as obj
     }
   }, [user]);
 

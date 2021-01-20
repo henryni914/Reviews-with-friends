@@ -5,6 +5,7 @@ export default function OverviewTab(props) {
     return (
         <>
             <h1>Summary</h1>
+            <p><b>Release Date: </b>{props.info.release_date}</p>
             <p>{props.info.overview}</p>
         </>
     )
