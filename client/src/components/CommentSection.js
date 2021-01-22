@@ -9,7 +9,7 @@ export default function CommentSection() {
     { }
     const [comments, setComments] = useState([
         {
-            user: 1,
+            user: "Henry",
             userAvatar: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
             commentId: 1,
             comment: "Hello this is...",
@@ -25,7 +25,7 @@ export default function CommentSection() {
             ]
         },
         {
-            user: 2,
+            user: "Henry",
             userAvatar: 'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',
             commentId: 2,
             comment: "Testing comments...",
@@ -36,16 +36,11 @@ export default function CommentSection() {
     const [text, setText] = useState("");
     const [rating, setRating] = useState(0);
     const [textError, setTextError] = useState(false);
-    const [ratingError, setRatingError] = useState(false);
 
 
     function handleInputChange(event) {
         setText(event.target.value);
         // console.log('text', event.target.value)
-    }
-
-    function handleStarClick(event) {
-        console.log('starClick', event.target)
     }
 
     function handleFormSubmit(e) {
@@ -70,10 +65,10 @@ export default function CommentSection() {
         }
         // if both pass, grab current user info, the text and rating
         // then save to db inside of current user's reviews (as well as movie table review?)
-        console.log("button is working", text)
-        setComments([...comments, replyObj])
+        console.log("button is working", text);
+        setComments([...comments, replyObj]);
         console.log("comments", comments)
-        setText("")
+        setText("");
     }
 
     return (
@@ -116,15 +111,15 @@ export default function CommentSection() {
                         <Comment.Content>
                             <Comment.Author as='a'>{el.user}</Comment.Author>
                             <Comment.Metadata>
-                                {/* <div>Just now</div> */}
-                                <Rating defaultRating={3} maxRating={5} disabled />
+                                <div>Score {el.likes}</div>
                             </Comment.Metadata>
-                            <Comment.Text><b>Title</b> <br/>{el.comment}</Comment.Text>
+                            <Comment.Text>{el.comment}</Comment.Text>
                             <Comment.Actions>
-                            <Comment.Action><Icon name="heart" /> {el.likes} likes</Comment.Action>
-                                <Comment.Action>Reply</Comment.Action>
+                                {/* thumbs down = filled in with color */}
+                                <Comment.Action><Icon name="thumbs up outline" />Like</Comment.Action>
+                                {/* <Comment.Action>{el.likes} </Comment.Action> */}
+                                <Comment.Action><Icon name="thumbs down outline" />Downvote</Comment.Action>
                                 {/* <Comment.Action>Save</Comment.Action> */}
-                                <Comment.Action>Hide</Comment.Action>
                             </Comment.Actions>
                         </Comment.Content>
                     </Comment>

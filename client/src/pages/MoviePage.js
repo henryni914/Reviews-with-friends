@@ -41,9 +41,11 @@ export default function MoviePage() {
             API.findByMovieId(currentFilm).then(res => {
                 setResults(res.data);
                 setRelated(res.data.similar.results.slice(0, 5))
+                setTab("overview")
+                // console.log('related', related)
             });
         }
-        window.scrollTo(0, 0)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
 
     return (
@@ -112,6 +114,7 @@ export default function MoviePage() {
                 </Segment>
             </Container>
             <Divider hidden></Divider>
+
             <Container>
                 {(related.length > 0) && (
                     <>
