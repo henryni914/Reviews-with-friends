@@ -57,7 +57,6 @@ export default function Nav() {
         </Link>
         <Menu.Item
           name='movies'
-        // href="/"
         />
         <Menu.Item
           name='profile'

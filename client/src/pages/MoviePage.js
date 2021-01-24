@@ -16,6 +16,7 @@ export default function MoviePage() {
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
+    const currentFilm = window.location.href.slice(30);
 
     const handleTabChange = page => {
         setTab(page)
@@ -36,16 +37,17 @@ export default function MoviePage() {
     };
 
     useEffect(() => {
-        API.findByMovieId(filmId).then(res => {
-            setResults(res.data);
-            setRelated(res.data.similar.results.slice(0, 5))
-        });
-        window.scrollTo(0, 0)
-    }, [filmId]);
+        if (currentFilm !== filmId) {
+            API.findByMovieId(currentFilm).then(res => {
+                setResults(res.data);
+                setRelated(res.data.similar.results.slice(0, 5))
+                setTab("overview")
+                // console.log('related', related)
+            });
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [currentFilm]);
 
-    console.log('results', results)
-    console.log('related', related)
-    // results.similar.results *this is the array with similar movies
     return (
         <>
             {/* style={{height: '500px'}} */}
@@ -61,7 +63,6 @@ export default function MoviePage() {
                             <Header>{results.original_title}</Header>
                             <>
                                 <p><i>{results.tagline}</i></p>
-                                {/* <p>Release Date: {results.release_date}</p> */}
                                 <p>Runtime: <b><i>{results.runtime} mins</i></b></p>
                                 {results.homepage && (
                                     <p><a href={results.homepage} target="_blank">Official Website</a></p>
@@ -91,7 +92,6 @@ export default function MoviePage() {
 
                                 </>
                             )}
-
                         </Grid.Column>
                     </Grid>
                 </Grid.Row>
@@ -114,10 +114,11 @@ export default function MoviePage() {
                 </Segment>
             </Container>
             <Divider hidden></Divider>
+
             <Container>
                 {(related.length > 0) && (
                     <>
-                        <Header>Similar movies you may enjoy...</Header>
+                        <Header as='h3' dividing>Similar movies you may enjoy...</Header>
                         <Card.Group itemsPerRow={5} stackable>
                             {related.map(element => (
                                 <MovieCard

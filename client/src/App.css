@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-.popular-img {
+.card-img {
   /* max-width:300px; */
   object-fit: cover;
   max-height:300px;
