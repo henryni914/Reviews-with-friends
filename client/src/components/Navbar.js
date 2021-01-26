@@ -50,16 +50,21 @@ export default function Nav() {
   return (
     <>
       <Menu inverted borderless stackable>
-        <Link to="/">
-          <Menu.Item
-            name='home'
-          />
-        </Link>
         <Menu.Item
-          name='movies'
+          as={Link}
+          name='home'
+          to='/'
         />
         <Menu.Item
-          name='profile'
+          as={Link} 
+          name='browse' 
+          to='browse'
+        />
+
+        <Menu.Item
+          as={Link} 
+          name='profile' 
+          to='profile'
         />
         <Menu.Menu position='right'>
 
