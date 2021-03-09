@@ -58,13 +58,13 @@ export default function Nav() {
         <Menu.Item
           as={Link} 
           name='browse' 
-          to='browse'
+          to='/browse'
         />
 
         <Menu.Item
           as={Link} 
           name='profile' 
-          to='profile'
+          to='/profile'
         />
         <Menu.Menu position='right'>
 
