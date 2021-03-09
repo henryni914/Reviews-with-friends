@@ -1,8 +1,11 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
 
-export default function Browse(){
+export default function Browse() {
 
-    return(
-        <h1>Browse section</h1>
+    return (
+        <Container>
+            <h1>Browse section</h1>
+        </Container>
     )
 }
