@@ -34,8 +34,8 @@ export default function Profile() {
                         {/* <Segment>
                             <h1>Test</h1>
                         </Segment> */}
-                        <h1>Hello</h1>
-                        <h2>World</h2>
+                        <h1>Hello World</h1>
+                        <h2>Testing</h2>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
