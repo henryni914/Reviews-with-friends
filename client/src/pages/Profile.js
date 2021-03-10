@@ -5,7 +5,40 @@ export default function Profile() {
 
     return (
         <Container>
-           
+            <Grid stackable>
+                <Grid.Row>
+                    <Grid.Column width={3}>
+                        <Menu secondary vertical>
+                            <Menu.Item
+                                name='account'
+                            // active={activeItem === 'account'}
+                            // onClick={this.handleItemClick}
+                            />
+                            <Menu.Item
+                                name='settings'
+                            // active={activeItem === 'settings'}
+                            // onClick={this.handleItemClick}
+                            />
+                            <Dropdown item text='Display Options'>
+                                <Dropdown.Menu>
+                                    <Dropdown.Header>Text Size</Dropdown.Header>
+                                    <Dropdown.Item>Small</Dropdown.Item>
+                                    <Dropdown.Item>Medium</Dropdown.Item>
+                                    <Dropdown.Item>Large</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Menu>
+                    </Grid.Column>
+                    {/* Conditional Render below based on active tab */}
+                    <Grid.Column width={10}>
+                        {/* <Segment>
+                            <h1>Test</h1>
+                        </Segment> */}
+                        <h1>Hello</h1>
+                        <h2>World</h2>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
         </Container>
     )
 }
