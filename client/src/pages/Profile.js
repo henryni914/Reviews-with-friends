@@ -103,4 +103,4 @@ export default function Profile() {
 <Grid.Column width={10}>
     <h1>Hello</h1>
 </Grid.Column>
-</Grid> */}
+</Grid> */} 
