@@ -4,13 +4,13 @@ module.exports = function(sequelize, DataTypes) {
       name: DataTypes.STRING
     });
   
-    Example.associate = function(models) {
-      // Associating Example with Posts
-      // When an Example is deleted, also delete any associated Example2
-      Example.hasMany(models.Example2, {
-        onDelete: "cascade"
-      });
-    };
+    // Example.associate = function(models) {
+    //   // Associating Example with Posts
+    //   // When an Example is deleted, also delete any associated Example2
+    //   Example.hasMany(models.Example2, {
+    //     onDelete: "cascade"
+    //   });
+    // };
   
     return Example;
   };
