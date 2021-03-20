@@ -21,10 +21,6 @@ app.use(routes);
 // Connect to the Database
 
 // Start the API server
-// app.listen(PORT, function () {
-//   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-// });
-
 
 // Sync sequelize models and then start express server
 db.sequelize.sync({ force: true }).then(function () {
