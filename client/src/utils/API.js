@@ -15,7 +15,15 @@ export default {
     },
     findProviders: function(id){
         return axios.get(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${tmdbAPI}`)
-    }
+    },
+
+
+    // DB User functions
+
+    findAll: function(){
+        return axios.get(`/api/user`);
+    },
+
 }
 
 // findByMovieId: function(id){
