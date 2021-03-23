@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
     Review.associate = function (models) {
-        
+
         // Reviews are made by users
         Review.belongsTo(models.User, {
             foreignKey: {

@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     User.associate = function(models) {
-        
+
         // Users will have reviews
         User.hasMany(models.Review, {
             foreignKey: {
