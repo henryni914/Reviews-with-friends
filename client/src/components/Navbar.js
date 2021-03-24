@@ -38,7 +38,7 @@ export default function Nav() {
 
   //  Checks to see if user exists in DB. If not, add the user to the DB
   function userCheck() {
-    // insert API call to find if the email exists in DB
+    // insert API call to find all users
     API.findAll().then(res => console.log('db res: ' + JSON.stringify(res.data)))
   }
   userCheck()
@@ -50,15 +50,10 @@ export default function Nav() {
     }
     if (user) {
       dispatch(setUser(user))
-      // userCheck(stateUser.email)
-        // .then(res => console.log('res.data: ' + res.data))
-      // .then(userCheck(stateUser.email)
-      // .then(res => console.log('res.data: ' + res.data))
-      // )
       // sessionStorage.setItem("user", user) need to grab user from DB and store as obj
     }
   }, [user]);
-  // console.log('user: ' + JSON.stringify(stateUser))
+
   return (
     <>
       <Menu inverted borderless stackable>

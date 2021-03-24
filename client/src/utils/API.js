@@ -23,9 +23,5 @@ export default {
     findAll: function(){
         return axios.get(`/api/user`);
     },
-
-}
-
-// findByMovieId: function(id){
-//     //     return axios.get("/film/id=" + id)
-//     // },
+    
+};
