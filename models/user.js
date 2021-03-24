@@ -1,13 +1,15 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define("User", {
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      dateJoined: DataTypes.STRING,
+        name: DataTypes.STRING,
+        email: DataTypes.STRING,
+        dateJoined: DataTypes.STRING,
 
+    }, {
+        timestamps: false
     });
 
-    User.associate = function(models) {
-        
+    User.associate = function (models) {
+
         // Users will have reviews
         User.hasMany(models.Review, {
             foreignKey: {
@@ -18,6 +20,6 @@ module.exports = function(sequelize, DataTypes) {
         // Users will have follows/friends?
 
     };
-  
+
     return User;
-  };
+};

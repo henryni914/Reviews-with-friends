@@ -23,7 +23,9 @@ app.use(routes);
 // Start the API server
 
 // Sync sequelize models and then start express server
-db.sequelize.sync({ force: true }).then(function () {
+// force true drops the table and recreates 
+// set force=false after initial start or else db tables will be wiped
+db.sequelize.sync({ force: false }).then(function () {
   app.listen(PORT, function () {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
   });

@@ -19,7 +19,7 @@ export default function Nav() {
 
   function handleInputChange(event) {
     setSearch(event.target.value);
-  }
+  };
 
   function handleFormSubmit() {
     if (search.length < 1) {
@@ -34,7 +34,14 @@ export default function Nav() {
         setSearch("");
       })
       .catch(err => console.log(err));
+  };
+
+  //  Checks to see if user exists in DB. If not, add the user to the DB
+  function userCheck() {
+    // insert API call to find all users
+    API.findAll().then(res => console.log('db res: ' + JSON.stringify(res.data)))
   }
+  userCheck()
 
 
   useEffect(() => {
@@ -42,7 +49,7 @@ export default function Nav() {
       return;
     }
     if (user) {
-      dispatch(setUser(user));
+      dispatch(setUser(user))
       // sessionStorage.setItem("user", user) need to grab user from DB and store as obj
     }
   }, [user]);
@@ -56,14 +63,14 @@ export default function Nav() {
           to='/'
         />
         <Menu.Item
-          as={Link} 
-          name='browse' 
+          as={Link}
+          name='browse'
           to='/browse'
         />
 
         <Menu.Item
-          as={Link} 
-          name='profile' 
+          as={Link}
+          name='profile'
           to='/profile'
         />
         <Menu.Menu position='right'>
