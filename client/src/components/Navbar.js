@@ -37,11 +37,13 @@ export default function Nav() {
   };
 
   //  Checks to see if user exists in DB. If not, add the user to the DB
-  function userCheck() {
+  function userCheck(userInfo) {
     // insert API call to find all users
-    API.findAll().then(res => console.log('db res: ' + JSON.stringify(res.data)))
+    API.findAll().then(res => console.log('db res: ' + res.data))
+    // pass obj of user info with necessary fields from model into create
+    API.create(userInfo)
   }
-  userCheck()
+  // userCheck()
 
 
   useEffect(() => {
@@ -50,6 +52,13 @@ export default function Nav() {
     }
     if (user) {
       dispatch(setUser(user))
+      console.log('user: ' + JSON.stringify(user))
+      let userObj = {
+        name: user.name,
+        email: user.email
+      };
+      // userCheck(userObj)
+      // user returns the follow info (nickname, name, email)
       // sessionStorage.setItem("user", user) need to grab user from DB and store as obj
     }
   }, [user]);

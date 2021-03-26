@@ -1,12 +1,14 @@
 const express = require("express");
-
+const cors = require("cors");
 const routes = require("./routes");
 
 // Requiring our models for syncing
 var db = require("./models");
 
-const app = express();
 const PORT = process.env.PORT || 3001;
+
+const app = express();
+app.use(cors());
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
