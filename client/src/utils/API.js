@@ -23,5 +23,8 @@ export default {
     findAll: function(){
         return axios.get(`/api/user`);
     },
+    create: function(user){
+        return axios.post(`/api/user`, user)
+    }
     
 };
