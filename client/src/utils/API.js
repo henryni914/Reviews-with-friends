@@ -25,6 +25,12 @@ export default {
     },
     create: function(user){
         return axios.post(`/api/user`, user)
+    },
+    delete: function(id){
+        return axios.delete(`/api/user/` + id)
+    },
+    update: function(id){
+        return axios.put(`/api/user` + id)
     }
-    
+
 };
