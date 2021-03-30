@@ -8,11 +8,12 @@ router
   .get(userController.findAll)
   .post(userController.create);
 
-// router
-//   .route("/:id")
-//   .get(userController.find)
-//   .put(userController.update)
-//   .post();
+router
+  .route("/:id")
+  // .get(userController.find)
+  // .put(userController.update)
+  // .post();
+  .delete(userController.delete)
 
 router
   .route("/:email")
