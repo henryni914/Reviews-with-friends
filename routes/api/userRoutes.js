@@ -11,7 +11,7 @@ router
 router
   .route("/:id")
   // .get(userController.find)
-  // .put(userController.update)
+  .put(userController.update)
   // .post();
   .delete(userController.delete)
 
