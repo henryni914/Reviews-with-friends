@@ -15,9 +15,9 @@ router
   // .post();
   .delete(userController.delete)
 
-router
-  .route("/:email")
-  .get(userController.findAll)
+// router
+//   .route("/:email")
+//   .get(userController.findAll)
 
 
 module.exports = router;

@@ -30,7 +30,7 @@ export default {
         return axios.delete(`/api/user/` + id)
     },
     update: function(id){
-        return axios.put(`/api/user` + id)
+        return axios.put(`/api/user/` + id)
     }
 
 };
