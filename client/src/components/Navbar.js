@@ -41,15 +41,27 @@ export default function Nav() {
     // insert API call to find all users
     API.findAll().then(res => 
       {
-        console.log('db res: ' + JSON.stringify(res.data))
+        // console.log('db res: ' + JSON.stringify(res.data))
         const isUser = res.data.find(({email}) => email === userInfo.email)
-        console.log('is user ' + JSON.stringify(isUser))
+        // console.log('is user ' + JSON.stringify(isUser))
+        if (!isUser){
+          API.create(userInfo).then(console.log('user created successfully'))
+        } else {
+          console.log('user exists')
+          // need to pull db information pertaining to user
+          // user's reviews
+          // user's watchlist
+          // user's favorites
+          // user's followed
+        }
       })
     // pass obj of user info with necessary fields from model into create
     // API.create(userInfo)
-  }
-  // userCheck()
+  };
 
+  // function findUserOrCrate(userInfo) {
+  //   API.findOrCreate(userInfo).then(res => console.log(`findOrCreate res: ` + JSON.stringify(res.data)))
+  // };
 
   useEffect(() => {
     if (stateUser.email !== "") {
@@ -60,7 +72,7 @@ export default function Nav() {
       console.log('user: ' + JSON.stringify(user))
       let userObj = {
         name: user.name,
-        email: 'test@test.com'
+        email: user.email
       };
       userCheck(userObj)
       // user returns the follow info (nickname, name, email)
