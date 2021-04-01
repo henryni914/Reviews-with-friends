@@ -12,10 +12,24 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     findOrCreate: function (req, res) {
-        db.User.findOrCreate({ where: { email: req.params.id } })
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+        db.User.findOrCreate({
+            where: {
+                email: req.params.user.email,
+                name: req.params.user.name
+            }
+            // , defaults: { job: 'Technical Lead JavaScript' } 
+        }).then(res => res.spread(function (user, created) {
+            console.log(user.get({
+                plain: true
+            }))
+            console.log(created)
+        }))
+
     },
+    //     findOrCreate({ where: { email: req.params.id } })
+    //         .then(dbModel => res.json(dbModel))
+    //         .catch(err => res.status(422).json(err));
+    // },
     delete: function (req, res) {
         db.User.destroy({ where: { id: req.params.id } })
             .then(dbModel => res.json(dbModel))
