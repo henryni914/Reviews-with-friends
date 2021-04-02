@@ -23,7 +23,7 @@ module.exports = {
                 plain: true
             }))
             console.log(created)
-        }))
+        })).catch(err => res.status(422).json(err))
 
     },
     //     findOrCreate({ where: { email: req.params.id } })

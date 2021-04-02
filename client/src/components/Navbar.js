@@ -38,25 +38,23 @@ export default function Nav() {
 
   //  Checks to see if user exists in DB. If not, add the user to the DB
   function userCheck(userInfo) {
-    // insert API call to find all users
-    API.findAll().then(res => 
-      {
-        // console.log('db res: ' + JSON.stringify(res.data))
-        const isUser = res.data.find(({email}) => email === userInfo.email)
-        // console.log('is user ' + JSON.stringify(isUser))
-        if (!isUser){
-          API.create(userInfo).then(console.log('user created successfully'))
-        } else {
-          console.log('user exists')
-          // need to pull db information pertaining to user
-          // user's reviews
-          // user's watchlist
-          // user's favorites
-          // user's followed
-        }
-      })
-    // pass obj of user info with necessary fields from model into create
-    // API.create(userInfo)
+    API.findAll().then(res => {
+      // console.log('db res: ' + JSON.stringify(res.data))
+      const isUser = res.data.find(({ email }) => email === userInfo.email)
+      // console.log('is user ' + JSON.stringify(isUser))
+      // {"id":4,"name":"testing@testing.com","email":"testing@testing.com","dateJoined":null}
+      if (!isUser) {
+        API.create(userInfo).then(results => console.log('user created successfully :' + JSON.stringify(results.data)))
+      } else {
+        // console.log('user exists :' + JSON.stringify(isUser))
+        dispatch(setUser(isUser))
+        // need to pull db information pertaining to user
+        // user's reviews
+        // user's watchlist
+        // user's favorites
+        // user's followed
+      }
+    })
   };
 
   // function findUserOrCrate(userInfo) {
@@ -68,17 +66,16 @@ export default function Nav() {
       return;
     }
     if (user) {
-      dispatch(setUser(user))
-      console.log('user: ' + JSON.stringify(user))
+      // dispatch(setUser(user))
+      // console.log('user: ' + JSON.stringify(user))
       let userObj = {
         name: user.name,
         email: user.email
       };
       userCheck(userObj)
-      // user returns the follow info (nickname, name, email)
-      // sessionStorage.setItem("user", user) need to grab user from DB and store as obj
     }
   }, [user]);
+  console.log(`stateUser :`, stateUser)
 
   return (
     <>
