@@ -11,21 +11,6 @@ module.exports = {
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
-    // findOrCreate: function (req, res) {
-    //     db.User.findOrCreate({
-    //         where: {
-    //             email: req.body.email,
-    //             name: req.body.name
-    //         }
-    //         // , defaults: { job: 'Technical Lead JavaScript' } 
-    //     }).then(res => res.spread(function (user, created) {
-    //         console.log(user.get({
-    //             plain: true
-    //         }))
-    //         console.log(created)
-    //     })).catch(err => res.status(422).json(err))
-
-    // },
     findOrCreate: function (req, res) {
         db.User.findOrCreate({
             where: {

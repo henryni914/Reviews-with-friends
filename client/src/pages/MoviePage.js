@@ -38,15 +38,22 @@ export default function MoviePage() {
 
     useEffect(() => {
         if (currentFilm !== filmId) {
+            console.log('starting new API call')
             API.findByMovieId(currentFilm).then(res => {
                 setResults(res.data);
                 setRelated(res.data.similar.results.slice(0, 5))
                 setTab("overview")
-                // console.log('related', related)
+                let movieObj = {
+                    title: res.data.title,
+                    tmdbID: res.data.id,
+                    image: "https://image.tmdb.org/t/p/original" + res.data.backdrop_path
+                }
+                API.findorCreateMovie(movieObj).then(res => {
+                    console.log(`movie findOrCrate ` + JSON.stringify(res.data[0]))
+                })
             });
         }
         window.scrollTo({ top: 0, behavior: 'smooth' })
-        console.log(stateMovie)
     }, [currentFilm]);
 
     return (

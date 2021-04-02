@@ -83,7 +83,7 @@ export default function Nav() {
       findUserOrCreate(userObj)
     }
   }, [user]);
-  console.log(`stateUser :`, stateUser)
+  // console.log(`stateUser :`, stateUser)
 
   return (
     <>

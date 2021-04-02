@@ -34,5 +34,13 @@ export default {
     },
     findOrCreateUser: function (user) {
         return axios.post(`/api/user`, user)
-    }
+    },
+
+
+
+    // DB Movie functions
+
+    findorCreateMovie: function (movie) {
+        return axios.post(`/api/movie`, movie)
+    },
 };
