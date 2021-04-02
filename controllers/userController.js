@@ -14,22 +14,13 @@ module.exports = {
     findOrCreate: function (req, res) {
         db.User.findOrCreate({
             where: {
-                email: req.params.user.email,
-                name: req.params.user.name
+                email: req.body.email,
+                name: req.body.name
             }
-            // , defaults: { job: 'Technical Lead JavaScript' } 
-        }).then(res => res.spread(function (user, created) {
-            console.log(user.get({
-                plain: true
-            }))
-            console.log(created)
-        })).catch(err => res.status(422).json(err))
-
+        })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
     },
-    //     findOrCreate({ where: { email: req.params.id } })
-    //         .then(dbModel => res.json(dbModel))
-    //         .catch(err => res.status(422).json(err));
-    // },
     delete: function (req, res) {
         db.User.destroy({ where: { id: req.params.id } })
             .then(dbModel => res.json(dbModel))

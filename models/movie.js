@@ -3,7 +3,15 @@ module.exports = function (sequelize, DataTypes) {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        tmdbID: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     });
     Movie.associate = function (models) {
 
