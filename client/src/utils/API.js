@@ -40,7 +40,7 @@ export default {
 
     // DB Movie functions
 
-    findorCreateMovie: function (movie) {
+    findOrCreateMovie: function (movie) {
         return axios.post(`/api/movie`, movie)
     },
 };
