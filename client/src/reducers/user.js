@@ -15,10 +15,10 @@ export default function userReducer(state = {
         case 'SET_USER':
             return {
                 ...state,
-                // id: action.payload.id,    // don't have this yet, no DB id
+                id: action.payload.id,    // don't have this yet, no DB id
                 email: action.payload.email,
-                nickname: action.payload.nickname,
-                picture: action.payload.picture
+                name: action.payload.name,
+                // picture: action.payload.picture
             }
         case 'ADD_POSTS':
             return {

@@ -3,9 +3,9 @@
 export const setUser = (user) => ({
     type: 'SET_USER',
     payload: {
-        // id: user.id, // need to grab id from DB? 
+        id: user.id,
         email: user.email,
-        nickname: user.nickname,
+        name: user.name,
         picture: user.picture,
         watchlist: user.watchlist, // need from DB
         favorites: user.favorites, // need from DB
