@@ -20,19 +20,19 @@ export default {
 
     // DB User functions
 
-    findAll: function () {
-        return axios.get(`/api/user`);
-    },
-    create: function(user){
-        return axios.post(`/api/user`, user)
-    },
-    delete: function (id) {
+    // findAll: function () {
+    //     return axios.get(`/api/user`);
+    // },
+    // create: function(user){
+    //     return axios.post(`/api/user`, user)
+    // },
+    deleteUser: function (id) {
         return axios.delete(`/api/user/` + id)
     },
-    update: function (id) {
+    updateUser: function (id) {
         return axios.put(`/api/user/` + id)
     },
-    findOrCreate: function (user) {
+    findOrCreateUser: function (user) {
         return axios.post(`/api/user`, user)
     }
 };

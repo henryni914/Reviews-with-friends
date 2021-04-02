@@ -62,7 +62,10 @@ export default function Nav() {
   };
 
   function findUserOrCreate(userInfo) {
-    API.findOrCreate(userInfo).then(res => console.log(`findOrCreate res: ` + JSON.stringify(res.data)))
+    API.findOrCreateUser(userInfo).then(res => {
+      dispatch(setUser(res.data[0]))
+      console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
+    })
   };
 
   useEffect(() => {
@@ -80,7 +83,7 @@ export default function Nav() {
       findUserOrCreate(userObj)
     }
   }, [user]);
-  // console.log(`stateUser :`, stateUser)
+  console.log(`stateUser :`, stateUser)
 
   return (
     <>

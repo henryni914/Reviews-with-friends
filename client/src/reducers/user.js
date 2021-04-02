@@ -3,7 +3,7 @@
 export default function userReducer(state = {
     id: "",
     email: "",
-    nickname: "",
+    name: "",
     picture: "",
     watchlist: [],
     favorites: [],
