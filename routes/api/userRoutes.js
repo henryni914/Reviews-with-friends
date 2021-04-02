@@ -6,7 +6,8 @@ const userController = require("../../controllers/userController")
 router
   .route("/")
   .get(userController.findAll)
-  .post(userController.create);
+  // .post(userController.create);
+  .post(userController.findOrCreate);
 
 router
   .route("/:id")
@@ -14,10 +15,5 @@ router
   .put(userController.update)
   // .post();
   .delete(userController.delete)
-
-// router
-//   .route("/:email")
-//   .get(userController.findAll)
-
 
 module.exports = router;

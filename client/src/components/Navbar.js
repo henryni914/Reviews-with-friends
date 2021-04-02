@@ -44,7 +44,11 @@ export default function Nav() {
       // console.log('is user ' + JSON.stringify(isUser))
       // {"id":4,"name":"testing@testing.com","email":"testing@testing.com","dateJoined":null}
       if (!isUser) {
-        API.create(userInfo).then(results => console.log('user created successfully :' + JSON.stringify(results.data)))
+        API.create(userInfo).then(results => {
+          console.log('user created successfully :' + JSON.stringify(results.data))
+          dispatch(setUser(results.data))
+        })
+        // {"id":5,"name":"test123@testing.com","email":"test123@testing.com"}
       } else {
         // console.log('user exists :' + JSON.stringify(isUser))
         dispatch(setUser(isUser))
@@ -57,9 +61,9 @@ export default function Nav() {
     })
   };
 
-  // function findUserOrCrate(userInfo) {
-  //   API.findOrCreate(userInfo).then(res => console.log(`findOrCreate res: ` + JSON.stringify(res.data)))
-  // };
+  function findUserOrCreate(userInfo) {
+    API.findOrCreate(userInfo).then(res => console.log(`findOrCreate res: ` + JSON.stringify(res.data)))
+  };
 
   useEffect(() => {
     if (stateUser.email !== "") {
@@ -72,10 +76,11 @@ export default function Nav() {
         name: user.name,
         email: user.email
       };
-      userCheck(userObj)
+      // userCheck(userObj)
+      findUserOrCreate(userObj)
     }
   }, [user]);
-  console.log(`stateUser :`, stateUser)
+  // console.log(`stateUser :`, stateUser)
 
   return (
     <>

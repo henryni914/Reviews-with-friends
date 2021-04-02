@@ -32,7 +32,7 @@ export default {
     update: function (id) {
         return axios.put(`/api/user/` + id)
     },
-    // findOrCreate: function (user) {
-    //     return axios.post(`/api/user`, user)
-    // }
+    findOrCreate: function (user) {
+        return axios.post(`/api/user`, user)
+    }
 };
