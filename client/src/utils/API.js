@@ -49,4 +49,7 @@ export default {
     createMovieReview: function(review) {
         return axios.post(`/api/review`, review)
     },
+    getMovieReviews: function(id) {
+        return axios.get(`/api/review/` + id)
+    }
 };

@@ -8,9 +8,9 @@ router
     // .get(reviewController.findAll);
     .post(reviewController.create);
 
-// router
-//     .route("/:id")
-// .get(reviewController.find)
+router
+    .route("/:id")
+    .get(reviewController.find)
 //  .put(reviewController.update)
 // .post();
 // .delete(reviewController.delete)
