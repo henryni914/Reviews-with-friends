@@ -68,7 +68,7 @@ export default function MoviePage() {
         }
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
-console.log(stateMovie)
+    
     return (
         <>
             {/* style={{height: '500px'}} */}

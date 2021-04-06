@@ -59,36 +59,9 @@ export default function CommentSection(props) {
                 <Header as='h3' dividing>
                     Comments
                 </Header>
-
-                {/* <Comment>
-                    <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                    <Comment.Content>
-                        <Comment.Author as='a'>Elliot Fu</Comment.Author>
-                        <Comment.Metadata>
-                            <div>Yesterday at 12:30AM</div>
-                        </Comment.Metadata>
-                        <Comment.Text>
-                            <p>This has been very useful for my research. Thanks as well!</p>
-                        </Comment.Text>
-                        <Comment.Actions>
-                            <Comment.Action>Reply</Comment.Action>
-                            <Comment.Action>Save</Comment.Action>
-                            <Comment.Action>Hide</Comment.Action>
-                        </Comment.Actions>
-                        <Form reply hidden>
-                            <Form.TextArea />
-                            <Button
-                                content='Add Reply'
-                                labelPosition='left'
-                                icon='edit'
-                                primary
-                            />
-                        </Form>
-                    </Comment.Content>
-                </Comment> */}
                 {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
                 {comments.map(el => (
-                    <Comment>
+                    <Comment key={el.id}>
                         {/* <Comment.Avatar src={el.userAvatar} /> */}
                         <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
                         <Comment.Content>
