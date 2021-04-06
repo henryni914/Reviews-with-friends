@@ -3,7 +3,7 @@ export const setTopFive = (movies) => ({
     payload: {
         topFive: movies
     }
-})
+});
 
 export const updateSearch = (query, arr) => ({
     type: 'SET_SEARCH',
@@ -11,12 +11,19 @@ export const updateSearch = (query, arr) => ({
         search: query,
         results: arr
     }
-})
+});
 
 export const setFilm = (id, movieDbId) => ({
     type: 'SET_FILM',
     payload: {
         selected: id,
         dbId: movieDbId 
+    }
+});
+
+export const setReviews = (results) => ({
+    type: 'SET_REVIEWS',
+    payload: {
+        reviews: results
     }
 })

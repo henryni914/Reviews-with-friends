@@ -6,7 +6,7 @@ import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
 import MovieCard from '../components/MovieCard';
-import { setFilm } from '../actions/movies'
+import { setFilm, setReviews } from '../actions/movies'
 
 export default function MoviePage() {
 
@@ -60,14 +60,15 @@ export default function MoviePage() {
                     //     console.log('movie already exists')
                     // } else console.log('new movie entry created')
                     API.getMovieReviews(res.data[0].id).then(res => {
-                        console.log(res.data)
+                        // console.log(res.data)
+                        dispatch(setReviews(res.data))
                     })
                 })
             });
         }
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
-// console.log(stateMovie)
+console.log(stateMovie)
     return (
         <>
             {/* style={{height: '500px'}} */}
