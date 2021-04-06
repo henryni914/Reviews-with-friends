@@ -43,4 +43,10 @@ export default {
     findOrCreateMovie: function (movie) {
         return axios.post(`/api/movie`, movie)
     },
+
+
+    // DB Comment functions
+    createMovieReview: function(review) {
+        return axios.post(`/api/review`, review)
+    }
 };
