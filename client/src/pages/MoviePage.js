@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import API from '../utils/API';
 import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
 import MovieCard from '../components/MovieCard';
+import { setFilm, setReviews } from '../actions/movies'
 
 export default function MoviePage() {
 
     const stateMovie = useSelector(state => state.movies);
     const stateUser = useSelector(state => state.user);
-    const filmId = stateMovie.currentFilmId;
+    const filmTmdbId = stateMovie.currentTmdbId;
+    const filmDbId = stateMovie.currentFilmId;
+    const dispatch = useDispatch();
     const [results, setResults] = useState([]);
     const [related, setRelated] = useState([]);
     const tabs = ["overview", "cast", "reviews"];
@@ -32,14 +35,14 @@ export default function MoviePage() {
                 return <Cast info={results.credits} />
             }
             case "reviews": {
-                return <CommentSection userId={stateUser.id}/>
+                return <CommentSection userId={stateUser.id} filmDbId={filmDbId} />
             }
         }
     };
 
     useEffect(() => {
-        if (currentFilm !== filmId) {
-            console.log('starting new API call')
+        if (currentFilm !== filmTmdbId) {
+            console.log('starting new API call', filmTmdbId)
             API.findByMovieId(currentFilm).then(res => {
                 setResults(res.data);
                 setRelated(res.data.similar.results.slice(0, 5))
@@ -51,16 +54,21 @@ export default function MoviePage() {
                 }
                 API.findOrCreateMovie(movieObj).then(res => {
                     // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
-                    console.log(`movie findOrCrate ` + JSON.stringify(res.data[0]))
-                    if (res.data[1] === false){
-                        console.log('movie already exists')
-                    } else console.log('new movie entry created')
+                    // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
+                    dispatch(setFilm(currentFilm, res.data[0].id))
+                    // if (res.data[1] === false) {
+                    //     console.log('movie already exists')
+                    // } else console.log('new movie entry created')
+                    API.getMovieReviews(res.data[0].id).then(res => {
+                        // console.log(res.data)
+                        dispatch(setReviews(res.data))
+                    })
                 })
             });
         }
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
-
+    
     return (
         <>
             {/* style={{height: '500px'}} */}

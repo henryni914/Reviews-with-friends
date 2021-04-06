@@ -3,9 +3,6 @@ module.exports = function (sequelize, DataTypes) {
         post: {
             type: DataTypes.TEXT,
             allowNull: false,
-            validate: {
-                len: [1, 500] //at least 1 length, but up to 500
-            }
         }
     });
     Review.associate = function (models) {
