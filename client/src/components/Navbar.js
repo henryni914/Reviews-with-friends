@@ -36,30 +36,30 @@ export default function Nav() {
       .catch(err => console.log(err));
   };
 
-  //  Checks to see if user exists in DB. If not, add the user to the DB
-  function userCheck(userInfo) {
-    API.findAll().then(res => {
-      // console.log('db res: ' + JSON.stringify(res.data))
-      const isUser = res.data.find(({ email }) => email === userInfo.email)
-      // console.log('is user ' + JSON.stringify(isUser))
-      // {"id":4,"name":"testing@testing.com","email":"testing@testing.com","dateJoined":null}
-      if (!isUser) {
-        API.create(userInfo).then(results => {
-          console.log('user created successfully :' + JSON.stringify(results.data))
-          dispatch(setUser(results.data))
-        })
-        // {"id":5,"name":"test123@testing.com","email":"test123@testing.com"}
-      } else {
-        // console.log('user exists :' + JSON.stringify(isUser))
-        dispatch(setUser(isUser))
-        // need to pull db information pertaining to user
-        // user's reviews
-        // user's watchlist
-        // user's favorites
-        // user's followed
-      }
-    })
-  };
+  // //  Checks to see if user exists in DB. If not, add the user to the DB
+  // function userCheck(userInfo) {
+  //   API.findAll().then(res => {
+  //     // console.log('db res: ' + JSON.stringify(res.data))
+  //     const isUser = res.data.find(({ email }) => email === userInfo.email)
+  //     // console.log('is user ' + JSON.stringify(isUser))
+  //     // {"id":4,"name":"testing@testing.com","email":"testing@testing.com","dateJoined":null}
+  //     if (!isUser) {
+  //       API.create(userInfo).then(results => {
+  //         console.log('user created successfully :' + JSON.stringify(results.data))
+  //         dispatch(setUser(results.data))
+  //       })
+  //       // {"id":5,"name":"test123@testing.com","email":"test123@testing.com"}
+  //     } else {
+  //       // console.log('user exists :' + JSON.stringify(isUser))
+  //       dispatch(setUser(isUser))
+  //       // need to pull db information pertaining to user
+  //       // user's reviews
+  //       // user's watchlist
+  //       // user's favorites
+  //       // user's followed
+  //     }
+  //   })
+  // };
 
   function findUserOrCreate(userInfo) {
     API.findOrCreateUser(userInfo).then(res => {

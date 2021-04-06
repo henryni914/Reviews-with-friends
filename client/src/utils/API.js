@@ -48,5 +48,5 @@ export default {
     // DB Comment functions
     createMovieReview: function(review) {
         return axios.post(`/api/review`, review)
-    }
+    },
 };

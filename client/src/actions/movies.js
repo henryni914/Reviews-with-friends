@@ -13,9 +13,10 @@ export const updateSearch = (query, arr) => ({
     }
 })
 
-export const setFilm = (id) => ({
+export const setFilm = (id, movieDbId) => ({
     type: 'SET_FILM',
     payload: {
-        selected: id
+        selected: id,
+        dbId: movieDbId 
     }
 })

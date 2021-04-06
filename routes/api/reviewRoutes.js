@@ -5,7 +5,7 @@ const reviewController = require("../../controllers/reviewController")
 // Matches with "/api/review"
 router
     .route("/")
-    .get(reviewController.findAll)
+    // .get(reviewController.findAll);
     .post(reviewController.create);
 
 // router

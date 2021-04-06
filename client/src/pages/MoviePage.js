@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import API from '../utils/API';
 import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
 import MovieCard from '../components/MovieCard';
+import { setFilm } from '../actions/movies'
 
 export default function MoviePage() {
 
     const stateMovie = useSelector(state => state.movies);
     const stateUser = useSelector(state => state.user);
     const filmId = stateMovie.currentFilmId;
+    const dispatch = useDispatch();
     const [results, setResults] = useState([]);
     const [related, setRelated] = useState([]);
     const tabs = ["overview", "cast", "reviews"];
@@ -32,14 +34,14 @@ export default function MoviePage() {
                 return <Cast info={results.credits} />
             }
             case "reviews": {
-                return <CommentSection userId={stateUser.id}/>
+                return <CommentSection userId={stateUser.id} filmId={filmId} />
             }
         }
     };
 
     useEffect(() => {
         if (currentFilm !== filmId) {
-            console.log('starting new API call')
+            console.log('starting new API call', filmId)
             API.findByMovieId(currentFilm).then(res => {
                 setResults(res.data);
                 setRelated(res.data.similar.results.slice(0, 5))
@@ -52,7 +54,8 @@ export default function MoviePage() {
                 API.findOrCreateMovie(movieObj).then(res => {
                     // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
                     console.log(`movie findOrCrate ` + JSON.stringify(res.data[0]))
-                    if (res.data[1] === false){
+                    dispatch(setFilm(currentFilm, res.data[0].id))
+                    if (res.data[1] === false) {
                         console.log('movie already exists')
                     } else console.log('new movie entry created')
                 })
@@ -60,7 +63,7 @@ export default function MoviePage() {
         }
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
-
+// console.log(stateMovie)
     return (
         <>
             {/* style={{height: '500px'}} */}

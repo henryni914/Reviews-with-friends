@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-react'
+import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-react';
+import API from "../utils/API"
 
-export default function CommentSection() {
-
+export default function CommentSection(props) {
+    console.log(`props userId ` + props.userId )
+    console.log(`props props.filmId ` + props.filmId )
     // Call to db and retrieve reviews based on movieID 
     // Map through reviews and render a comment section
     // Does each comment need to have its own state to toggle reply?
-    { }
     const [comments, setComments] = useState([
         {
             user: "Henry",
@@ -58,16 +59,18 @@ export default function CommentSection() {
         //     return
         // }
         let replyObj = {
-            user: 4,
-            userAvatar: 'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
-            commentId: 5,
-            comment: text
+            post: text,
+            MovieId: parseInt(props.filmId),
+            UserId: props.userId,
         }
+        console.log(replyObj)
+        console.log(`text ` + typeof text)
+        API.createMovieReview(replyObj).then(res => console.log(res))
         // if both pass, grab current user info, the text and rating
         // then save to db inside of current user's reviews (as well as movie table review?)
-        console.log("button is working", text);
-        setComments([...comments, replyObj]);
-        console.log("comments", comments)
+        // console.log("button is working", text);
+        // setComments([...comments, replyObj]);
+        // console.log("comments", comments)
         setText("");
     }
 
