@@ -3,8 +3,8 @@ import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-r
 import API from "../utils/API"
 
 export default function CommentSection(props) {
-    console.log(`props userId ` + props.userId )
-    console.log(`props props.filmId ` + props.filmId )
+    // console.log(`props userId ` + props.userId )
+    console.log(`props props.filmId ` + props.filmDbId )
     // Call to db and retrieve reviews based on movieID 
     // Map through reviews and render a comment section
     // Does each comment need to have its own state to toggle reply?
@@ -60,7 +60,7 @@ export default function CommentSection(props) {
         // }
         let replyObj = {
             post: text,
-            MovieId: parseInt(props.filmId),
+            MovieId: props.filmDbId,
             UserId: props.userId,
         }
         console.log(replyObj)

@@ -12,7 +12,8 @@ export default function MoviePage() {
 
     const stateMovie = useSelector(state => state.movies);
     const stateUser = useSelector(state => state.user);
-    const filmId = stateMovie.currentFilmId;
+    const filmTmdbId = stateMovie.currentTmdbId;
+    const filmDbId = stateMovie.currentFilmId;
     const dispatch = useDispatch();
     const [results, setResults] = useState([]);
     const [related, setRelated] = useState([]);
@@ -34,14 +35,14 @@ export default function MoviePage() {
                 return <Cast info={results.credits} />
             }
             case "reviews": {
-                return <CommentSection userId={stateUser.id} filmId={filmId} />
+                return <CommentSection userId={stateUser.id} filmDbId={filmDbId} />
             }
         }
     };
 
     useEffect(() => {
-        if (currentFilm !== filmId) {
-            console.log('starting new API call', filmId)
+        if (currentFilm !== filmTmdbId) {
+            console.log('starting new API call', filmTmdbId)
             API.findByMovieId(currentFilm).then(res => {
                 setResults(res.data);
                 setRelated(res.data.similar.results.slice(0, 5))
@@ -53,7 +54,7 @@ export default function MoviePage() {
                 }
                 API.findOrCreateMovie(movieObj).then(res => {
                     // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
-                    console.log(`movie findOrCrate ` + JSON.stringify(res.data[0]))
+                    // console.log(`movie findOrCrate ` + JSON.stringify(res.data[0]))
                     dispatch(setFilm(currentFilm, res.data[0].id))
                     if (res.data[1] === false) {
                         console.log('movie already exists')
