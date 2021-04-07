@@ -51,5 +51,8 @@ export default {
     },
     getMovieReviews: function(id) {
         return axios.get(`/api/review/` + id)
+    },
+    getUserReviews: function(id) {
+        return axios.get(`/api/review/user/` + id)
     }
 };

@@ -12,4 +12,11 @@ export const setUser = (user) => ({
         // favorites: user.favorites, // need from DB
         // friends: user.favorites, // need from DB
     }
-})
+});
+
+export const setUserReviews = (reviews) => ({
+    type: 'SET_REVIEWS',
+    payload: {
+        userReviews: reviews
+    }
+});

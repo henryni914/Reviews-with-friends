@@ -28,7 +28,7 @@ export default function MovieDisplay() {
                 })
                 .catch(err => console.log(err));
         }
-    },[currentSearch]);
+    }, [currentSearch]);
 
     return (
         <>
@@ -64,6 +64,7 @@ export default function MovieDisplay() {
                                     {resultsArr.map(element => (
                                         <>
                                             <MovieItem
+                                                key={element.id}
                                                 id={element.id}
                                                 title={element.original_title}
                                                 overview={element.overview}

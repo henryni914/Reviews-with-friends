@@ -35,6 +35,7 @@ export default function PopularSection() {
             <Card.Group itemsPerRow={5} stackable>
                 {movies.map(element => (
                     <MovieCard
+                        key={element.id}
                         id={element.id}
                         title={element.original_title}
                         overview={element.overview}

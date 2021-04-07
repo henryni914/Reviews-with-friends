@@ -7,7 +7,7 @@ module.exports = {
             .then(dbReview => res.json(dbReview))
             .catch(err => res.status(422).json(err));
     },
-    find: function (req, res) {
+    findMovieReviews: function (req, res) {
         db.Review.findAll({
             where: {
                 MovieId: req.params.id
@@ -16,5 +16,16 @@ module.exports = {
         })
             .then(dbReview => res.json(dbReview))
             .catch(err => res.status(422).json(err));
-    }
+    },
+    findUserReviews: function (req, res) {
+        db.Review.findAll({
+            where: {
+                UserId: req.params.id
+            },
+            include: [db.Movie]
+        })
+            .then(dbReview => res.json(dbReview))
+            .catch(err => res.status(422).json(err));
+    },
+
 }

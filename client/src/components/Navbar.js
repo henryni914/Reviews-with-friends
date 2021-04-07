@@ -64,7 +64,8 @@ export default function Nav() {
   function findUserOrCreate(userInfo) {
     API.findOrCreateUser(userInfo).then(res => {
       dispatch(setUser(res.data[0]))
-      console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
+      // console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
+      // API.getUserReviews(res.data[0].id).then(reviews => console.log(reviews))
     })
   };
 
@@ -79,6 +80,13 @@ export default function Nav() {
         name: user.name,
         email: user.email
       };
+      // REGEX: Trim everything up to and including =
+
+      // var text = "john@aol.com";
+      // text = text.replace(/@.*$/, "");
+      // console.log(text);
+      // results = "john"
+
       // userCheck(userObj)
       findUserOrCreate(userObj)
     }
