@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilm } from '../actions/movies'
-import { Button, Divider, Feed, Icon, Item } from 'semantic-ui-react'
+import { Button, Divider, Feed, Form, Icon, Input, Item } from 'semantic-ui-react'
 
 
 export default function UserReviews() {
@@ -10,49 +10,63 @@ export default function UserReviews() {
     const dispatch = useDispatch();
     const userReviews = useSelector(state => state.user.reviews)
     const [reviews, setReviews] = useState(userReviews)
-    console.log(reviews)
+    const [search, setSearch] = useState("");
+    // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
+    // console.log(reviews)
     // console.log(userReviews)
+
+    function handleInputChange(event) {
+        setSearch(event.target.value);
+      };
 
     function storeId(id) {
         dispatch(setFilm(id));
     }
 
+    const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
+
     return (
-        <Item.Group>
-            {reviews.map(ele =>
-            (
-                <>
-                    <Item>
-                        {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+        
+        <>
+            <Form>
+                <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
+            </Form>
+            <Item.Group>
+                {searchArr.map(ele =>
+                (
+                    <>
+                        <Item>
+                            {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
                             <img
                                 className='search-img'
                                 src={ele.Movie.image}
                                 alt={ele.Movie.title}
                             ></img>
                         </Link> */}
-                        <Item.Content>
-                            <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                                <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
-                            </Link>
-                            <Item.Meta>{ele.createdAt}</Item.Meta>
-                            <Item.Description>
-                                <p>{ele.post}</p>
-                            </Item.Description>
-                        </Item.Content>
-                        <Button animated='fade' floated='right'>
-                            <Button.Content visible><Icon name='edit outline' /></Button.Content>
-                            <Button.Content hidden>Edit</Button.Content>
-                        </Button>
-                        <Button animated='fade' floated='right'>
-                            <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                            <Button.Content hidden>Delete</Button.Content>
-                        </Button>
-                    </Item>
-                    <Divider section />
-                </>
-            )
-            )}
-        </Item.Group>
+                            <Item.Content>
+                                <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                    <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                </Link>
+                                <Item.Meta>{ele.createdAt}</Item.Meta>
+                                <Item.Description>
+                                    <p>{ele.post}</p>
+                                </Item.Description>
+                            </Item.Content>
+                            <Button animated='fade' floated='right'>
+                                <Button.Content visible><Icon name='edit outline' /></Button.Content>
+                                <Button.Content hidden>Edit</Button.Content>
+                            </Button>
+                            <Button animated='fade' floated='right'>
+                                <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
+                                <Button.Content hidden>Delete</Button.Content>
+                            </Button>
+                        </Item>
+                        <Divider section />
+                    </>
+                )
+                )}
+            </Item.Group>
+        </>
         // <Item>
         // {reviews.map(ele => {
         //     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
