@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import UserReviews from '../components/UserReviewPage'
+import UserReviews from '../components/UserReviewPage';
+import AccountSettings from '../components/AccountSettings';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserReviews } from '../actions/user';
 import { Container, Dropdown, Grid, Header, Icon, Input, Menu, Segment } from 'semantic-ui-react';
@@ -19,7 +20,7 @@ export default function Profile() {
     const renderComponent = tab => {
         switch (tab) {
             case "Account Settings": {
-                return <h1>account</h1>
+                return <AccountSettings />
             }
             case "Reviews": {
                 return <UserReviews />
