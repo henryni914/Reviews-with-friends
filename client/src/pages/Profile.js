@@ -1,7 +1,66 @@
-import React from 'react';
-import { Container, Dropdown, Grid, Icon, Input, Menu, Segment } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import UserReviews from '../components/UserReviewPage'
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserReviews } from '../actions/user';
+import { Container, Dropdown, Grid, Header, Icon, Input, Menu, Segment } from 'semantic-ui-react';
+import API from '../utils/API';
 
 export default function Profile() {
+
+    const stateUser = useSelector(state => state.user);
+    const dispatch = useDispatch();
+    const tabs = ["Account Settings", "Reviews", "Watchlist", "Favorites", "Liked Reviews"];
+    const [tab, setTab] = useState("Account Settings");
+
+    const handleTabChange = page => {
+        setTab(page)
+    };
+
+    const renderComponent = tab => {
+        switch (tab) {
+            case "Account Settings": {
+                return <h1>account</h1>
+            }
+            case "Reviews": {
+                return <UserReviews />
+            }
+            case "Watchlist": {
+                return "Replace with component here"
+            }
+            case "Favorites": {
+                return "Replace with component here"
+            }
+            case "Liked Reviews": {
+                return "Replace with component here"
+            }
+        }
+    };
+
+    const renderSubheader = tab => {
+        switch (tab) {
+            case "Account Settings": {
+                return "Manage your account settings"
+            }
+            case "Reviews": {
+                return "Manage your reviews"
+            }
+            case "Watchlist": {
+                return "Manage your watchlist"
+            }
+            case "Favorites": {
+                return "Manage your favorites"
+            }
+            case "Liked Reviews": {
+                return "View posts that you have liked"
+            }
+        }
+    };
+
+    useEffect(() => {
+        API.getUserReviews(stateUser.id).then(reviews => {
+            dispatch(setUserReviews(reviews.data))
+        })
+    }, [tab])
 
     return (
         <Container>
@@ -9,33 +68,32 @@ export default function Profile() {
                 <Grid.Row>
                     <Grid.Column width={3}>
                         <Menu secondary vertical>
-                            <Menu.Item
-                                name='account'
-                            // active={activeItem === 'account'}
-                            // onClick={this.handleItemClick}
-                            />
-                            <Menu.Item
-                                name='settings'
-                            // active={activeItem === 'settings'}
-                            // onClick={this.handleItemClick}
-                            />
-                            <Dropdown item text='Display Options'>
+                            {tabs.map(ele => (
+                                <Menu.Item
+                                    name={ele}
+                                    active={tab === ele}
+                                    onClick={() => handleTabChange(ele)}
+                                />
+                            ))}
+                            {/* <Dropdown item text='Display Options'>
                                 <Dropdown.Menu>
                                     <Dropdown.Header>Text Size</Dropdown.Header>
                                     <Dropdown.Item>Small</Dropdown.Item>
                                     <Dropdown.Item>Medium</Dropdown.Item>
                                     <Dropdown.Item>Large</Dropdown.Item>
                                 </Dropdown.Menu>
-                            </Dropdown>
+                            </Dropdown> */}
                         </Menu>
                     </Grid.Column>
                     {/* Conditional Render below based on active tab */}
                     <Grid.Column width={10}>
-                        {/* <Segment>
-                            <h1>Test</h1>
-                        </Segment> */}
-                        <h1>Hello World</h1>
-                        <h2>Testing</h2>
+                        <Header as='h2'>
+                            {tab}
+                            <Header.Subheader>
+                                {renderSubheader(tab)}
+                            </Header.Subheader>
+                        </Header>
+                        {renderComponent(tab)}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -103,4 +161,4 @@ export default function Profile() {
 <Grid.Column width={10}>
     <h1>Hello</h1>
 </Grid.Column>
-</Grid> */} 
+</Grid> */}

@@ -18,7 +18,7 @@ export default function MovieItem(props) {
         <Item >
             <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`} >
                 <img
-                    class='search-img'
+                    className='search-img'
                     src={posterUrl}
                     alt={props.title}
                 ></img>

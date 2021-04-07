@@ -5,6 +5,7 @@ export default function userReducer(state = {
     email: "",
     name: "",
     picture: "",
+    reviews: [],
     watchlist: [],
     favorites: [],
     friends: [],
@@ -20,10 +21,10 @@ export default function userReducer(state = {
                 name: action.payload.name,
                 // picture: action.payload.picture
             }
-        case 'ADD_POSTS':
+        case 'SET_REVIEWS':
             return {
                 ...state,
-                posts: [...state.posts, action.payload]
+                reviews: action.payload.userReviews
             }
         default:
             return state;

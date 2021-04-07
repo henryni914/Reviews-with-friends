@@ -41,34 +41,34 @@ export default function MoviePage() {
     };
 
     useEffect(() => {
-        if (currentFilm !== filmTmdbId) {
-            console.log('starting new API call', filmTmdbId)
-            API.findByMovieId(currentFilm).then(res => {
-                setResults(res.data);
-                setRelated(res.data.similar.results.slice(0, 5))
-                setTab("overview")
-                let movieObj = {
-                    title: res.data.title,
-                    tmdbID: res.data.id,
-                    image: "https://image.tmdb.org/t/p/original" + res.data.backdrop_path
-                }
-                API.findOrCreateMovie(movieObj).then(res => {
-                    // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
-                    // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
-                    dispatch(setFilm(currentFilm, res.data[0].id))
-                    // if (res.data[1] === false) {
-                    //     console.log('movie already exists')
-                    // } else console.log('new movie entry created')
-                    API.getMovieReviews(res.data[0].id).then(res => {
-                        // console.log(res.data)
-                        dispatch(setReviews(res.data))
-                    })
+        console.log('starting new API call', currentFilm)
+        API.findByMovieId(currentFilm).then(res => {
+            setResults(res.data);
+            setRelated(res.data.similar.results.slice(0, 5))
+            console.log(res.data)
+            setTab("overview")
+            let movieObj = {
+                title: res.data.title,
+                tmdbID: res.data.id,
+                image: "https://image.tmdb.org/t/p/original" + res.data.backdrop_path
+            }
+            API.findOrCreateMovie(movieObj).then(res => {
+                // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
+                // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
+                dispatch(setFilm(currentFilm, res.data[0].id))
+                // if (res.data[1] === false) {
+                //     console.log('movie already exists')
+                // } else console.log('new movie entry created')
+                API.getMovieReviews(res.data[0].id).then(res => {
+                    console.log(res.data)
+                    dispatch(setReviews(res.data))
                 })
-            });
-        }
+            })
+        });
+
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
-    
+
     return (
         <>
             {/* style={{height: '500px'}} */}
@@ -143,6 +143,7 @@ export default function MoviePage() {
                         <Card.Group itemsPerRow={5} stackable>
                             {related.map(element => (
                                 <MovieCard
+                                    key={element.id}
                                     id={element.id}
                                     title={element.original_title}
                                     overview={element.overview}

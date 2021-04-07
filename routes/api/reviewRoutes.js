@@ -10,9 +10,12 @@ router
 
 router
     .route("/:id")
-    .get(reviewController.find)
+    .get(reviewController.findMovieReviews)
 //  .put(reviewController.update)
 // .post();
 // .delete(reviewController.delete)
+router
+    .route("/user/:id")
+    .get(reviewController.findUserReviews)
 
 module.exports = router;
