@@ -35,7 +35,7 @@ export default function MoviePage() {
                 return <Cast info={results.credits} />
             }
             case "reviews": {
-                return <CommentSection userId={stateUser.id} filmDbId={filmDbId} />
+                return <CommentSection />
             }
         }
     };

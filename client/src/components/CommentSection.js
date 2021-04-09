@@ -3,41 +3,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setReviews } from '../actions/movies'
 import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-react';
 import API from "../utils/API"
+const moment = require('moment')
 
-export default function CommentSection(props) {
-    // console.log(`props userId ` + props.userId )
-    // console.log(`props props.filmId ` + props.filmDbId )
+export default function CommentSection() {
     const stateMovie = useSelector(state => state.movies)
     const stateUser = useSelector(state => state.user);
-    // console.log(stateMovie.reviews)
     const dispatch = useDispatch();
-
-    // Call to db and retrieve reviews based on movieID 
-    // Map through reviews and render a comment section
-    // Does each comment need to have its own state to toggle reply?
     const [comments, setComments] = useState(stateMovie.reviews);
+    // Does each comment need to have its own state to toggle reply?
 
     const [text, setText] = useState("");
     const [textError, setTextError] = useState(false);
-    const [submitted, setSubmitted ] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
 
 
     function handleInputChange(event) {
         setText(event.target.value);
-        // console.log('text', event.target.value)
     }
     function handleFormSubmit(e) {
         e.preventDefault();
         // check if user has already submitted a review for this movie
-        // user for now can only submit 1 review per movie
-        let hasCommented = comments.find(({User}) => User.name === stateUser.name )
-        if ( hasCommented ) {
+        // user for now can only submit 1 review per movie for the time being
+        let movieId = stateMovie.currentFilmId
+        let hasCommented = comments.find(({ User }) => User.name === stateUser.name)
+        if (hasCommented) {
             console.log(hasCommented)
             setSubmitted(true)
             setTimeout(() => setSubmitted(false), 5000)
             return
         };
         // need to do validation to make sure the text field isn't empty
+        // if empty display an error?
         if (text.length < 1) {
             console.log("too short")
             setTextError(true)
@@ -46,14 +42,13 @@ export default function CommentSection(props) {
         };
         let replyObj = {
             post: text,
-            MovieId: props.filmDbId,
+            // createdAt: moment().format('MMMM Do YYYY'),
+            // updatedAt: moment().format('MMMM Do YYYY, h:mm:ss a')
+            MovieId: movieId,
             UserId: stateUser.id,
         }
-        // console.log(replyObj)
         API.createMovieReview(replyObj).then(res => {
-            // console.log(res.data)
-            API.getMovieReviews(props.filmDbId).then(res => {
-                // console.log(res.data)
+            API.getMovieReviews(movieId).then(res => {
                 dispatch(setReviews(res.data))
                 setComments(res.data)
             })
@@ -99,9 +94,9 @@ export default function CommentSection(props) {
             <Form reply>
                 {/* <Rating icon='star' defaultRating={rating} maxRating={5} size='large' clearable onClick={handleStarClick} /> */}
                 <Form.TextArea placeholder="Enter review here..." value={text} onChange={handleInputChange} />
-                { textError ? <h3>Please submit a review with more than 1 character.</h3> 
-                : submitted ? <h3>You have already reviewed this movie.</h3> 
-                : <></>
+                {textError ? <h3>Please submit a review with more than 1 character.</h3>
+                    : submitted ? <h3>You have already reviewed this movie.</h3>
+                        : <></>
                 }
                 <Button content='Add Review' labelPosition='left' icon='edit' primary onClick={handleFormSubmit} />
             </Form>

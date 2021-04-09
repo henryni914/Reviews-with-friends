@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { Input, Menu, Form } from 'semantic-ui-react';
+import { Button, Icon, Input, Menu, Form } from 'semantic-ui-react';
 import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import { useAuth0 } from '../utils/auth0context';
@@ -67,6 +67,7 @@ export default function Nav() {
       // console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
       // API.getUserReviews(res.data[0].id).then(reviews => console.log(reviews))
     })
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
@@ -113,11 +114,15 @@ export default function Nav() {
           to='/profile'
         />
         <Menu.Menu position='right'>
-
-          {/* need to add a search function for user input */}
           <Menu.Item>
             <Form onSubmit={handleFormSubmit}>
-              <Input icon='search' placeholder='Search...' value={search} onChange={handleInputChange} />
+              <Input
+                icon={<Icon name='search' inverted circular link onClick={() => handleFormSubmit()} />}
+                placeholder='Search...'
+                value={search}
+                onChange={handleInputChange}
+                action >
+              </Input>
             </Form>
           </Menu.Item>
           <Menu.Item>
