@@ -116,8 +116,12 @@ export default function Nav() {
         <Menu.Menu position='right'>
           <Menu.Item>
             <Form onSubmit={handleFormSubmit}>
-              <Input icon={<Icon name='search' circular link onClick={() => handleFormSubmit()} />} placeholder='Search...' value={search} onChange={handleInputChange} action >
-                {/* <Button type='submit' icon='search' onClick={() => handleFormSubmit()}></Button> */}
+              <Input
+                icon={<Icon name='search' inverted circular link onClick={() => handleFormSubmit()} />}
+                placeholder='Search...'
+                value={search}
+                onChange={handleInputChange}
+                action >
               </Input>
             </Form>
           </Menu.Item>
