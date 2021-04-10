@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../App.css'
 import UserReviews from '../components/UserReviewPage';
 import AccountSettings from '../components/AccountSettings';
 import { useDispatch, useSelector } from 'react-redux';
@@ -94,7 +95,9 @@ export default function Profile() {
                                 {renderSubheader(tab)}
                             </Header.Subheader>
                         </Header>
-                        {renderComponent(tab)}
+                        <div id="profile">
+                            {renderComponent(tab)}
+                        </div>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

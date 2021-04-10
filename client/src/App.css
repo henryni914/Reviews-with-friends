@@ -3,6 +3,14 @@
   /* background: linear-gradient(to top, #8e9eab, #eef2f3); */
 }
 
+.content {
+  /* min-height: 75vh; */
+}
+
+#profile {
+  min-height: 60vh;
+}
+
 #main-landing-section {
   height: 70vh;
   background-image: url("https://image.tmdb.org/t/p/original/srYya1ZlI97Au4jUYAktDe3avyA.jpg");
@@ -29,7 +37,7 @@
 .card-img {
   /* max-width:300px; */
   object-fit: cover;
-  max-height:300px;
+  max-height: 300px;
   width: 100%;
   height: auto;
 }
