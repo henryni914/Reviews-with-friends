@@ -52,7 +52,11 @@ export default {
     getMovieReviews: function(id) {
         return axios.get(`/api/review/` + id)
     },
+    deleteMovieReview: function(id) {
+        return axios.delete(`/api/review/` + id)
+    },
     getUserReviews: function(id) {
         return axios.get(`/api/review/user/` + id)
-    }
+    },
+    
 };

@@ -11,9 +11,9 @@ router
 router
     .route("/:id")
     .get(reviewController.findMovieReviews)
-//  .put(reviewController.update)
-// .post();
-// .delete(reviewController.delete)
+    //  .put(reviewController.update)
+    // .post();
+    .delete(reviewController.delete)
 router
     .route("/user/:id")
     .get(reviewController.findUserReviews)

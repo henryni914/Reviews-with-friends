@@ -56,9 +56,9 @@ export default function MoviePage() {
                 // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
                 // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
                 dispatch(setFilm(currentFilm, res.data[0].id))
-                // if (res.data[1] === false) {
-                //     console.log('movie already exists')
-                // } else console.log('new movie entry created')
+                if (res.data[1] === false) {
+                    console.log('movie already exists')
+                } else console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
                     console.log(res.data)
                     dispatch(setReviews(res.data))

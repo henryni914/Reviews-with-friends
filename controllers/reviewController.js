@@ -27,5 +27,14 @@ module.exports = {
             .then(dbReview => res.json(dbReview))
             .catch(err => res.status(422).json(err));
     },
+    delete: function (req, res) {
+        db.Review.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+            .then(dbReview => res.json(dbReview))
+            .catch(err => res.status(422).json(err));
+    }
 
 }
