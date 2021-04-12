@@ -10,7 +10,6 @@ import API from '../utils/API';
 export default function UserReviews() {
 
     const dispatch = useDispatch();
-    const stateUser = useSelector(state => state.user);
     const userReviews = useSelector(state => state.user.reviews)
     const [reviews, setReviews] = useState(userReviews)
     const [search, setSearch] = useState("");
@@ -24,22 +23,17 @@ export default function UserReviews() {
 
     function storeId(id) {
         dispatch(setFilm(id));
-    }
+    };
 
     function deleteReview(id) {
-        const updateArr = reviews.filter(element => element.id != id)
+        const updateArr = reviews.filter(element => element.id !== id)
         API.deleteMovieReview(id).then(res => {
             setReviews(updateArr)
+            dispatch(setUserReviews(updateArr))
         })
-    }
+    };
 
     const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
-
-    useEffect(() => {
-        API.getUserReviews(stateUser.id).then(reviews => {
-            dispatch(setUserReviews(reviews.data))
-        })
-    }, [reviews])
 
     return (
 
