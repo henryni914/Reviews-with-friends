@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilm } from '../actions/movies'
-import { Button, Divider, Feed, Form, Icon, Input, Item } from 'semantic-ui-react'
+import { setFilm } from '../actions/movies';
+import { Button, Divider, Feed, Form, Header, Icon, Input, Item } from 'semantic-ui-react';
+import {setUserReviews} from '../actions/user';
+import API from '../utils/API';
 
 
 export default function UserReviews() {
 
     const dispatch = useDispatch();
+    const stateUser = useSelector(state => state.user);
     const userReviews = useSelector(state => state.user.reviews)
     const [reviews, setReviews] = useState(userReviews)
     const [search, setSearch] = useState("");
@@ -17,16 +20,29 @@ export default function UserReviews() {
 
     function handleInputChange(event) {
         setSearch(event.target.value);
-      };
+    };
 
     function storeId(id) {
         dispatch(setFilm(id));
     }
 
+    function deleteReview(id) {
+        const updateArr = reviews.filter(element => element.id != id)
+        API.deleteMovieReview(id).then(res => {
+            setReviews(updateArr)
+        })
+    }
+
     const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
 
+    useEffect(() => {
+        API.getUserReviews(stateUser.id).then(reviews => {
+            dispatch(setUserReviews(reviews.data))
+        })
+    }, [reviews])
+
     return (
-        
+
         <>
             <Form>
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
@@ -35,7 +51,7 @@ export default function UserReviews() {
                 {searchArr.map(ele =>
                 (
                     <>
-                        <Item>
+                        <Item key={ele.id}>
                             {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
                             <img
                                 className='search-img'
@@ -56,7 +72,7 @@ export default function UserReviews() {
                                 <Button.Content visible><Icon name='edit outline' /></Button.Content>
                                 <Button.Content hidden>Edit</Button.Content>
                             </Button>
-                            <Button animated='fade' floated='right'>
+                            <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
                                 <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
                                 <Button.Content hidden>Delete</Button.Content>
                             </Button>

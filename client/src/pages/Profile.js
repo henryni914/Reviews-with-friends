@@ -68,7 +68,7 @@ export default function Profile() {
         <Container>
             <Grid stackable>
                 <Grid.Row>
-                    <Grid.Column width={3}>
+                    <Grid.Column computer={3} tablet={5}>
                         <Menu secondary vertical>
                             {tabs.map(ele => (
                                 <Menu.Item
@@ -88,6 +88,13 @@ export default function Profile() {
                         </Menu>
                     </Grid.Column>
                     {/* Conditional Render below based on active tab */}
+                    {/* 
+                    mobile
+                    tablet
+                    computer
+                    largescreen
+                    widescreen
+                    */}
                     <Grid.Column width={10}>
                         <Header as='h2'>
                             {tab}
