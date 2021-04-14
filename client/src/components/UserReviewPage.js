@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilm } from '../actions/movies';
 import { Button, Divider, Feed, Form, Header, Icon, Input, Item } from 'semantic-ui-react';
-import {setUserReviews} from '../actions/user';
+import { setUserReviews } from '../actions/user';
 import API from '../utils/API';
 
 
@@ -15,7 +15,7 @@ export default function UserReviews() {
     const [search, setSearch] = useState("");
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
     // console.log(reviews)
-    // console.log(userReviews)
+    console.log(userReviews)
 
     function handleInputChange(event) {
         setSearch(event.target.value);
@@ -42,39 +42,42 @@ export default function UserReviews() {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {searchArr.map(ele =>
-                (
-                    <>
-                        <Item key={ele.id}>
-                            {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                {searchArr.length == 0 ?
+                    <h3>You haven't reviewed any movies yet.</h3>
+                    :
+                    searchArr.map(ele =>
+                    (
+                        <>
+                            <Item key={ele.id}>
+                                {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
                             <img
                                 className='search-img'
                                 src={ele.Movie.image}
                                 alt={ele.Movie.title}
                             ></img>
                         </Link> */}
-                            <Item.Content>
-                                <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                                    <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
-                                </Link>
-                                <Item.Meta>{ele.createdAt}</Item.Meta>
-                                <Item.Description>
-                                    <p>{ele.post}</p>
-                                </Item.Description>
-                            </Item.Content>
-                            <Button animated='fade' floated='right'>
-                                <Button.Content visible><Icon name='edit outline' /></Button.Content>
-                                <Button.Content hidden>Edit</Button.Content>
-                            </Button>
-                            <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
-                                <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                                <Button.Content hidden>Delete</Button.Content>
-                            </Button>
-                        </Item>
-                        <Divider section />
-                    </>
-                )
-                )}
+                                <Item.Content>
+                                    <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                        <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                    </Link>
+                                    <Item.Meta>{ele.createdAt}</Item.Meta>
+                                    <Item.Description>
+                                        <p>{ele.post}</p>
+                                    </Item.Description>
+                                </Item.Content>
+                                <Button animated='fade' floated='right'>
+                                    <Button.Content visible><Icon name='edit outline' /></Button.Content>
+                                    <Button.Content hidden>Edit</Button.Content>
+                                </Button>
+                                <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
+                                    <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
+                                    <Button.Content hidden>Delete</Button.Content>
+                                </Button>
+                            </Item>
+                            <Divider section />
+                        </>
+                    ))
+                }
             </Item.Group>
         </>
         // <Item>
