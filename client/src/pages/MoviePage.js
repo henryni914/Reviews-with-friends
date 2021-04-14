@@ -92,14 +92,22 @@ export default function MoviePage() {
                             <Button as='div' labelPosition='right' floated='left'>
                                 <Button icon>
                                     {/* check here if user has "liked" this movie, color=red, if not no color */}
-                                    <Icon name='heart' color='red' />
+                                    <Icon 
+                                    name='heart' 
+                                    // color='red' 
+                                    // color='blue'
+                                    />
                                 </Button>
 
                             </Button>
                             <Button as='div' icon>
-                                <Icon name='plus' color='blue' />
+                                <Icon 
+                                name='plus' 
+                                // color='blue' 
+                                />
                                 {/* if included in user watchlist, text should change to "Added" or something to reflect  */}
                                      Watchlist
+                                     {/* Already in watchlist */}
                             </Button>
                             <br />
                             {results.genres && (
