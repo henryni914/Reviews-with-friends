@@ -40,12 +40,28 @@ export default function MoviePage() {
         }
     };
 
+    function addToFavorite() {
+        if (!stateUser.id) {
+            console.log('no user logged in')
+            return;
+        }
+        let favoriteObj = {
+            MovieId: filmDbId,
+            UserId: stateUser.id
+        }
+        // console.log(stateMovie)
+        console.log(favoriteObj)
+        API.addUserFavorite(favoriteObj).then(res => 
+            console.log(res)
+            )
+    }
+
     useEffect(() => {
-        console.log('starting new API call', currentFilm)
+        // console.log('starting new API call', currentFilm)
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
             setRelated(res.data.similar.results.slice(0, 5))
-            console.log(res.data)
+            // console.log(res.data)
             setTab("overview")
             let movieObj = {
                 title: res.data.title,
@@ -60,7 +76,7 @@ export default function MoviePage() {
                     console.log('movie already exists')
                 } else console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     dispatch(setReviews(res.data))
                 })
             })
@@ -89,7 +105,7 @@ export default function MoviePage() {
                                     <p><a href={results.homepage} target="_blank">Official Website</a></p>
                                 )}
                             </>
-                            <Button as='div' labelPosition='right' floated='left'>
+                            <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                 <Button icon>
                                     {/* check here if user has "liked" this movie, color=red, if not no color */}
                                     <Icon 

@@ -58,5 +58,10 @@ export default {
     getUserReviews: function(id) {
         return axios.get(`/api/review/user/` + id)
     },
+
+    // DB Favorite functions
+    addUserFavorite: function(obj) {
+        return axios.post(`/api/favorite`, obj)
+    }
     
 };

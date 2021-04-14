@@ -13,6 +13,7 @@ export default function CommentSection() {
     // Does each comment need to have its own state to toggle reply?
 
     const [text, setText] = useState("");
+    const [status, setStatus] = useState(false)
     const [textError, setTextError] = useState(false);
     const [submitted, setSubmitted] = useState(false)
 
@@ -26,20 +27,26 @@ export default function CommentSection() {
         // user for now can only submit 1 review per movie for the time being
         let movieId = stateMovie.currentFilmId
         let hasCommented = comments.find(({ User }) => User.name === stateUser.name)
-        if (hasCommented) {
+
+        if (!stateUser.id) {
+            console.log('no user logged in')
+            setStatus(true)
+            setTimeout(() => setStatus(false), 5000)
+            return
+        } else if (hasCommented) {
             console.log(hasCommented)
             setSubmitted(true)
             setTimeout(() => setSubmitted(false), 5000)
             return
-        };
-        // need to do validation to make sure the text field isn't empty
-        // if empty display an error?
-        if (text.length < 1) {
+        } else if (text.length < 1) {
             console.log("too short")
             setTextError(true)
             setTimeout(() => setTextError(false), 5000)
             return
-        };
+        }
+        // need to do validation to make sure the text field isn't empty
+        // if empty display an error?
+    
         let replyObj = {
             post: text,
             // createdAt: moment().format('MMMM Do YYYY'),
@@ -94,7 +101,8 @@ export default function CommentSection() {
             <Form reply>
                 {/* <Rating icon='star' defaultRating={rating} maxRating={5} size='large' clearable onClick={handleStarClick} /> */}
                 <Form.TextArea placeholder="Enter review here..." value={text} onChange={handleInputChange} />
-                {textError ? <h3>Please submit a review with more than 1 character.</h3>
+                {status ? <h3>Please login to post a review.</h3>
+                :textError ? <h3>Please submit a review with more than 1 character.</h3>
                     : submitted ? <h3>You have already reviewed this movie.</h3>
                         : <></>
                 }
