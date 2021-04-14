@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import API from '../utils/API';
-import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Segment } from 'semantic-ui-react';
+import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Popup, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
@@ -40,12 +40,34 @@ export default function MoviePage() {
         }
     };
 
+    function addToFavorite() {
+        // let hasFavorited = favorites.find(({ MovieId }) => MovieId === currentFilm)
+
+        if (!stateUser.id) {
+            console.log('no user logged in')
+            return;
+        }
+        // else if (hasFavorited) {
+        //     console.log('the movie has already been favorited by the user')
+        // }
+
+        let favoriteObj = {
+            MovieId: filmDbId,
+            UserId: stateUser.id
+        }
+        // console.log(stateMovie)
+        // console.log(favoriteObj)
+        API.addUserFavorite(favoriteObj).then(res =>
+            console.log(res)
+        )
+    }
+
     useEffect(() => {
-        console.log('starting new API call', currentFilm)
+        // console.log('starting new API call', currentFilm)
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
             setRelated(res.data.similar.results.slice(0, 5))
-            console.log(res.data)
+            // console.log(res.data)
             setTab("overview")
             let movieObj = {
                 title: res.data.title,
@@ -60,7 +82,7 @@ export default function MoviePage() {
                     console.log('movie already exists')
                 } else console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     dispatch(setReviews(res.data))
                 })
             })
@@ -89,11 +111,16 @@ export default function MoviePage() {
                                     <p><a href={results.homepage} target="_blank">Official Website</a></p>
                                 )}
                             </>
-                            <Button as='div' labelPosition='right' floated='left'>
+                            {/* <Popup
+                                trigger={<Button icon='add' />}
+                                content="The default theme's basic popup removes the pointing arrow."
+                                basic
+                            /> */}
+                            <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                 <Button icon>
                                     {/* check here if user has "liked" this movie, color=red, if not no color */}
-                                    <Icon 
-                                    name='heart' 
+                                    <Icon
+                                        name='heart'
                                     // color='red' 
                                     // color='blue'
                                     />
@@ -101,8 +128,8 @@ export default function MoviePage() {
 
                             </Button>
                             <Button as='div' icon>
-                                <Icon 
-                                name='plus' 
+                                <Icon
+                                    name='plus'
                                 // color='blue' 
                                 />
                                 {/* if included in user watchlist, text should change to "Added" or something to reflect  */}

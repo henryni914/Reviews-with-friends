@@ -20,3 +20,10 @@ export const setUserReviews = (reviews) => ({
         userReviews: reviews
     }
 });
+
+export const setUserFavorites = (favorites) => ({
+    type: 'SET_FAVORITES',
+    payload: {
+        userFavorites: favorites
+    }
+})

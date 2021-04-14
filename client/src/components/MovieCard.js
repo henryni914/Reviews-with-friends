@@ -14,7 +14,9 @@ export default function MovieCard(props) {
     }
 
     return (
-        <Card animated>
+        <Card animated 
+        // href={`/film/id=${props.id}`}
+        >
             <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`}>
                 <img
                     className='card-img'
