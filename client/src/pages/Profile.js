@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../App.css'
 import UserReviews from '../components/UserReviewPage';
 import AccountSettings from '../components/AccountSettings';
+import FavoriteSection from '../components/FavoriteSection';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserReviews } from '../actions/user';
 import { Container, Dropdown, Grid, Header, Icon, Input, Menu, Segment } from 'semantic-ui-react';
@@ -30,7 +31,7 @@ export default function Profile() {
                 return "Replace with component here"
             }
             case "Favorites": {
-                return "Replace with component here"
+                return <FavoriteSection />
             }
             case "Liked Reviews": {
                 return "Replace with component here"

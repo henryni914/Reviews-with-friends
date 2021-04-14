@@ -51,9 +51,9 @@ export default function MoviePage() {
         }
         // console.log(stateMovie)
         console.log(favoriteObj)
-        API.addUserFavorite(favoriteObj).then(res => 
+        API.addUserFavorite(favoriteObj).then(res =>
             console.log(res)
-            )
+        )
     }
 
     useEffect(() => {
@@ -108,8 +108,8 @@ export default function MoviePage() {
                             <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                 <Button icon>
                                     {/* check here if user has "liked" this movie, color=red, if not no color */}
-                                    <Icon 
-                                    name='heart' 
+                                    <Icon
+                                        name='heart'
                                     // color='red' 
                                     // color='blue'
                                     />
@@ -117,8 +117,8 @@ export default function MoviePage() {
 
                             </Button>
                             <Button as='div' icon>
-                                <Icon 
-                                name='plus' 
+                                <Icon
+                                    name='plus'
                                 // color='blue' 
                                 />
                                 {/* if included in user watchlist, text should change to "Added" or something to reflect  */}

@@ -62,6 +62,9 @@ export default {
     // DB Favorite functions
     addUserFavorite: function(obj) {
         return axios.post(`/api/favorite`, obj)
+    },
+    getUserFavorites: function(id) {
+        return axios.get(`/api/favorite/user/` + id)
     }
     
 };
