@@ -26,6 +26,11 @@ export default function userReducer(state = {
                 ...state,
                 reviews: action.payload.userReviews
             }
+        case 'SET_FAVORITES':
+            return {
+                ...state,
+                favorites: action.payload.userFavorites
+            }
         default:
             return state;
     }

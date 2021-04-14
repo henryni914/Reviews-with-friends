@@ -6,6 +6,10 @@ router
     .post(favoriteController.create)
 
 router
+    .route("/:id")
+    .delete(favoriteController.delete)
+
+router
     .route("/user/:id")
     .get(favoriteController.findUserFavorites)
 

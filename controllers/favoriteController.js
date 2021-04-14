@@ -16,5 +16,13 @@ module.exports = {
             .then(results => res.json(results))
             .catch(err => res.status(422).json(err));
     },
-   
+    delete: function (req, res) {
+        db.Favorite.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+            .then(results => res.json(results))
+            .catch(err => res.status(422).json(err));
+    }
 }

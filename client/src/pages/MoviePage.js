@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import API from '../utils/API';
-import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Segment } from 'semantic-ui-react';
+import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Popup, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
@@ -41,16 +41,22 @@ export default function MoviePage() {
     };
 
     function addToFavorite() {
+        // let hasFavorited = favorites.find(({ MovieId }) => MovieId === currentFilm)
+
         if (!stateUser.id) {
             console.log('no user logged in')
             return;
         }
+        // else if (hasFavorited) {
+        //     console.log('the movie has already been favorited by the user')
+        // }
+
         let favoriteObj = {
             MovieId: filmDbId,
             UserId: stateUser.id
         }
         // console.log(stateMovie)
-        console.log(favoriteObj)
+        // console.log(favoriteObj)
         API.addUserFavorite(favoriteObj).then(res =>
             console.log(res)
         )
@@ -105,6 +111,11 @@ export default function MoviePage() {
                                     <p><a href={results.homepage} target="_blank">Official Website</a></p>
                                 )}
                             </>
+                            {/* <Popup
+                                trigger={<Button icon='add' />}
+                                content="The default theme's basic popup removes the pointing arrow."
+                                basic
+                            /> */}
                             <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                 <Button icon>
                                     {/* check here if user has "liked" this movie, color=red, if not no color */}

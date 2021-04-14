@@ -36,35 +36,35 @@ export default {
         return axios.post(`/api/user`, user)
     },
 
-
-
     // DB Movie functions
-
     findOrCreateMovie: function (movie) {
         return axios.post(`/api/movie`, movie)
     },
 
-
     // DB Comment functions
-    createMovieReview: function(review) {
+    createMovieReview: function (review) {
         return axios.post(`/api/review`, review)
     },
-    getMovieReviews: function(id) {
+    getMovieReviews: function (id) {
         return axios.get(`/api/review/` + id)
     },
-    deleteMovieReview: function(id) {
+    deleteMovieReview: function (id) {
         return axios.delete(`/api/review/` + id)
     },
-    getUserReviews: function(id) {
+    getUserReviews: function (id) {
         return axios.get(`/api/review/user/` + id)
     },
 
     // DB Favorite functions
-    addUserFavorite: function(obj) {
+    addUserFavorite: function (obj) {
         return axios.post(`/api/favorite`, obj)
     },
-    getUserFavorites: function(id) {
+    deleteFavorite: function (id) {
+        return axios.delete(`/api/favorite/` + id)
+    },
+    getUserFavorites: function (id) {
         return axios.get(`/api/favorite/user/` + id)
-    }
-    
+    },
+
+
 };

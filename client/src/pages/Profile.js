@@ -4,7 +4,7 @@ import UserReviews from '../components/UserReviewPage';
 import AccountSettings from '../components/AccountSettings';
 import FavoriteSection from '../components/FavoriteSection';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserReviews } from '../actions/user';
+import { setUserReviews, setUserFavorites } from '../actions/user';
 import { Container, Dropdown, Grid, Header, Icon, Input, Menu, Segment } from 'semantic-ui-react';
 import API from '../utils/API';
 
