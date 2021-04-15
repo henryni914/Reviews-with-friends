@@ -27,3 +27,10 @@ export const setUserFavorites = (favorites) => ({
         userFavorites: favorites
     }
 })
+
+export const addUserFavorite = (movie) => ({
+    type: 'ADD_FAVORITE',
+    payload: {
+        add: movie
+    }
+})

@@ -11,7 +11,7 @@ export default function CardExampleColumnCount() {
 
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState(stateUser.favorites);
 
     function deleteFavorite(id) {
         const updateArr = favorites.filter(element => element.id !== id)
@@ -22,9 +22,9 @@ export default function CardExampleColumnCount() {
     };
 
     useEffect(() => {
-        API.getUserFavorites(stateUser.id).then(res => {
-            setFavorites(res.data)
-        })
+        // API.getUserFavorites(stateUser.id).then(res => {
+        //     setFavorites(res.data)
+        // })
         console.log(stateUser)
     }, [])
 
@@ -34,21 +34,21 @@ export default function CardExampleColumnCount() {
                 : favorites.map(el => (
                     <Card >
                         {/* link href={`/film/id=${el.Movie.tmdbID}`} */}
-                        <div className={'ui fade reveal image'}>
+                        {/* <div className={'ui fade reveal image'}>
                             <Image src={el.Movie.image} className={'visible content'} />
-                            <Image src={el.Movie.image} className={'hidden content hiddenImg'} />
-                        </div>
-                        {/* <Image
+                            <Image src={el.Movie.image} className={'hidden content'} />
+                        </div> */}
+                        <Image
                             size='medium'
                             src={el.Movie.image}
-                        /> */}
-                        <Card.Content extra>
+                        />
+                        {/* <Card.Content extra> */}
                             <Button animated='fade' floated='right' onClick={() => deleteFavorite(el.id)}>
                                 <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                                <Button.Content hidden>Delete</Button.Content>
+                                <Button.Content hidden>Remove</Button.Content>
                             </Button>
                             {/* <Popup content='Add users to your feed' trigger={<Button icon='add' />} /> */}
-                        </Card.Content>
+                        {/* </Card.Content> */}
                     </Card>
                 ))
             }

@@ -31,6 +31,11 @@ export default function userReducer(state = {
                 ...state,
                 favorites: action.payload.userFavorites
             }
+        case 'ADD_FAVORITE':
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload.add]
+            }
         default:
             return state;
     }

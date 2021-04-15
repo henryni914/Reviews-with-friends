@@ -7,6 +7,7 @@ import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
 import MovieCard from '../components/MovieCard';
 import { setFilm, setReviews } from '../actions/movies'
+import { setUserFavorites } from '../actions/user';
 
 export default function MoviePage() {
 
@@ -17,6 +18,7 @@ export default function MoviePage() {
     const dispatch = useDispatch();
     const [results, setResults] = useState([]);
     const [related, setRelated] = useState([]);
+    const [favorite, setFavorite] = useState(false)
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
@@ -41,15 +43,15 @@ export default function MoviePage() {
     };
 
     function addToFavorite() {
-        // let hasFavorited = favorites.find(({ MovieId }) => MovieId === currentFilm)
+        // Checks to see if the user already has this movie in their favorites
+        // let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
 
         if (!stateUser.id) {
             console.log('no user logged in')
             return;
+        } else if (favorite) {
+            console.log('already')
         }
-        // else if (hasFavorited) {
-        //     console.log('the movie has already been favorited by the user')
-        // }
 
         let favoriteObj = {
             MovieId: filmDbId,
@@ -57,13 +59,28 @@ export default function MoviePage() {
         }
         // console.log(stateMovie)
         // console.log(favoriteObj)
+        // setFavorite(true)
         API.addUserFavorite(favoriteObj).then(res =>
-            console.log(res)
+            API.getUserFavorites(stateUser.id).then(favorites =>
+                dispatch(setUserFavorites(favorites.data)))
         )
+    }
+
+    function removeFavorite() {
+        // console.log(this.id)
+        console.log(stateUser.favorites)
+        const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
+        console.log(updateArr)
+        // setFavorite(false)
     }
 
     useEffect(() => {
         // console.log('starting new API call', currentFilm)
+        let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
+        if (hasFavorited){
+            console.log('users has already favorite this movie')
+            setFavorite(true)
+        }
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
             setRelated(res.data.similar.results.slice(0, 5))
@@ -87,7 +104,6 @@ export default function MoviePage() {
                 })
             })
         });
-
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [currentFilm]);
 
@@ -111,22 +127,24 @@ export default function MoviePage() {
                                     <p><a href={results.homepage} target="_blank">Official Website</a></p>
                                 )}
                             </>
-                            {/* <Popup
-                                trigger={<Button icon='add' />}
-                                content="The default theme's basic popup removes the pointing arrow."
-                                basic
-                            /> */}
-                            <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
-                                <Button icon>
-                                    {/* check here if user has "liked" this movie, color=red, if not no color */}
-                                    <Icon
-                                        name='heart'
-                                    // color='red' 
-                                    // color='blue'
-                                    />
-                                </Button>
+                            {/* check here if user has "liked" this movie, color=red, if not no color */}
+                            {favorite ?
+                                <Button as='div' labelPosition='right' floated='left' id={results.id} onClick={removeFavorite}>
+                                    <Button icon>
+                                        Remove
+                                        <Icon name='heart' color='red'/>
+                                    </Button>
 
-                            </Button>
+                                </Button>
+                                :
+                                <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
+                                    <Button icon>
+                                        Add
+                                        <Icon name='heart' />
+                                    </Button>
+                                </Button>
+                            }
+
                             <Button as='div' icon>
                                 <Icon
                                     name='plus'
