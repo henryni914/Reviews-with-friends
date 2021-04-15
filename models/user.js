@@ -3,6 +3,7 @@ module.exports = function (sequelize, DataTypes) {
         name: DataTypes.STRING,
         email: DataTypes.STRING,
         dateJoined: DataTypes.STRING,
+        nickname: DataTypes.STRING
     }, {
         timestamps: false
     });

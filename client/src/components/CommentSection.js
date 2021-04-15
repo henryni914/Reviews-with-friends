@@ -49,8 +49,8 @@ export default function CommentSection() {
     
         let replyObj = {
             post: text,
-            // createdAt: moment().format('MMMM Do YYYY'),
-            // updatedAt: moment().format('MMMM Do YYYY, h:mm:ss a')
+            createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+            updatedAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
             MovieId: movieId,
             UserId: stateUser.id,
         }

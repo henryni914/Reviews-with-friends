@@ -69,5 +69,8 @@ export default {
         return axios.get(`/api/favorite/user/` + id)
     },
 
-
+    // DB Watchlist functions
+    addToWatchList: function (obj) {
+        return axios.post(`/api/watchlist`, obj)
+    }
 };

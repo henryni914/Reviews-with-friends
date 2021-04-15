@@ -4,6 +4,8 @@ export default function userReducer(state = {
     id: "",
     email: "",
     name: "",
+    dateJoined: "",
+    nickname: "",
     picture: "",
     reviews: [],
     watchlist: [],
@@ -19,7 +21,8 @@ export default function userReducer(state = {
                 id: action.payload.id,    // don't have this yet, no DB id
                 email: action.payload.email,
                 name: action.payload.name,
-                // picture: action.payload.picture
+                dateJoined: action.payload.dateJoined,
+                nickname: action.payload.nickname
             }
         case 'SET_REVIEWS':
             return {

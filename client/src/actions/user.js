@@ -6,6 +6,8 @@ export const setUser = (user) => ({
         id: user.id,
         email: user.email,
         name: user.name,
+        dateJoined: user.dateJoined,
+        nickname: user.nickname
         // POSSIBLY MOVE BELOW TO DIFFERENT ACTION FUNCTIONS
         // picture: user.picture,
         // watchlist: user.watchlist, // need from DB

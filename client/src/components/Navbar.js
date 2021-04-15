@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, setUserReviews, setUserFavorites } from '../actions/user';
 import { updateSearch } from '../actions/movies'
 import API from '../utils/API';
+const moment = require('moment')
 
 export default function Nav() {
 
@@ -66,9 +67,9 @@ export default function Nav() {
       dispatch(setUser(res.data[0]))
       if (res.data[1] === false) {
         console.log('user already exists')
-        API.getUserReviews(res.data[0].id).then(reviews => 
+        API.getUserReviews(res.data[0].id).then(reviews =>
           dispatch(setUserReviews(reviews.data)))
-        API.getUserFavorites(res.data[0].id).then(favorites => 
+        API.getUserFavorites(res.data[0].id).then(favorites =>
           dispatch(setUserFavorites(favorites.data)))
       } else console.log('new user created')
       // console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
@@ -85,16 +86,22 @@ export default function Nav() {
       return;
     }
     if (user) {
-      // console.log('user: ' + JSON.stringify(user))
+      const userName = user.name
+      const userNick = capitalizeFirstLetter(userName.substr(0, userName.indexOf('@')))
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      };
       let userObj = {
         name: user.name,
-        email: user.email
+        email: user.email,
+        dateJoined: moment().format('MMMM Do YYYY'),
+        nickname: userNick
       };
       // userCheck(userObj)
+      console.log(userObj)
       findUserOrCreate(userObj)
     }
   }, [user]);
-  // console.log(`stateUser :`, stateUser)
 
   return (
     <>
