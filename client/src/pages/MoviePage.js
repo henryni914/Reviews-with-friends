@@ -66,7 +66,7 @@ export default function MoviePage() {
                 dispatch(setUserFavorites(favorites.data))
             })
         )
-    }
+    };
 
     function removeFavorite() {
         // array after removing favorite
@@ -77,7 +77,20 @@ export default function MoviePage() {
         dispatch(setUserFavorites(updateArr))
         setFavorite(false)
         setLike([])
-    }
+    };
+
+    function addToWatchlist() {
+        if (!stateUser.id) {
+            console.log('no user logged in')
+            return;
+        }
+        let obj = {
+            MovieId: filmDbId,
+            UserId: stateUser.id
+        }
+        console.log(obj)
+        // API.addToWatchList(obj).then(res => console.log(res))
+    };
 
     useEffect(() => {
         API.findByMovieId(currentFilm).then(res => {
@@ -93,7 +106,7 @@ export default function MoviePage() {
                 // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
                 // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
                 let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === res.data[0].id)
-                console.log(hasFavorited)
+                // console.log(hasFavorited)
                 if (hasFavorited) {
                     console.log('users has already favorite this movie')
                     setFavorite(true)
@@ -101,7 +114,7 @@ export default function MoviePage() {
                 } else setFavorite(false)
                 dispatch(setFilm(currentFilm, res.data[0].id))
                 if (res.data[1] === false) {
-                    // console.log('movie already exists')
+                    console.log('movie already exists')
                 } else console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
                     // console.log(res.data)
@@ -149,7 +162,7 @@ export default function MoviePage() {
                                 </Button>
                             }
 
-                            <Button as='div' icon>
+                            <Button as='div' icon onClick={addToWatchlist}>
                                 <Icon
                                     name='plus'
                                 // color='blue' 

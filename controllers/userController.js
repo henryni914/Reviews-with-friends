@@ -15,7 +15,9 @@ module.exports = {
         db.User.findOrCreate({
             where: {
                 email: req.body.email,
-                name: req.body.name
+                name: req.body.name,
+                dateJoined: req.body.dateJoined,
+                nickname: req.body.nickname
             }
         })
             .then(dbModel => res.json(dbModel))

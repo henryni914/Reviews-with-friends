@@ -13,7 +13,7 @@ export default function UserReviews() {
     const user = useSelector(state => state.user)
     const [reviews, setReviews] = useState(user.reviews)
     const [search, setSearch] = useState("");
-    // post = post db id
+    // post references the DB id of the review
     const [post, setPost] = useState("")
     const [text, setText] = useState("")
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
@@ -67,14 +67,10 @@ export default function UserReviews() {
 
         API.editMovieReview(id, edit).then(res => {
             dispatch(setUserReviews(updatedArr))
-            // console.log(res)
         }) 
     }
 
     const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
-
-    // console.log(reviews)
-    // searchArr.id = review db ID reference this when updating
 
     return (
 

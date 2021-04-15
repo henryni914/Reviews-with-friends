@@ -6,8 +6,6 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Favorite.associate = function (models) {
-    // Associating Favorite with Posts
-    // When an Favorite is deleted, also delete any associated Example2
     Favorite.belongsTo(models.User, {
       foreignKey: {
         allowNull: false

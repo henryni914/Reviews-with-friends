@@ -3,7 +3,11 @@ module.exports = function (sequelize, DataTypes) {
         post: {
             type: DataTypes.TEXT,
             allowNull: false,
-        }
+        },
+        createdAt: DataTypes.STRING,
+        updatedAt: DataTypes.STRING
+    }, {
+        timestamps: false
     });
     Review.associate = function (models) {
 
