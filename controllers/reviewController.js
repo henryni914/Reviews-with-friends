@@ -3,6 +3,7 @@ const db = require("../models")
 module.exports = {
 
     create: function (req, res) {
+        console.log(req.body)
         db.Review.create(req.body)
             .then(dbReview => res.json(dbReview))
             .catch(err => res.status(422).json(err));
@@ -26,6 +27,14 @@ module.exports = {
         })
             .then(dbReview => res.json(dbReview))
             .catch(err => res.status(422).json(err));
+    },
+    update: function (req, res) {
+        // console.log(req.body)
+        db.Review.update({post: req.body.post}, {
+            where: {
+                id: req.params.id
+            }
+        })
     },
     delete: function (req, res) {
         db.Review.destroy({

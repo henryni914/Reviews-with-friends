@@ -10,9 +10,12 @@ import API from '../utils/API';
 export default function UserReviews() {
 
     const dispatch = useDispatch();
-    const userReviews = useSelector(state => state.user.reviews)
-    const [reviews, setReviews] = useState(userReviews)
+    const user = useSelector(state => state.user)
+    const [reviews, setReviews] = useState(user.reviews)
     const [search, setSearch] = useState("");
+    // post = post db id
+    const [post, setPost] = useState("")
+    const [text, setText] = useState("")
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
 
     function handleInputChange(event) {
@@ -31,7 +34,47 @@ export default function UserReviews() {
         })
     };
 
+    // This function sets the ID to match with the review item, and renders a text field for that line, with the original post "text"
+    function editPost(id, text) {
+        setPost(id)
+        setText(text)
+    }
+
+    // When user clicks cancel, the review is set back to "" so there is no more text field
+    function cancelEdit(original) {
+        setPost("")
+        // setText(original)
+    }
+
+    // When user types in the text field while editing their review, this updates the state with the text in the text field
+    function handleEdit(event) {
+        setText(event.target.value);
+    }
+
+    // When user clicks save, the current text inside the text field is passed through as well as the ID that references the review's ID in the DB
+    function saveEdit(id) {
+        setPost("")
+        let edit = {
+            post: text
+        }
+        const reviewArr = reviews
+        const updatedArr = reviewArr.map (el => {
+            if (el.id === id){
+                el.post = text
+            }
+            return el;
+        })
+
+        API.editMovieReview(id, edit).then(res => {
+            dispatch(setUserReviews(updatedArr))
+            // console.log(res)
+        }) 
+    }
+
     const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
+
+    // console.log(reviews)
+    // searchArr.id = review db ID reference this when updating
 
     return (
 
@@ -54,65 +97,51 @@ export default function UserReviews() {
                                 alt={ele.Movie.title}
                             ></img>
                         </Link> */}
-                                <Item.Content>
-                                    <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                                        <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
-                                    </Link>
-                                    <Item.Meta>{ele.createdAt}</Item.Meta>
-                                    <Item.Description>
-                                        <p>{ele.post}</p>
-                                    </Item.Description>
-                                </Item.Content>
-                                <Button animated='fade' floated='right'>
-                                    <Button.Content visible><Icon name='edit outline' /></Button.Content>
-                                    <Button.Content hidden>Edit</Button.Content>
-                                </Button>
-                                <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
-                                    <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                                    <Button.Content hidden>Delete</Button.Content>
-                                </Button>
+                                {post === ele.id
+                                    ?
+                                    <Item.Content>
+                                        <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                            <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                        </Link>
+                                        <Item.Meta>{ele.createdAt}</Item.Meta>
+                                        <Form reply>
+                                            <Form.TextArea value={text} onChange={handleEdit} />
+                                            <Button content='Save' labelPosition='left' icon='edit' primary onClick={() => saveEdit(ele.id)} />
+                                            <Button content='Cancel' labelPosition='left' icon='edit' primary onClick={() => cancelEdit(ele.post)} />
+                                        </Form>
+                                    </Item.Content>
+                                    :
+                                    <>
+                                        <Item.Content>
+                                            <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                                <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                            </Link>
+                                            {ele.createdAt === ele.updatedAt && (
+                                                <Item.Meta><i>Posted: </i>{ele.createdAt}</Item.Meta>
+                                            )}
+                                            {ele.createdAt !== ele.updatedAt && (
+                                                <Item.Meta><i>Updated: </i>{ele.updatedAt}</Item.Meta>
+                                            )}
+                                            <Item.Description>
+                                                <p>{ele.post}</p>
+                                            </Item.Description>
+                                        </Item.Content>
+                                        <Button animated='fade' floated='right' onClick={() => editPost(ele.id, ele.post)}>
+                                            <Button.Content visible><Icon name='edit outline' /></Button.Content>
+                                            <Button.Content hidden>Edit</Button.Content>
+                                        </Button>
+                                        <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
+                                            <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
+                                            <Button.Content hidden>Delete</Button.Content>
+                                        </Button>
+                                    </>
+                                }
                             </Item>
                             <Divider section />
                         </>
                     ))
                 }
-            </Item.Group>
+            </Item.Group >
         </>
-        // <Item>
-        // {reviews.map(ele => {
-        //     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
-        //         (
-        //                 <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`} >
-        //                     <img
-        //                         class='search-img'
-        //                         src={posterUrl}
-        //                         alt={props.title}
-        //                     ></img>
-        //                 </Link>
-        //             )
-        //     })}
-        // </Item>
-        // <Feed>
-        //     {/* {reviews.map(ele => ( */}
-        //         <Feed.Event>
-        //             <Feed.Label>
-        //                 <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-        //             </Feed.Label>
-        //             <Feed.Content>
-        //                 <Feed.Summary>
-        //                     <Feed.User>Elliot Fu</Feed.User> added you as a friend
-        //                 <Feed.Date>
-        //                         1 Hour Ago
-        //                 </Feed.Date>
-        //                 </Feed.Summary>
-        //                 <Feed.Meta>
-        //                     <Feed.Like>
-        //                         <Icon name='like' />4 Likes
-        //                      </Feed.Like>
-        //                 </Feed.Meta>
-        //             </Feed.Content>
-        //         </Feed.Event>
-        //     {/* ))} */}
-        // </Feed>
     )
 }
