@@ -19,6 +19,7 @@ export default function MoviePage() {
     const [results, setResults] = useState([]);
     const [related, setRelated] = useState([]);
     const [favorite, setFavorite] = useState(false)
+    const [like, setLike] = useState([]);
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
@@ -43,14 +44,10 @@ export default function MoviePage() {
     };
 
     function addToFavorite() {
-        // Checks to see if the user already has this movie in their favorites
-        // let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
 
         if (!stateUser.id) {
             console.log('no user logged in')
             return;
-        } else if (favorite) {
-            console.log('already')
         }
 
         let favoriteObj = {
@@ -61,30 +58,31 @@ export default function MoviePage() {
         // console.log(favoriteObj)
         // setFavorite(true)
         API.addUserFavorite(favoriteObj).then(res =>
-            API.getUserFavorites(stateUser.id).then(favorites =>
-                dispatch(setUserFavorites(favorites.data)))
+            API.getUserFavorites(stateUser.id).then(favorites => {
+                let hasFavorited = favorites.data.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
+                // console.log(hasFavorited)
+                setFavorite(true)
+                setLike(hasFavorited)
+                dispatch(setUserFavorites(favorites.data))
+            })
         )
     }
 
     function removeFavorite() {
-        // console.log(this.id)
-        console.log(stateUser.favorites)
+        // array after removing favorite
         const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
-        console.log(updateArr)
-        // setFavorite(false)
+        // console.log(updateArr)
+        API.deleteFavorite(like.id).then(res => {
+        })
+        dispatch(setUserFavorites(updateArr))
+        setFavorite(false)
+        setLike([])
     }
 
     useEffect(() => {
-        // console.log('starting new API call', currentFilm)
-        let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
-        if (hasFavorited){
-            console.log('users has already favorite this movie')
-            setFavorite(true)
-        }
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
             setRelated(res.data.similar.results.slice(0, 5))
-            // console.log(res.data)
             setTab("overview")
             let movieObj = {
                 title: res.data.title,
@@ -94,9 +92,16 @@ export default function MoviePage() {
             API.findOrCreateMovie(movieObj).then(res => {
                 // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
                 // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
+                let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === res.data[0].id)
+                console.log(hasFavorited)
+                if (hasFavorited) {
+                    console.log('users has already favorite this movie')
+                    setFavorite(true)
+                    setLike(hasFavorited)
+                } else setFavorite(false)
                 dispatch(setFilm(currentFilm, res.data[0].id))
                 if (res.data[1] === false) {
-                    console.log('movie already exists')
+                    // console.log('movie already exists')
                 } else console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
                     // console.log(res.data)
@@ -128,18 +133,17 @@ export default function MoviePage() {
                                 )}
                             </>
                             {/* check here if user has "liked" this movie, color=red, if not no color */}
-                            {favorite ?
+                            {favorite === true ?
                                 <Button as='div' labelPosition='right' floated='left' id={results.id} onClick={removeFavorite}>
                                     <Button icon>
-                                        Remove
-                                        <Icon name='heart' color='red'/>
+                                        {/* Remove */}
+                                        <Icon name='heart' color='red' />
                                     </Button>
-
                                 </Button>
                                 :
                                 <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                     <Button icon>
-                                        Add
+                                        {/* Add */}
                                         <Icon name='heart' />
                                     </Button>
                                 </Button>
