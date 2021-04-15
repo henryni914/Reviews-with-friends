@@ -13,6 +13,9 @@ export default function UserReviews() {
     const userReviews = useSelector(state => state.user.reviews)
     const [reviews, setReviews] = useState(userReviews)
     const [search, setSearch] = useState("");
+    // post = post db id
+    const [post, setPost] = useState("")
+    const [text, setText] = useState("")
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
 
     function handleInputChange(event) {
@@ -31,7 +34,25 @@ export default function UserReviews() {
         })
     };
 
+    function editPost(id, text) {
+        setPost(id)
+        setText(text)
+        console.log(id, text)
+    }
+
+    function cancelEdit(original) {
+        setPost("")
+        // setText(original)
+    }
+
+    function handleEdit(event) {
+        setText(event.target.value);
+    }
+
     const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
+
+    console.log(text)
+    // searchArr.id = review db ID reference this when updating
 
     return (
 
@@ -54,65 +75,46 @@ export default function UserReviews() {
                                 alt={ele.Movie.title}
                             ></img>
                         </Link> */}
-                                <Item.Content>
-                                    <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                                        <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
-                                    </Link>
-                                    <Item.Meta>{ele.createdAt}</Item.Meta>
-                                    <Item.Description>
-                                        <p>{ele.post}</p>
-                                    </Item.Description>
-                                </Item.Content>
-                                <Button animated='fade' floated='right'>
-                                    <Button.Content visible><Icon name='edit outline' /></Button.Content>
-                                    <Button.Content hidden>Edit</Button.Content>
-                                </Button>
-                                <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
-                                    <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                                    <Button.Content hidden>Delete</Button.Content>
-                                </Button>
+                                {post === ele.id
+                                    ?
+                                    <Item.Content>
+                                        <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                            <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                        </Link>
+                                        <Item.Meta>{ele.createdAt}</Item.Meta>
+                                        <Form reply>
+                                            <Form.TextArea value={text} onChange={handleEdit} />
+                                            <Button content='Save' labelPosition='left' icon='edit' primary />
+                                            <Button content='Cancel' labelPosition='left' icon='edit' primary onClick={() => cancelEdit(ele.post)} />
+                                        </Form>
+                                    </Item.Content>
+                                    :
+                                    <>
+                                        <Item.Content>
+                                            <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                                <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                            </Link>
+                                            <Item.Meta>{ele.createdAt}</Item.Meta>
+                                            <Item.Description>
+                                                <p>{ele.post}</p>
+                                            </Item.Description>
+                                        </Item.Content>
+                                        <Button animated='fade' floated='right' onClick={() => editPost(ele.id, ele.post)}>
+                                            <Button.Content visible><Icon name='edit outline' /></Button.Content>
+                                            <Button.Content hidden>Edit</Button.Content>
+                                        </Button>
+                                        <Button animated='fade' floated='right' onClick={() => deleteReview(ele.id)}>
+                                            <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
+                                            <Button.Content hidden>Delete</Button.Content>
+                                        </Button>
+                                    </>
+                                }
                             </Item>
                             <Divider section />
                         </>
                     ))
                 }
-            </Item.Group>
+            </Item.Group >
         </>
-        // <Item>
-        // {reviews.map(ele => {
-        //     let posterUrl = ("https://image.tmdb.org/t/p/original" + props.poster)
-        //         (
-        //                 <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`} >
-        //                     <img
-        //                         class='search-img'
-        //                         src={posterUrl}
-        //                         alt={props.title}
-        //                     ></img>
-        //                 </Link>
-        //             )
-        //     })}
-        // </Item>
-        // <Feed>
-        //     {/* {reviews.map(ele => ( */}
-        //         <Feed.Event>
-        //             <Feed.Label>
-        //                 <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-        //             </Feed.Label>
-        //             <Feed.Content>
-        //                 <Feed.Summary>
-        //                     <Feed.User>Elliot Fu</Feed.User> added you as a friend
-        //                 <Feed.Date>
-        //                         1 Hour Ago
-        //                 </Feed.Date>
-        //                 </Feed.Summary>
-        //                 <Feed.Meta>
-        //                     <Feed.Like>
-        //                         <Icon name='like' />4 Likes
-        //                      </Feed.Like>
-        //                 </Feed.Meta>
-        //             </Feed.Content>
-        //         </Feed.Event>
-        //     {/* ))} */}
-        // </Feed>
     )
 }
