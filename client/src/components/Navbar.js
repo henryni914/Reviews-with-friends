@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import { useAuth0 } from '../utils/auth0context';
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from '../actions/user';
+import { setUser, setUserReviews, setUserFavorites } from '../actions/user';
 import { updateSearch } from '../actions/movies'
 import API from '../utils/API';
 
@@ -36,7 +36,7 @@ export default function Nav() {
       .catch(err => console.log(err));
   };
 
-  // //  Checks to see if user exists in DB. If not, add the user to the DB
+  // Checks to see if user exists in DB. If not, add the user to the DB
   // function userCheck(userInfo) {
   //   API.findAll().then(res => {
   //     // console.log('db res: ' + JSON.stringify(res.data))
@@ -64,8 +64,18 @@ export default function Nav() {
   function findUserOrCreate(userInfo) {
     API.findOrCreateUser(userInfo).then(res => {
       dispatch(setUser(res.data[0]))
+      if (res.data[1] === false) {
+        console.log('user already exists')
+        API.getUserReviews(res.data[0].id).then(reviews => 
+          dispatch(setUserReviews(reviews.data)))
+        API.getUserFavorites(res.data[0].id).then(favorites => 
+          dispatch(setUserFavorites(favorites.data)))
+      } else console.log('new user created')
       // console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
+      // GET USER REVIEWS, FAVORITES, WATCHLIST UPON LOGIN AND DISPATCH? 
+      // if done immediately upon login, all other components only need to retrieve from state, and update as well
       // API.getUserReviews(res.data[0].id).then(reviews => console.log(reviews))
+      // API.getUserFavorites(res.data[0].id).then(favorites => console.log(favorites))
     })
       .catch(err => console.log(err));
   };
@@ -75,19 +85,11 @@ export default function Nav() {
       return;
     }
     if (user) {
-      // dispatch(setUser(user))
       // console.log('user: ' + JSON.stringify(user))
       let userObj = {
         name: user.name,
         email: user.email
       };
-      // REGEX: Trim everything up to and including =
-
-      // var text = "john@aol.com";
-      // text = text.replace(/@.*$/, "");
-      // console.log(text);
-      // results = "john"
-
       // userCheck(userObj)
       findUserOrCreate(userObj)
     }

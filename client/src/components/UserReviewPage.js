@@ -14,8 +14,6 @@ export default function UserReviews() {
     const [reviews, setReviews] = useState(userReviews)
     const [search, setSearch] = useState("");
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
-    // console.log(reviews)
-    console.log(userReviews)
 
     function handleInputChange(event) {
         setSearch(event.target.value);
