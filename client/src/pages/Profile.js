@@ -60,10 +60,10 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        console.log('tab changing')
-        // API.getUserReviews(stateUser.id).then(reviews => {
-        //     dispatch(setUserReviews(reviews.data))
-        // })
+        // console.log('tab changing')
+        API.getUserReviews(stateUser.id).then(reviews => {
+            dispatch(setUserReviews(reviews.data))
+        })
     }, [tab])
 
     return (

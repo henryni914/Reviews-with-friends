@@ -22,10 +22,10 @@ export default function CardExampleColumnCount() {
     };
 
     useEffect(() => {
-        // API.getUserFavorites(stateUser.id).then(res => {
-        //     setFavorites(res.data)
-        // })
-        console.log(stateUser)
+        API.getUserFavorites(stateUser.id).then(res => {
+            setFavorites(res.data)
+            // dispatch(setUserFavorites(favorites.data))
+        })
     }, [])
 
     return (
