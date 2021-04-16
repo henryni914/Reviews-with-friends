@@ -81,5 +81,8 @@ export default {
     },
     getUserWatchlist: function (id) {
         return axios.get(`/api/watchlist/user/` + id)
+    },
+    editUserWatchlist: function (id, obj) {
+        return axios.put(`/api/watchlist/` + id, obj)
     }
 };
