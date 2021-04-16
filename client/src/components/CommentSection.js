@@ -64,7 +64,7 @@ export default function CommentSection() {
     }
 
     useEffect(() => {
-        // console.log(comments)
+        console.log(comments)
     }, [comments])
 
     return (
@@ -81,9 +81,10 @@ export default function CommentSection() {
                             {/* <Comment.Avatar src={el.userAvatar} /> */}
                             <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
                             <Comment.Content>
-                                <Comment.Author as='a'>{el.User.name}</Comment.Author>
+                                <Comment.Author as='a'>{el.User.nickname}</Comment.Author>
                                 <Comment.Metadata>
                                     {/* <div>Score {el.likes}</div> */}
+                                    <i>{el.createdAt}</i>
                                 </Comment.Metadata>
                                 <Comment.Text>{el.post}</Comment.Text>
                                 <Comment.Actions>
