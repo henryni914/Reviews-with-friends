@@ -44,6 +44,7 @@ export default function CardExampleColumnCount() {
                         <Image
                             size='medium'
                             src={el.Movie.image}
+                            alt={el.Movie.title}
                         />
                         <Button animated='fade' floated='right' onClick={() => deleteFavorite(el.id)}>
                             <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
