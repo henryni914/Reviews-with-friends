@@ -19,7 +19,9 @@ export default function MoviePage() {
     const [results, setResults] = useState([]);
     const [related, setRelated] = useState([]);
     const [favorite, setFavorite] = useState(false)
-    const [like, setLike] = useState([]);
+    const [favoriteId, setFavoriteId] = useState([]);
+    const [watch, setWatch] = useState(false);
+    const [watchId, setWatchId] = useState([]);
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
@@ -54,29 +56,29 @@ export default function MoviePage() {
             MovieId: filmDbId,
             UserId: stateUser.id
         }
-        // console.log(stateMovie)
-        // console.log(favoriteObj)
-        // setFavorite(true)
-        API.addUserFavorite(favoriteObj).then(res =>
+        API.addUserFavorite(favoriteObj).then(res => {
+            console.log(res.data)
+            setFavorite(true)
+            setFavoriteId(res.data)
             API.getUserFavorites(stateUser.id).then(favorites => {
-                let hasFavorited = favorites.data.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
+                // let hasFavorited = favorites.data.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
                 // console.log(hasFavorited)
-                setFavorite(true)
-                setLike(hasFavorited)
+                // setFavorite(true)
+                // setFavoriteId(hasFavorited)
                 dispatch(setUserFavorites(favorites.data))
             })
-        )
+        })
     };
 
     function removeFavorite() {
         // array after removing favorite
         const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
         // console.log(updateArr)
-        API.deleteFavorite(like.id).then(res => {
+        API.deleteFavorite(favoriteId.id).then(res => {
         })
         dispatch(setUserFavorites(updateArr))
         setFavorite(false)
-        setLike([])
+        setFavoriteId([])
     };
 
     function addToWatchlist() {
@@ -89,8 +91,17 @@ export default function MoviePage() {
             UserId: stateUser.id
         }
         console.log(obj)
-        // API.addToWatchList(obj).then(res => console.log(res))
+        API.addToWatchList(obj).then(res => {
+            console.log(res)
+            setWatch(true)
+            setWatchId(res.data)
+        })
     };
+
+    function removeFromWatchlist() {
+        // const updateArr = stateUser.watchlist.filter(ele => ele.MovieId !== filmDbId)
+        // console.log(updateArr)
+    }
 
     useEffect(() => {
         API.findByMovieId(currentFilm).then(res => {
@@ -110,7 +121,7 @@ export default function MoviePage() {
                 if (hasFavorited) {
                     console.log('users has already favorite this movie')
                     setFavorite(true)
-                    setLike(hasFavorited)
+                    setFavoriteId(hasFavorited)
                 } else setFavorite(false)
                 dispatch(setFilm(currentFilm, res.data[0].id))
                 if (res.data[1] === false) {
@@ -123,6 +134,7 @@ export default function MoviePage() {
             })
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })
+        // console.log(stateUser)
     }, [currentFilm]);
 
     return (
@@ -161,16 +173,19 @@ export default function MoviePage() {
                                     </Button>
                                 </Button>
                             }
-
-                            <Button as='div' icon onClick={addToWatchlist}>
-                                <Icon
-                                    name='plus'
-                                // color='blue' 
-                                />
-                                {/* if included in user watchlist, text should change to "Added" or something to reflect  */}
+                            {watch === true ?
+                                <Button as='div' icon onClick={removeFromWatchlist}>
+                                    <Icon name='plus' color='blue' />
                                      Watchlist
-                                     {/* Already in watchlist */}
-                            </Button>
+                                </Button>
+
+                                :
+                                <Button as='div' icon onClick={addToWatchlist}>
+                                    <Icon name='plus' color='blue' />
+                                    Watchlist
+                                </Button>
+                            }
+
                             <br />
                             {results.genres && (
                                 <>

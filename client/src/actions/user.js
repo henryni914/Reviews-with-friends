@@ -28,11 +28,19 @@ export const setUserFavorites = (favorites) => ({
     payload: {
         userFavorites: favorites
     }
-})
+});
+
+export const setUserWatchlist = (watchlist) => ({
+    type: 'SET_WATCHLIST',
+    payload: {
+        userWatchlist: watchlist
+    }
+});
 
 export const addUserFavorite = (movie) => ({
     type: 'ADD_FAVORITE',
     payload: {
         add: movie
     }
-})
+});
+

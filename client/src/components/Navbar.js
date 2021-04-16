@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import { useAuth0 } from '../utils/auth0context';
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, setUserReviews, setUserFavorites } from '../actions/user';
+import { setUser, setUserReviews, setUserFavorites, setUserWatchlist } from '../actions/user';
 import { updateSearch } from '../actions/movies'
 import API from '../utils/API';
 const moment = require('moment')
@@ -71,6 +71,8 @@ export default function Nav() {
           dispatch(setUserReviews(reviews.data)))
         API.getUserFavorites(res.data[0].id).then(favorites =>
           dispatch(setUserFavorites(favorites.data)))
+        API.getUserWatchlist(res.data[0].id).then(watchlist => 
+          dispatch(setUserWatchlist(watchlist.data)))
       } else console.log('new user created')
       // console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
       // GET USER REVIEWS, FAVORITES, WATCHLIST UPON LOGIN AND DISPATCH? 

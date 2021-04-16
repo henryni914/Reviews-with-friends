@@ -72,5 +72,8 @@ export default {
     // DB Watchlist functions
     addToWatchList: function (obj) {
         return axios.post(`/api/watchlist`, obj)
+    },
+    getUserWatchlist: function (id) {
+        return axios.get(`/api/watchlist/user/` + id)
     }
 };
