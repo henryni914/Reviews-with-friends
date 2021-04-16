@@ -64,7 +64,7 @@ export default function CommentSection() {
     }
 
     useEffect(() => {
-        console.log(comments)
+        // console.log(comments)
     }, [comments])
 
     return (

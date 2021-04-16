@@ -35,6 +35,9 @@ export default {
     findOrCreateUser: function (user) {
         return axios.post(`/api/user`, user)
     },
+    updateUserNickname: function (id, nick) {
+        return axios.put(`/api/user/info/` + id, nick)
+    },
 
     // DB Movie functions
     findOrCreateMovie: function (movie) {
