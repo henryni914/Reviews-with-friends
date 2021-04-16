@@ -9,7 +9,8 @@ router
     // .route("/:id")
     // .delete(watchlistController.delete)
 
-// router
-//     .route("/user/:id")
+    router
+    .route("/user/:id")
+    .get(watchlistController.findUserWatchlist)
 
 module.exports = router;

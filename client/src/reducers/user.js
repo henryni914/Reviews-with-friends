@@ -39,6 +39,11 @@ export default function userReducer(state = {
                 ...state,
                 favorites: [...state.favorites, action.payload.add]
             }
+        case 'SET_WATCHLIST':
+            return {
+                ...state,
+                watchlist: action.payload.userWatchlist
+            }
         default:
             return state;
     }
