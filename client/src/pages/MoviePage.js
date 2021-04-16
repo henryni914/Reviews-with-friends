@@ -7,7 +7,7 @@ import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
 import MovieCard from '../components/MovieCard';
 import { setFilm, setReviews } from '../actions/movies'
-import { setUserFavorites } from '../actions/user';
+import { setUserFavorites, setUserWatchlist } from '../actions/user';
 
 export default function MoviePage() {
 
@@ -57,7 +57,6 @@ export default function MoviePage() {
             UserId: stateUser.id
         }
         API.addUserFavorite(favoriteObj).then(res => {
-            console.log(res.data)
             setFavorite(true)
             setFavoriteId(res.data)
             API.getUserFavorites(stateUser.id).then(favorites => {
@@ -90,17 +89,25 @@ export default function MoviePage() {
             MovieId: filmDbId,
             UserId: stateUser.id
         }
-        console.log(obj)
         API.addToWatchList(obj).then(res => {
-            console.log(res)
             setWatch(true)
             setWatchId(res.data)
+            API.getUserWatchlist(stateUser.id).then(watchlist => {
+                dispatch(setUserWatchlist(watchlist.data))
+            })
         })
     };
 
     function removeFromWatchlist() {
-        // const updateArr = stateUser.watchlist.filter(ele => ele.MovieId !== filmDbId)
+        const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
         // console.log(updateArr)
+        console.log(watchId)
+        API.deleteWatchlist(watchId.id).then(res => {
+            console.log(res);
+        })
+        dispatch(setUserWatchlist(updateArr))
+        setWatch(false)
+        setWatchId([])
     }
 
     useEffect(() => {
@@ -117,12 +124,20 @@ export default function MoviePage() {
                 // res.data has length of 2 (index[0] = db info, index[1] = true/false if created)
                 // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
                 let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === res.data[0].id)
-                // console.log(hasFavorited)
                 if (hasFavorited) {
-                    console.log('users has already favorite this movie')
+                    // console.log('users has already favorite this movie')
                     setFavorite(true)
                     setFavoriteId(hasFavorited)
                 } else setFavorite(false)
+
+                let hasInWatch = stateUser.watchlist.find(({MovieId}) => MovieId === res.data[0].id)
+                console.log(hasInWatch)
+                if (hasInWatch) {
+                    console.log('user has this in watchlist')
+                    setWatch(true)
+                    setWatchId(hasInWatch)
+                } else setWatch(false)
+
                 dispatch(setFilm(currentFilm, res.data[0].id))
                 if (res.data[1] === false) {
                     console.log('movie already exists')
@@ -135,6 +150,7 @@ export default function MoviePage() {
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })
         // console.log(stateUser)
+        // console.log(watchId)
     }, [currentFilm]);
 
     return (
@@ -181,7 +197,7 @@ export default function MoviePage() {
 
                                 :
                                 <Button as='div' icon onClick={addToWatchlist}>
-                                    <Icon name='plus' color='blue' />
+                                    <Icon name='plus' />
                                     Watchlist
                                 </Button>
                             }
