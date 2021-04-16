@@ -53,9 +53,17 @@ export default function TabPane(props) {
         dispatch(setUserWatchlist(updateArr))
         setMovies(updateArr)
     };
-    // console.log(movies)
 
-
+    // When user presses button, find matching id in watchlist and delete from db
+    function deleteWatchlist(id) {
+        const movieArr = movies
+        const updateArr = movieArr.filter(el => el.id !== id)
+        API.deleteWatchlist(id).then(res => {
+            console.log(res)
+        })
+        dispatch(setUserWatchlist(updateArr))
+        setMovies(updateArr)
+    }
 
     return (
 
@@ -72,7 +80,7 @@ export default function TabPane(props) {
                                         src={el.Movie.image}
                                     />
                                     <Button content='Add to finished' labelPosition='left' icon='edit' primary onClick={() => setCompletedTrue(el.id)} />
-                                    <Button content='Remove' labelPosition='left' icon='edit' primary />
+                                    <Button content='Remove' labelPosition='left' icon='edit' primary onClick={() => deleteWatchlist(el.id)} />
                                 </Card>
                             ))
                             :
@@ -83,7 +91,7 @@ export default function TabPane(props) {
                                         src={el.Movie.image}
                                     />
                                     <Button content='Move back to incomplete' labelPosition='left' icon='edit' primary onClick={() => setCompletedFalse(el.id)} />
-                                    <Button content='Remove' labelPosition='left' icon='edit' primary />
+                                    <Button content='Remove' labelPosition='left' icon='edit' primary onClick={() => deleteWatchlist(el.id)} />
 
                                 </Card>
                             ))
@@ -91,21 +99,6 @@ export default function TabPane(props) {
         </Card.Group>
     )
 }
-
-
-{/* {props.tab === 'completed' && (
-                                        <>
-                                            <Button content='Move back to incomplete' labelPosition='left' icon='edit' primary />
-                                            <Button content='Remove' labelPosition='left' icon='edit' primary />
-                                        </>
-                                    )} */}
-
-{/* {props.tab === 'watchlist' && (
-                                        <>
-                                            <Button content='Undo completed' labelPosition='left' icon='edit' primary id={el.id} />
-                                            <Button content='Remove' labelPosition='left' icon='edit' primary />
-                                        </>
-                                    )} */}
 
 {/* <Button animated='fade' >
                                 <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
