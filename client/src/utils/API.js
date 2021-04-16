@@ -29,8 +29,8 @@ export default {
     deleteUser: function (id) {
         return axios.delete(`/api/user/` + id)
     },
-    updateUser: function (id) {
-        return axios.put(`/api/user/` + id)
+    updateUser: function (id, obj) {
+        return axios.put(`/api/user/` + id, obj)
     },
     findOrCreateUser: function (user) {
         return axios.post(`/api/user`, user)
@@ -51,8 +51,8 @@ export default {
     deleteMovieReview: function (id) {
         return axios.delete(`/api/review/` + id)
     },
-    editMovieReview: function(id, review) {
-        return axios.put(`/api/review/`+ id, review)
+    editMovieReview: function (id, review) {
+        return axios.put(`/api/review/` + id, review)
     },
     getUserReviews: function (id) {
         return axios.get(`/api/review/user/` + id)

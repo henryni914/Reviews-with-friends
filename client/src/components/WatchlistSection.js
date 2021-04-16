@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Confirm, Tab } from 'semantic-ui-react'
+import { Button, Confirm, Container, Menu, Segment } from 'semantic-ui-react'
 import API from '../utils/API';
-import TabPane from './TabPane';
+import Tab from './WatchlistTab';
 
 export default function Watchlist() {
 
@@ -11,6 +11,7 @@ export default function Watchlist() {
     const [list, setList] = useState(stateUser.watchlist);
     const [notCompleted, setNotCompleted] = useState([]);
     const [completed, setCompleted] = useState([]);
+    const tabs = ["watchlist", "completed"];
     const [tab, setTab] = useState('watchlist')
 
     function runFilters() {
@@ -23,26 +24,43 @@ export default function Watchlist() {
     // filter an array if 'completed' field is true and pass to completed tab
     // filter an array if 'complete field is false and pass to watchlist tab
 
-    const panes = [
-        {
-            menuItem: 'Watchlist',
-            render: () => <TabPane tab='watchlist' movies={notCompleted} />,
-        },
-        {
-            menuItem: 'Completed',
-            render: () => <TabPane tab='completed' movies={completed} />
-        }
-    ]
+    const handleTabChange = page => {
+        setTab(page)
+    };
 
-    useEffect(()=> {
+    const renderComponent = tab => {
+        switch (tab) {
+            case "watchlist": {
+                return <Tab tab={tab} movies={notCompleted}/>
+            }
+            case "completed": {
+                return <Tab tab={tab} movies={completed}/>
+            }
+        }
+    };
+
+    useEffect(() => {
         runFilters()
-    },[])
+    }, [tab])
 
     return (
-        <Tab menu={{ pointing: true }} panes={panes} />
+
+        <Container>
+            <Menu pointing>
+                {tabs.map(ele => (
+                    <Menu.Item
+                        name={ele}
+                        active={tab === ele}
+                        onClick={() => handleTabChange(ele)}
+                    />
+                ))}
+            </Menu>
+            <Segment attached='bottom'>
+                {renderComponent(tab)}
+            </Segment>
+        </Container>
     )
 }
-
 
 // function addToWatchlist() {
 //     if (!stateUser.id) {

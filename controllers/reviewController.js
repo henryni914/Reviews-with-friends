@@ -30,7 +30,9 @@ module.exports = {
     },
     update: function (req, res) {
         // console.log(req.body)
-        db.Review.update({post: req.body.post}, {
+        db.Review.update({
+            post: req.body.post
+        }, {
             where: {
                 id: req.params.id
             }
@@ -45,5 +47,4 @@ module.exports = {
             .then(dbReview => res.json(dbReview))
             .catch(err => res.status(422).json(err));
     }
-
 }

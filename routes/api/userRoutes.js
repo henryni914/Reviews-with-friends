@@ -16,4 +16,8 @@ router
   // .post();
   .delete(userController.delete)
 
+  router
+  .route("/info/:id")
+  .put(userController.updateNickname)
+
 module.exports = router;
