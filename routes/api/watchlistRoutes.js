@@ -5,9 +5,9 @@ router
     .route("/")
     .post(watchlistController.create)
 
-// router
-    // .route("/:id")
-    // .delete(watchlistController.delete)
+router
+    .route("/:id")
+    .delete(watchlistController.delete)
 
     router
     .route("/user/:id")

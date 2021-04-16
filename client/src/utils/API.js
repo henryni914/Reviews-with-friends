@@ -73,6 +73,9 @@ export default {
     addToWatchList: function (obj) {
         return axios.post(`/api/watchlist`, obj)
     },
+    deleteWatchlist: function (id) {
+        return axios.delete(`/api/watchlist/` + id)
+    },
     getUserWatchlist: function (id) {
         return axios.get(`/api/watchlist/user/` + id)
     }

@@ -15,5 +15,12 @@ module.exports = {
         })
             .then(results => res.json(results))
             .catch(err => res.status(422).json(err))
+    },
+    delete: function (req, res) {
+        db.Watchlist.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
     }
 }
