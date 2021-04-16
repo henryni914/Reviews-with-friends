@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Confirm, Container, Menu, Segment } from 'semantic-ui-react'
+import React, { useState } from 'react';
+import { Container, Menu, Segment } from 'semantic-ui-react'
 import API from '../utils/API';
 import Tab from './WatchlistTab';
 

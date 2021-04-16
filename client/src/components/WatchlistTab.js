@@ -4,7 +4,7 @@ import { Button, Card, Icon, Image, Tab } from 'semantic-ui-react';
 import { setUserWatchlist } from '../actions/user'
 
 export default function TabPane(props) {
-    // console.log(props.movies)
+
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user);
     const [movies, setMovies] = useState(stateUser.watchlist);
@@ -13,15 +13,13 @@ export default function TabPane(props) {
         if (el.completed === false) {
             return el
         }
-    })
-    // console.log(notCompleted)
+    });
 
     const completed = movies.filter(el => {
         if (el.completed === true) {
             return el
         }
-    })
-    // console.log(completed)
+    });
 
     function setCompletedTrue(id) {
         const movieArr = movies
@@ -33,11 +31,9 @@ export default function TabPane(props) {
         })
         dispatch(setUserWatchlist(updateArr))
         setMovies(updateArr)
-    }
+    };
 
     function setCompletedFalse(id) {
-        console.log('test')
-        console.log(id)
         const movieArr = movies
         const updateArr = movieArr.map(el => {
             if (el.id === id) {
@@ -47,7 +43,7 @@ export default function TabPane(props) {
         })
         dispatch(setUserWatchlist(updateArr))
         setMovies(updateArr)
-    }
+    };
     // console.log(movies)
 
 
