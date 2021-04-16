@@ -81,6 +81,7 @@ export default function TabPane(props) {
                                     <Image
                                         size='medium'
                                         src={el.Movie.image}
+                                        alt={el.Movie.title}
                                     />
                                     <Button content='Completed?' labelPosition='left' icon='check' onClick={() => setCompletedTrue(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />

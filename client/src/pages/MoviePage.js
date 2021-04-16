@@ -130,7 +130,8 @@ export default function MoviePage() {
                     setFavoriteId(hasFavorited)
                 } else setFavorite(false)
 
-                let hasInWatch = stateUser.watchlist.find(({MovieId}) => MovieId === res.data[0].id)
+                // Checks to see if the current movie is in the user's watchlist, if found, setWatch to true and setWatchId = the found movie in the watchlist (the id is referenced to delete from db)
+                let hasInWatch = stateUser.watchlist.find(({ MovieId }) => MovieId === res.data[0].id)
                 console.log(hasInWatch)
                 if (hasInWatch) {
                     console.log('user has this in watchlist')
@@ -150,7 +151,6 @@ export default function MoviePage() {
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })
         // console.log(stateUser)
-        // console.log(watchId)
     }, [currentFilm]);
 
     return (
@@ -184,20 +184,20 @@ export default function MoviePage() {
                                 :
                                 <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                     <Button icon>
-                                        {/* Add */}
                                         <Icon name='heart' />
+                                        {" Add"}
                                     </Button>
                                 </Button>
                             }
                             {watch === true ?
                                 <Button as='div' icon onClick={removeFromWatchlist}>
-                                    <Icon name='plus' color='blue' />
-                                     Watchlist
+                                    <Icon name='remove' color='red' />
+                                     {" Remove from watchlist"}
                                 </Button>
 
                                 :
                                 <Button as='div' icon onClick={addToWatchlist}>
-                                    <Icon name='plus' />
+                                    <Icon name='plus' color='blue' />
                                     Watchlist
                                 </Button>
                             }
