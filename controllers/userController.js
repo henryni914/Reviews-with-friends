@@ -15,9 +15,7 @@ module.exports = {
         db.User.findOrCreate({
             where: {
                 email: req.body.email,
-                name: req.body.name,
-                dateJoined: req.body.dateJoined,
-                nickname: req.body.nickname
+                name: req.body.name
             }
         })
             .then(dbModel => res.json(dbModel))
@@ -29,7 +27,21 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
-        db.User.update({ lastName: "Doe" }, {
+        db.User.update({
+            dateJoined: req.body.dateJoined,
+            nickname: req.body.nickname
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+    updateNickname: function (req, res) {
+        db.User.update({
+            nickname: req.body.nickname
+        }, {
             where: {
                 id: req.params.id
             }

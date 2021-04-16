@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Confirm, Tab } from 'semantic-ui-react'
+import { Button, Confirm, Container, Menu, Segment } from 'semantic-ui-react'
 import API from '../utils/API';
-import TabPane from './TabPane';
+import Tab from './WatchlistTab';
 
 export default function Watchlist() {
 
@@ -11,38 +11,68 @@ export default function Watchlist() {
     const [list, setList] = useState(stateUser.watchlist);
     const [notCompleted, setNotCompleted] = useState([]);
     const [completed, setCompleted] = useState([]);
+    const tabs = ["watchlist", "completed"];
     const [tab, setTab] = useState('watchlist')
-
-    function runFilters() {
-        const filterNotCompleted = list.filter(ele => ele.completed === false);
-        setNotCompleted(filterNotCompleted)
-        const filterCompleted = list.filter(ele => ele.completed === true);
-        setCompleted(filterCompleted)
-    }
 
     // filter an array if 'completed' field is true and pass to completed tab
     // filter an array if 'complete field is false and pass to watchlist tab
 
-    const panes = [
-        {
-            menuItem: 'Watchlist',
-            render: () => <TabPane tab='watchlist' movies={notCompleted} />,
-        },
-        {
-            menuItem: 'Completed',
-            render: () => <TabPane tab='completed' movies={completed} />
-        }
-    ]
+    const handleTabChange = page => {
+        setTab(page)
+        // if (page === "watchlist") {
+        //     const filterNotCompleted = list.filter(ele => ele.completed === false);
+        //     setNotCompleted(filterNotCompleted)
+        //     // console.log('watchlist')
+        // } else if (page === "completed") {
+        //     const filterCompleted = list.filter(ele => ele.completed === true);
+        //     setCompleted(filterCompleted)
+        //     // console.log('completed')
+        // }
+    };
 
-    useEffect(()=> {
-        runFilters()
-    },[])
+    const renderComponent = tab => {
+        switch (tab) {
+            case "watchlist": {
+                return <Tab tab={tab} />
+            }
+            case "completed": {
+                return <Tab tab={tab} />
+            }
+        }
+    };
+
+    // useEffect(() => {
+    //     // console.log('running')
+    //     const filterNotCompleted = list.filter(ele => ele.completed === false);
+    //     setNotCompleted(filterNotCompleted)
+    //     // const testArr = list.map(el => {
+    //     //     if (el.id === 9) {
+    //     //         el.completed = true
+    //     //     }
+    //     //     return el
+    //     // })
+    //     // console.log(testArr)
+    // }, [tab])
+
 
     return (
-        <Tab menu={{ pointing: true }} panes={panes} />
+
+        <Container>
+            <Menu pointing>
+                {tabs.map(ele => (
+                    <Menu.Item
+                        name={ele}
+                        active={tab === ele}
+                        onClick={() => handleTabChange(ele)}
+                    />
+                ))}
+            </Menu>
+            <Segment attached='bottom'>
+                {renderComponent(tab)}
+            </Segment>
+        </Container>
     )
 }
-
 
 // function addToWatchlist() {
 //     if (!stateUser.id) {

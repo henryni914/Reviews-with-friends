@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import { useAuth0 } from '../utils/auth0context';
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, setUserReviews, setUserFavorites, setUserWatchlist } from '../actions/user';
+import { setUser, setUserReviews, setUserFavorites, setUserWatchlist, setNicknameAndJoin } from '../actions/user';
 import { updateSearch } from '../actions/movies'
 import API from '../utils/API';
 const moment = require('moment')
@@ -71,14 +71,24 @@ export default function Nav() {
           dispatch(setUserReviews(reviews.data)))
         API.getUserFavorites(res.data[0].id).then(favorites =>
           dispatch(setUserFavorites(favorites.data)))
-        API.getUserWatchlist(res.data[0].id).then(watchlist => 
+        API.getUserWatchlist(res.data[0].id).then(watchlist =>
           dispatch(setUserWatchlist(watchlist.data)))
-      } else console.log('new user created')
-      // console.log(`findOrCreate res: ` + JSON.stringify(res.data[0]))
-      // GET USER REVIEWS, FAVORITES, WATCHLIST UPON LOGIN AND DISPATCH? 
-      // if done immediately upon login, all other components only need to retrieve from state, and update as well
-      // API.getUserReviews(res.data[0].id).then(reviews => console.log(reviews))
-      // API.getUserFavorites(res.data[0].id).then(favorites => console.log(favorites))
+      } else {
+        console.log('new user created')
+        const userName = res.data[0].name
+        const userNick = capitalizeFirstLetter(userName.substr(0, userName.indexOf('@')))
+        function capitalizeFirstLetter(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        };
+        let updateObj = {
+          dateJoined: moment().format('MMMM Do YYYY'),
+          nickname: userNick
+        }
+        API.updateUser(res.data[0].id, updateObj).then(res => {
+          dispatch(setNicknameAndJoin(updateObj))
+          // console.log(res.data)
+        })
+      }
     })
       .catch(err => console.log(err));
   };
@@ -88,19 +98,12 @@ export default function Nav() {
       return;
     }
     if (user) {
-      const userName = user.name
-      const userNick = capitalizeFirstLetter(userName.substr(0, userName.indexOf('@')))
-      function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      };
+
       let userObj = {
         name: user.name,
-        email: user.email,
-        dateJoined: moment().format('MMMM Do YYYY'),
-        nickname: userNick
+        email: user.email
       };
       // userCheck(userObj)
-      console.log(userObj)
       findUserOrCreate(userObj)
     }
   }, [user]);
