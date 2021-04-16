@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, Icon, Image, Tab } from 'semantic-ui-react';
-import { setUserWatchlist } from '../actions/user'
+import { setUserWatchlist } from '../actions/user';
+import API from '../utils/API';
 
 export default function TabPane(props) {
 
@@ -21,6 +22,7 @@ export default function TabPane(props) {
         }
     });
 
+    // When user presses button, find matching id in watchlist and set completed = true
     function setCompletedTrue(id) {
         const movieArr = movies
         const updateArr = movieArr.map(el => {
@@ -29,10 +31,14 @@ export default function TabPane(props) {
             }
             return el
         })
+        API.editUserWatchlist(id, { completed: true }).then(res => {
+            console.log(res)
+        })
         dispatch(setUserWatchlist(updateArr))
         setMovies(updateArr)
     };
 
+    // When user presses button, find matching id in watchlist and set completed = false
     function setCompletedFalse(id) {
         const movieArr = movies
         const updateArr = movieArr.map(el => {
@@ -40,6 +46,9 @@ export default function TabPane(props) {
                 el.completed = false
             }
             return el
+        })
+        API.editUserWatchlist(id, { completed: false }).then(res => {
+            console.log(res)
         })
         dispatch(setUserWatchlist(updateArr))
         setMovies(updateArr)
@@ -57,7 +66,7 @@ export default function TabPane(props) {
                         : props.tab === 'watchlist'
                             ?
                             notCompleted.map(el => (
-                                <Card >
+                                <Card key={el.id}>
                                     <Image
                                         size='medium'
                                         src={el.Movie.image}
@@ -68,7 +77,7 @@ export default function TabPane(props) {
                             ))
                             :
                             completed.map(el => (
-                                <Card >
+                                <Card key={el.id}>
                                     <Image
                                         size='medium'
                                         src={el.Movie.image}

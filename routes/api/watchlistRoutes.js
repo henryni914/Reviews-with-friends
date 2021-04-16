@@ -8,6 +8,7 @@ router
 router
     .route("/:id")
     .delete(watchlistController.delete)
+    .put(watchlistController.editUserWatchlist)
 
     router
     .route("/user/:id")
