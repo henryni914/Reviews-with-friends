@@ -16,6 +16,15 @@ export default {
     findProviders: function (id) {
         return axios.get(`https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${tmdbAPI}`)
     },
+    upcomingMovies: function () {
+        return axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbAPI}&language=en-US&page=1`)
+    },
+    topRatedMovies: function () {
+        return axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${tmdbAPI}&language=en-US&page=1`)
+    },
+    nowPlayingMovies: function () {
+        return axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${tmdbAPI}&language=en-US&page=1`)
+    }
 
 
     // DB User functions
