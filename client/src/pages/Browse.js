@@ -89,7 +89,7 @@ export default function Browse() {
                     ))}
                     <Pagination
                         className={'pagination'}
-                        defaultActivePage={1}
+                        // defaultActivePage={1}
                         activePage={upcomingPage}
                         firstItem={null}
                         lastItem={null}
@@ -115,7 +115,7 @@ export default function Browse() {
                 ))}
                 <Pagination
                     className={'pagination'}
-                    defaultActivePage={1}
+                    // defaultActivePage={1}
                     activePage={topRatedPage}
                     firstItem={null}
                     lastItem={null}
@@ -139,7 +139,7 @@ export default function Browse() {
                 ))}
                 <Pagination
                     className={'pagination'}
-                    defaultActivePage={1}
+                    // defaultActivePage={1}
                     activePage={nowPlayingPage}
                     firstItem={null}
                     lastItem={null}

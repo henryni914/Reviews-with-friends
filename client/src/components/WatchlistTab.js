@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Card, Icon, Image, Tab } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Card, Icon, Image, Reveal } from 'semantic-ui-react';
 import { setUserWatchlist } from '../actions/user';
 import API from '../utils/API';
 
@@ -78,11 +79,26 @@ export default function TabPane(props) {
                                     <Card.Header textAlign='center'>
                                         <i>{el.Movie.title}</i>
                                     </Card.Header>
-                                    <Image
-                                        size='medium'
-                                        src={el.Movie.image}
-                                        alt={el.Movie.title}
-                                    />
+                                    <Reveal animated='small fade'>
+                                        <Reveal.Content visible>
+                                            <Link to={`/film/id=${el.Movie.tmdbID}`}>
+                                                <Image
+                                                    size='medium'
+                                                    src={el.Movie.image}
+                                                    alt={el.Movie.title}
+                                                />
+                                            </Link>
+                                        </Reveal.Content>
+                                        <Reveal.Content hidden>
+                                            <Image
+                                                className='hiddenImg'
+                                                size='medium'
+                                                src={el.Movie.image}
+                                                alt={el.Movie.title}
+                                            />
+                                        </Reveal.Content>
+                                    </Reveal>
+
                                     <Button content='Completed?' labelPosition='left' icon='check' onClick={() => setCompletedTrue(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />
                                 </Card>
@@ -93,10 +109,25 @@ export default function TabPane(props) {
                                     <Card.Header textAlign='center'>
                                         <i>{el.Movie.title}</i>
                                     </Card.Header>
-                                    <Image
-                                        size='medium'
-                                        src={el.Movie.image}
-                                    />
+                                    <Reveal animated='small fade'>
+                                        <Reveal.Content visible>
+                                            <Link to={`/film/id=${el.Movie.tmdbID}`}>
+                                                <Image
+                                                    size='medium'
+                                                    src={el.Movie.image}
+                                                    alt={el.Movie.title}
+                                                />
+                                            </Link>
+                                        </Reveal.Content>
+                                        <Reveal.Content hidden>
+                                            <Image
+                                                className='hiddenImg'
+                                                size='medium'
+                                                src={el.Movie.image}
+                                                alt={el.Movie.title}
+                                            />
+                                        </Reveal.Content>
+                                    </Reveal>
                                     <Button content='Undo complete' labelPosition='left' icon='undo' onClick={() => setCompletedFalse(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />
 

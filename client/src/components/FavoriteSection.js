@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Card, Icon, Image,  Reveal } from 'semantic-ui-react';
+import { Button, Card, Icon, Image, Reveal } from 'semantic-ui-react';
 import { setUserFavorites } from '../actions/user';
 import API from '../utils/API';
 
@@ -26,6 +26,7 @@ export default function CardExampleColumnCount() {
             setFavorites(res.data)
             // dispatch(setUserFavorites(favorites.data))
         })
+        console.log(favorites)
     }, [])
 
     return (
@@ -41,11 +42,26 @@ export default function CardExampleColumnCount() {
                             <Image src={el.Movie.image} className={'visible content'} />
                             <Image src={el.Movie.image} className={'hidden content hiddenImg'}/>
                         </div> */}
-                        <Image
-                            size='medium'
-                            src={el.Movie.image}
-                            alt={el.Movie.title}
-                        />
+                        <Reveal animated='small fade'>
+                            <Reveal.Content visible>
+                                <Link to={`/film/id=${el.Movie.tmdbID}`}>
+                                    <Image
+                                        size='medium'
+                                        src={el.Movie.image}
+                                        alt={el.Movie.title}
+                                    />
+                                </Link>
+                            </Reveal.Content>
+                            <Reveal.Content hidden>
+                                    <Image
+                                        className='hiddenImg'
+                                        size='medium'
+                                        src={el.Movie.image}
+                                        alt={el.Movie.title}
+                                    />
+                            </Reveal.Content>
+                        </Reveal>
+
                         <Button animated='fade' floated='right' onClick={() => deleteFavorite(el.id)}>
                             <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
                             <Button.Content hidden>Remove</Button.Content>
