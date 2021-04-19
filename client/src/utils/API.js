@@ -24,7 +24,7 @@ export default {
     },
     nowPlayingMovies: function () {
         return axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${tmdbAPI}&language=en-US&page=1`)
-    }
+    },
 
 
     // DB User functions
