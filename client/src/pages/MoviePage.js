@@ -51,7 +51,6 @@ export default function MoviePage() {
             console.log('no user logged in')
             return;
         }
-
         let favoriteObj = {
             MovieId: filmDbId,
             UserId: stateUser.id
@@ -60,19 +59,13 @@ export default function MoviePage() {
             setFavorite(true)
             setFavoriteId(res.data)
             API.getUserFavorites(stateUser.id).then(favorites => {
-                // let hasFavorited = favorites.data.find(({ MovieId }) => MovieId === stateMovie.currentFilmId)
-                // console.log(hasFavorited)
-                // setFavorite(true)
-                // setFavoriteId(hasFavorited)
                 dispatch(setUserFavorites(favorites.data))
             })
         })
     };
 
     function removeFavorite() {
-        // array after removing favorite
         const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
-        // console.log(updateArr)
         API.deleteFavorite(favoriteId.id).then(res => {
         })
         dispatch(setUserFavorites(updateArr))
@@ -100,7 +93,6 @@ export default function MoviePage() {
 
     function removeFromWatchlist() {
         const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
-        // console.log(updateArr)
         console.log(watchId)
         API.deleteWatchlist(watchId.id).then(res => {
             console.log(res);
@@ -144,13 +136,11 @@ export default function MoviePage() {
                     console.log('movie already exists')
                 } else console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
-                    // console.log(res.data)
                     dispatch(setReviews(res.data))
                 })
             })
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })
-        // console.log(stateUser)
     }, [currentFilm]);
 
     return (
@@ -173,7 +163,6 @@ export default function MoviePage() {
                                     <p><a href={results.homepage} target="_blank">Official Website</a></p>
                                 )}
                             </>
-                            {/* check here if user has "liked" this movie, color=red, if not no color */}
                             {favorite === true ?
                                 <Button as='div' labelPosition='right' floated='left' id={results.id} onClick={removeFavorite}>
                                     <Button icon>

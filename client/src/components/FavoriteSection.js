@@ -54,22 +54,6 @@ export default function CardExampleColumnCount() {
                 ))
             }
         </Card.Group>
-        // <>
-        //     <Card.Group itemsPerRow={3}>
-        //         {favorites.length === 0 ? <h3>Add some movies to your favorites, by clicking the heart icon on the movie page.</h3>
-        //             : favorites.map(el => (
-        //                     <Reveal animated='small fade'>
-        //                         <Reveal.Content visible>
-        //                             <Image src={el.Movie.image} size='small' />
-        //                         </Reveal.Content>
-        //                         <Reveal.Content hidden>
-        //                             <Image src={el.Movie.image} size='small' />
-        //                         </Reveal.Content>
-        //                     </Reveal>
-        //             ))
-        //         }
-        //     </Card.Group>
-        // </>
     )
 }
 
