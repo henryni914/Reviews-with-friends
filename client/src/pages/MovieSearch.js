@@ -20,7 +20,7 @@ export default function MovieDisplay() {
 
     useEffect(() => {
         if (currentSearch !== search) {
-            console.log('different')
+            // console.log('different')
             API.searchMovies(currentSearch)
                 .then(res => {
                     dispatch(updateSearch(search, res.data.results))
@@ -55,7 +55,7 @@ export default function MovieDisplay() {
                         </Menu>
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <h3>Search results from "{currentSearch}"</h3>
+                        <h3>Search results from "{decodeURI(currentSearch)}"</h3>
                         {resultsArr.length < 1 ?
                             <h1>No results</h1>
                             :

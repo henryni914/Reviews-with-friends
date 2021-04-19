@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Container, Pagination } from 'semantic-ui-react';
+import { Card, Container, Dimmer, Image, Loader, Pagination, Segment } from 'semantic-ui-react';
 import MovieCard from '../components/MovieCard'
 import API from '../utils/API';
 
@@ -11,6 +11,7 @@ export default function Browse() {
         (upcomingPage - 1) * 5,
         (upcomingPage - 1) * 5 + 5
     )
+    const [loading, setLoading] = useState(false)
 
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [topRatedPage, setTopRatedPage] = useState(1);
@@ -46,6 +47,8 @@ export default function Browse() {
 
     function setUpcoming(event, { activePage }) {
         setUpcomingPage(activePage)
+        setLoading(true)
+        setTimeout(() => setLoading(false), 500)
     }
 
     function setTopRated(event, { activePage }) {
@@ -64,29 +67,38 @@ export default function Browse() {
 
     return (
         <Container className='browseContainer'>
+
             <h3 id="upcoming">Upcoming Movies...</h3>
-            <Card.Group itemsPerRow={5} stackable>
-                {displayUpcoming.map(element => (
-                    <MovieCard
-                        key={element.id}
-                        id={element.id}
-                        title={element.original_title}
-                        overview={element.overview}
-                        poster={element.poster_path}
-                        release={element.release_date}
+            <Segment>
+
+                <Card.Group itemsPerRow={5} stackable>
+                    {displayUpcoming.map(element => (
+                        <>
+                            <Dimmer active={loading}>
+                                <Loader>Loading</Loader>
+                            </Dimmer>
+                            <MovieCard
+                                key={element.id}
+                                id={element.id}
+                                title={element.original_title}
+                                overview={element.overview}
+                                poster={element.poster_path}
+                                release={element.release_date}
+                            />
+                        </>
+                    ))}
+                    <Pagination
+                        className={'pagination'}
+                        // defaultActivePage={1}
+                        activePage={upcomingPage}
+                        firstItem={null}
+                        lastItem={null}
+                        totalPages={4}
+                        onPageChange={setUpcoming}
+                        href="#upcoming"
                     />
-                ))}
-                <Pagination
-                    className={'pagination'}
-                    defaultActivePage={1}
-                    activePage={upcomingPage}
-                    firstItem={null}
-                    lastItem={null}
-                    totalPages={4}
-                    onPageChange={setUpcoming}
-                    href="#upcoming"
-                />
-            </Card.Group>
+                </Card.Group>
+            </Segment>
 
 
             <h3 id="topRated">Top Rated Movies...</h3>
@@ -103,7 +115,7 @@ export default function Browse() {
                 ))}
                 <Pagination
                     className={'pagination'}
-                    defaultActivePage={1}
+                    // defaultActivePage={1}
                     activePage={topRatedPage}
                     firstItem={null}
                     lastItem={null}
@@ -127,7 +139,7 @@ export default function Browse() {
                 ))}
                 <Pagination
                     className={'pagination'}
-                    defaultActivePage={1}
+                    // defaultActivePage={1}
                     activePage={nowPlayingPage}
                     firstItem={null}
                     lastItem={null}
