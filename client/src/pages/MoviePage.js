@@ -22,6 +22,7 @@ export default function MoviePage() {
     const [favoriteId, setFavoriteId] = useState([]);
     const [watch, setWatch] = useState(false);
     const [watchId, setWatchId] = useState([]);
+    const [likes, setLikes] = useState(0)
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
@@ -58,6 +59,7 @@ export default function MoviePage() {
         API.addUserFavorite(favoriteObj).then(res => {
             setFavorite(true)
             setFavoriteId(res.data)
+            getLikes(filmDbId)
             API.getUserFavorites(stateUser.id).then(favorites => {
                 dispatch(setUserFavorites(favorites.data))
             })
@@ -67,6 +69,7 @@ export default function MoviePage() {
     function removeFavorite() {
         const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
         API.deleteFavorite(favoriteId.id).then(res => {
+            getLikes(filmDbId)
         })
         dispatch(setUserFavorites(updateArr))
         setFavorite(false)
@@ -102,6 +105,12 @@ export default function MoviePage() {
         setWatchId([])
     }
 
+    function getLikes (id) {
+        API.findAllFavorites(id).then(res => {
+            setLikes(res.data.length)
+        })
+    }
+
     useEffect(() => {
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
@@ -117,16 +126,14 @@ export default function MoviePage() {
                 // console.log(`movie findOrCreate ` + JSON.stringify(res.data[0]))
                 let hasFavorited = stateUser.favorites.find(({ MovieId }) => MovieId === res.data[0].id)
                 if (hasFavorited) {
-                    // console.log('users has already favorite this movie')
                     setFavorite(true)
                     setFavoriteId(hasFavorited)
                 } else setFavorite(false)
 
                 // Checks to see if the current movie is in the user's watchlist, if found, setWatch to true and setWatchId = the found movie in the watchlist (the id is referenced to delete from db)
                 let hasInWatch = stateUser.watchlist.find(({ MovieId }) => MovieId === res.data[0].id)
-                console.log(hasInWatch)
+                // console.log(hasInWatch)
                 if (hasInWatch) {
-                    console.log('user has this in watchlist')
                     setWatch(true)
                     setWatchId(hasInWatch)
                 } else setWatch(false)
@@ -138,6 +145,7 @@ export default function MoviePage() {
                 API.getMovieReviews(res.data[0].id).then(res => {
                     dispatch(setReviews(res.data))
                 })
+                getLikes(res.data[0].id)
             })
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -169,19 +177,25 @@ export default function MoviePage() {
                                         {/* Remove */}
                                         <Icon name='heart' color='red' />
                                     </Button>
+                                    <Label as='a' basic pointing='left'>
+                                        {likes}
+                                    </Label>
                                 </Button>
                                 :
                                 <Button as='div' labelPosition='right' floated='left' onClick={addToFavorite}>
                                     <Button icon>
                                         <Icon name='heart' />
-                                        {" Add"}
+                                        Like
                                     </Button>
+                                    <Label as='a' basic pointing='left'>
+                                        {likes}
+                                    </Label>
                                 </Button>
                             }
                             {watch === true ?
                                 <Button as='div' icon onClick={removeFromWatchlist}>
                                     <Icon name='remove' color='red' />
-                                     {" Remove from watchlist"}
+                                     Remove from watchlist
                                 </Button>
 
                                 :

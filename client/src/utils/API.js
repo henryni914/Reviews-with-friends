@@ -71,6 +71,9 @@ export default {
     },
 
     // DB Favorite functions
+    findAllFavorites(id) {
+        return axios.get(`/api/favorite/` + id)
+    },
     addUserFavorite: function (obj) {
         return axios.post(`/api/favorite`, obj)
     },
@@ -80,7 +83,7 @@ export default {
     getUserFavorites: function (id) {
         return axios.get(`/api/favorite/user/` + id)
     },
-
+    
     // DB Watchlist functions
     addToWatchList: function (obj) {
         return axios.post(`/api/watchlist`, obj)
