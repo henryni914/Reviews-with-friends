@@ -9,6 +9,7 @@ export default function AccountSettings() {
     const stateUser = useSelector(state => state.user);
     const [search, setSearch] = useState("")
     const [nicknameError, setNicknameError] = useState(false)
+    const [nicknameSuccess, setNicknameSuccess] = useState(false)
     const dispatch = useDispatch()
 
     function handleInputChange(event) {
@@ -31,6 +32,7 @@ export default function AccountSettings() {
                 })
                 dispatch(setNickname(search))
                 setNicknameError(false)
+                setNicknameSuccess(true)
             }
         })
     }
@@ -48,7 +50,8 @@ export default function AccountSettings() {
                     action >
                 </Input>
                 {nicknameError ? <p><i>Sorry, that display name has already been taken. Please enter a new display name.</i></p>
-                    : <></>
+                    : nicknameSuccess ? <p><i>Nickname successfully updated.</i></p>
+                        : <></>
                 }
 
             </Form.Field>
