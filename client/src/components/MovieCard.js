@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setFilm } from '../actions/movies';
@@ -18,12 +18,12 @@ export default function MovieCard(props) {
         // href={`/film/id=${props.id}`}
         >
             <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`}>
-                <img
+                <Image
                     className='card-img'
                     src={posterUrl}
                     alt={props.title}
                     height="300px"
-                ></img>
+                ></Image>
             </Link>
             <Card.Content>
                 <Card.Header>{props.title}</Card.Header>

@@ -41,9 +41,10 @@ html {
 
 .card-img {
   /* max-width:300px; */
-  object-fit: cover;
-  max-height: 300px;
-  width: 100%;
+  background-position: center;
+  object-fit: scale-down;
+  /* max-height: 300px; */
+  /* width: 100%; */
   height: auto;
 }
 
