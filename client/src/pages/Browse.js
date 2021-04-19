@@ -64,7 +64,7 @@ export default function Browse() {
 
     return (
         <Container className='browseContainer'>
-            <h3>Upcoming Movies...</h3>
+            <h3 id="upcoming">Upcoming Movies...</h3>
             <Card.Group itemsPerRow={5} stackable>
                 {displayUpcoming.map(element => (
                     <MovieCard
@@ -84,11 +84,12 @@ export default function Browse() {
                     lastItem={null}
                     totalPages={4}
                     onPageChange={setUpcoming}
+                    href="#upcoming"
                 />
             </Card.Group>
 
 
-            <h3>Top Rated Movies...</h3>
+            <h3 id="topRated">Top Rated Movies...</h3>
             <Card.Group itemsPerRow={5} stackable>
                 {displayTopRated.map(element => (
                     <MovieCard
@@ -108,10 +109,11 @@ export default function Browse() {
                     lastItem={null}
                     totalPages={4}
                     onPageChange={setTopRated}
+                    href="#topRated"
                 />
             </Card.Group>
 
-            <h3>Movies Now Playing...</h3>
+            <h3 id="nowPlaying">Movies Now Playing...</h3>
             <Card.Group itemsPerRow={5} stackable>
                 {displayNowPlaying.map(element => (
                     <MovieCard
@@ -131,6 +133,7 @@ export default function Browse() {
                     lastItem={null}
                     totalPages={4}
                     onPageChange={setNowPlaying}
+                    href="#nowPlaying"
                 />
             </Card.Group>
         </Container>

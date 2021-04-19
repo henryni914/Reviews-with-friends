@@ -29,9 +29,9 @@ export default {
 
     // DB User functions
 
-    // findAll: function () {
-    //     return axios.get(`/api/user`);
-    // },
+    findAllUsers: function () {
+        return axios.get(`/api/user`);
+    },
     // create: function(user){
     //     return axios.post(`/api/user`, user)
     // },

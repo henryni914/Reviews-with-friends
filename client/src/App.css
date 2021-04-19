@@ -7,6 +7,10 @@
   /* min-height: 75vh; */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 #profile {
   min-height: 60vh;
 }
