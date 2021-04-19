@@ -24,6 +24,13 @@ export const setNicknameAndJoin = (obj) => ({
     }
 })
 
+export const setNickname = (newNickname) => ({
+    type: 'SET_NICKNAME',
+    payload: {
+        nickname: newNickname
+    }
+})
+
 export const setUserReviews = (reviews) => ({
     type: 'SET_REVIEWS',
     payload: {

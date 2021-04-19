@@ -3,8 +3,8 @@ const db = require("../models")
 module.exports = {
     create: function (req, res) {
         db.Favorite.create(req.body)
-        .then(results => res.json(results))
-        .catch(err => res.status(422).json(err))
+            .then(results => res.json(results))
+            .catch(err => res.status(422).json(err))
     },
     findUserFavorites: function (req, res) {
         db.Favorite.findAll({
@@ -12,6 +12,15 @@ module.exports = {
                 UserId: req.params.id
             },
             include: [db.Movie]
+        })
+            .then(results => res.json(results))
+            .catch(err => res.status(422).json(err));
+    },
+    findAll: function (req, res) {
+        db.Favorite.findAll({
+            where: {
+                MovieId: req.params.id
+            }
         })
             .then(results => res.json(results))
             .catch(err => res.status(422).json(err));

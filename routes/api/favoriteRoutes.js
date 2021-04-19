@@ -7,6 +7,7 @@ router
 
 router
     .route("/:id")
+    .get(favoriteController.findAll)
     .delete(favoriteController.delete)
 
 router

@@ -30,6 +30,11 @@ export default function userReducer(state = {
                 dateJoined: action.payload.dateJoined,
                 nickname: action.payload.nickname
             }
+        case 'SET_NICKNAME':
+            return {
+                ...state,
+                nickname: action.payload.nickname
+            }
         case 'SET_REVIEWS':
             return {
                 ...state,
