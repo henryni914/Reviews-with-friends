@@ -59,8 +59,10 @@ html {
 }
 
 .hiddenImg {
-  -webkit-filter: blur(1.5em);
-  filter: blur(1.5em);
+  /* z-index: -1; */
+  -webkit-filter: blur(1em);
+  filter: blur(1em);
+  transform: scale(.9); 
 }
 
 .pagination {
