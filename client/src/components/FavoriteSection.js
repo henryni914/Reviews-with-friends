@@ -35,14 +35,14 @@ export default function CardExampleColumnCount() {
                 : favorites.map(el => (
                     <Card >
                         <Card.Header textAlign='center'>
-                            <i>{el.Movie.title}</i>
+                            {/* <i>{el.Movie.title}</i> */}
                         </Card.Header>
                         {/* link href={`/film/id=${el.Movie.tmdbID}`} */}
                         {/* <div className={'ui fade reveal image'}>
                             <Image src={el.Movie.image} className={'visible content'} />
                             <Image src={el.Movie.image} className={'hidden content hiddenImg'}/>
                         </div> */}
-                        <Reveal animated='small fade'>
+                        <Reveal animated='small fade' >
                             <Reveal.Content visible>
                                 <Link to={`/film/id=${el.Movie.tmdbID}`}>
                                     <Image
@@ -53,12 +53,15 @@ export default function CardExampleColumnCount() {
                                 </Link>
                             </Reveal.Content>
                             <Reveal.Content hidden>
-                                    <Image
-                                        className='hiddenImg'
-                                        size='medium'
-                                        src={el.Movie.image}
-                                        alt={el.Movie.title}
-                                    />
+                                <div className='hiddenTitle'>
+                                    {el.Movie.title}
+                                </div>
+                                <Image
+                                    className='hiddenImg'
+                                    size='medium'
+                                    src={el.Movie.image}
+                                    alt={el.Movie.title}
+                                />
                             </Reveal.Content>
                         </Reveal>
 

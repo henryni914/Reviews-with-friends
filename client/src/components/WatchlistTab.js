@@ -68,7 +68,7 @@ export default function TabPane(props) {
 
     return (
 
-        <Card.Group itemsPerRow={3}>
+        <Card.Group itemsPerRow={3} stackable>
             {
                 notCompleted.length === 0 && props.tab === 'watchlist' ? <h3>Add some movies to your watchlist, by clicking the add to watchlist button on the movie page.</h3>
                     : completed.length === 0 && props.tab === 'completed' ? <h3>Add movies to completed by click the complete button under the watchlist tab </h3>
@@ -77,29 +77,32 @@ export default function TabPane(props) {
                             notCompleted.map(el => (
                                 <Card key={el.id}>
                                     <Card.Header textAlign='center'>
-                                        <i>{el.Movie.title}</i>
+                                        {/* <i>{el.Movie.title}</i> */}
                                     </Card.Header>
                                     <Reveal animated='small fade'>
                                         <Reveal.Content visible>
                                             <Link to={`/film/id=${el.Movie.tmdbID}`}>
                                                 <Image
-                                                    size='medium'
+                                                    size='large'
                                                     src={el.Movie.image}
                                                     alt={el.Movie.title}
                                                 />
                                             </Link>
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
+                                            <div className='hiddenTitle'>
+                                                {el.Movie.title}
+                                            </div>
                                             <Image
                                                 className='hiddenImg'
-                                                size='medium'
+                                                size='large'
                                                 src={el.Movie.image}
                                                 alt={el.Movie.title}
                                             />
                                         </Reveal.Content>
                                     </Reveal>
 
-                                    <Button content='Completed?' labelPosition='left' icon='check' onClick={() => setCompletedTrue(el.id)} />
+                                    <Button content='Complete?' labelPosition='left' icon='check' onClick={() => setCompletedTrue(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />
                                 </Card>
                             ))
@@ -107,28 +110,31 @@ export default function TabPane(props) {
                             completed.map(el => (
                                 <Card key={el.id}>
                                     <Card.Header textAlign='center'>
-                                        <i>{el.Movie.title}</i>
+                                        {/* <i>{el.Movie.title}</i> */}
                                     </Card.Header>
                                     <Reveal animated='small fade'>
                                         <Reveal.Content visible>
                                             <Link to={`/film/id=${el.Movie.tmdbID}`}>
                                                 <Image
-                                                    size='medium'
+                                                    size='large'
                                                     src={el.Movie.image}
                                                     alt={el.Movie.title}
                                                 />
                                             </Link>
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
+                                            <div className='hiddenTitle'>
+                                                {el.Movie.title}
+                                            </div>
                                             <Image
                                                 className='hiddenImg'
-                                                size='medium'
+                                                size='large'
                                                 src={el.Movie.image}
                                                 alt={el.Movie.title}
                                             />
                                         </Reveal.Content>
                                     </Reveal>
-                                    <Button content='Undo complete' labelPosition='left' icon='undo' onClick={() => setCompletedFalse(el.id)} />
+                                    <Button content='Not complete?' labelPosition='left' icon='undo' onClick={() => setCompletedFalse(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />
 
                                 </Card>
