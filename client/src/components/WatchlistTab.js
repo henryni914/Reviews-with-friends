@@ -77,7 +77,7 @@ export default function TabPane(props) {
                             notCompleted.map(el => (
                                 <Card key={el.id}>
                                     <Card.Header textAlign='center'>
-                                        <i>{el.Movie.title}</i>
+                                        {/* <i>{el.Movie.title}</i> */}
                                     </Card.Header>
                                     <Reveal animated='small fade'>
                                         <Reveal.Content visible>
@@ -99,7 +99,7 @@ export default function TabPane(props) {
                                         </Reveal.Content>
                                     </Reveal>
 
-                                    <Button content='Completed?' labelPosition='left' icon='check' onClick={() => setCompletedTrue(el.id)} />
+                                    <Button content='Complete?' labelPosition='left' icon='check' onClick={() => setCompletedTrue(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />
                                 </Card>
                             ))
@@ -107,7 +107,7 @@ export default function TabPane(props) {
                             completed.map(el => (
                                 <Card key={el.id}>
                                     <Card.Header textAlign='center'>
-                                        <i>{el.Movie.title}</i>
+                                        {/* <i>{el.Movie.title}</i> */}
                                     </Card.Header>
                                     <Reveal animated='small fade'>
                                         <Reveal.Content visible>
@@ -128,7 +128,7 @@ export default function TabPane(props) {
                                             />
                                         </Reveal.Content>
                                     </Reveal>
-                                    <Button content='Undo complete' labelPosition='left' icon='undo' onClick={() => setCompletedFalse(el.id)} />
+                                    <Button content='Not complete?' labelPosition='left' icon='undo' onClick={() => setCompletedFalse(el.id)} />
                                     <Button content='Delete' color='red' labelPosition='left' icon='delete' onClick={() => deleteWatchlist(el.id)} />
 
                                 </Card>
