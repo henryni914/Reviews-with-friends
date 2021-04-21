@@ -15,11 +15,11 @@ export default function StepSection() {
                 <Step >
                     <Icon name='user outline' />
                     <Step.Content>
-                        <Step.Title>Start here</Step.Title>
+                        <Step.Title>First Step</Step.Title>
                         <Step.Description> </Step.Description>
                         <Button onClick={() => loginWithRedirect()} icon>
                         <Icon name='user circle outline' />
-                        {" Login or Sign up!"}
+                        {" Register or login"}
                         </Button>
                     </Step.Content>
                 </Step>
@@ -27,7 +27,7 @@ export default function StepSection() {
                     <Icon name='search' />
                     <Step.Content>
                         <Step.Title>Explore</Step.Title>
-                        <Step.Description>Search, browse, like and review movies & posts!</Step.Description>
+                        <Step.Description>Search, browse, like and review movies & posts.</Step.Description>
                     </Step.Content>
                 </Step>
                 <Step >
