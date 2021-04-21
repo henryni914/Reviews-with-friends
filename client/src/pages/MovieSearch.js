@@ -34,7 +34,7 @@ export default function MovieDisplay() {
         <>
             <Container>
                 <Grid columns='equal'>
-                    <Grid.Column width={3}>
+                    {/* <Grid.Column width={3}>
                         <Menu text vertical>
                             <Menu.Item header>Sort By</Menu.Item>
                             <Menu.Item
@@ -53,8 +53,8 @@ export default function MovieDisplay() {
                             // onClick={this.handleItemClick}
                             />
                         </Menu>
-                    </Grid.Column>
-                    <Grid.Column width={10}>
+                    </Grid.Column> */}
+                    <Grid.Column >
                         <h3>Search results from "{decodeURI(currentSearch)}"</h3>
                         {resultsArr.length < 1 ?
                             <h1>No results</h1>
