@@ -35,9 +35,10 @@ export default function Watchlist() {
                     />
                 ))}
             </Menu>
-            <Segment attached='bottom'>
-                {renderComponent(tab)}
-            </Segment>
+            {/* <Segment attached='bottom'>
+                
+            </Segment> */}
+            {renderComponent(tab)}
         </Container>
     )
 };

@@ -68,7 +68,7 @@ export default function TabPane(props) {
 
     return (
 
-        <Card.Group itemsPerRow={3}>
+        <Card.Group itemsPerRow={3} stackable>
             {
                 notCompleted.length === 0 && props.tab === 'watchlist' ? <h3>Add some movies to your watchlist, by clicking the add to watchlist button on the movie page.</h3>
                     : completed.length === 0 && props.tab === 'completed' ? <h3>Add movies to completed by click the complete button under the watchlist tab </h3>
@@ -83,7 +83,7 @@ export default function TabPane(props) {
                                         <Reveal.Content visible>
                                             <Link to={`/film/id=${el.Movie.tmdbID}`}>
                                                 <Image
-                                                    size='medium'
+                                                    size='large'
                                                     src={el.Movie.image}
                                                     alt={el.Movie.title}
                                                 />
@@ -92,7 +92,7 @@ export default function TabPane(props) {
                                         <Reveal.Content hidden>
                                             <Image
                                                 className='hiddenImg'
-                                                size='medium'
+                                                size='large'
                                                 src={el.Movie.image}
                                                 alt={el.Movie.title}
                                             />
@@ -113,7 +113,7 @@ export default function TabPane(props) {
                                         <Reveal.Content visible>
                                             <Link to={`/film/id=${el.Movie.tmdbID}`}>
                                                 <Image
-                                                    size='medium'
+                                                    size='large'
                                                     src={el.Movie.image}
                                                     alt={el.Movie.title}
                                                 />
@@ -122,7 +122,7 @@ export default function TabPane(props) {
                                         <Reveal.Content hidden>
                                             <Image
                                                 className='hiddenImg'
-                                                size='medium'
+                                                size='large'
                                                 src={el.Movie.image}
                                                 alt={el.Movie.title}
                                             />
