@@ -112,6 +112,9 @@ export default function MoviePage() {
     }
 
     useEffect(() => {
+        API.findProviders(currentFilm).then(res => {
+            console.log(res.data.results.US)
+        })
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
             setRelated(res.data.similar.results.slice(0, 5))
