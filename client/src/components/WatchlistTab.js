@@ -90,6 +90,9 @@ export default function TabPane(props) {
                                             </Link>
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
+                                            <div className='hiddenTitle'>
+                                                {el.Movie.title}
+                                            </div>
                                             <Image
                                                 className='hiddenImg'
                                                 size='large'
@@ -120,6 +123,9 @@ export default function TabPane(props) {
                                             </Link>
                                         </Reveal.Content>
                                         <Reveal.Content hidden>
+                                            <div className='hiddenTitle'>
+                                                {el.Movie.title}
+                                            </div>
                                             <Image
                                                 className='hiddenImg'
                                                 size='large'
