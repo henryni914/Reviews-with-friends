@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Card, Icon, Image, Reveal } from 'semantic-ui-react';
+import { Button, Card, Container, Icon, Image, Message, Reveal } from 'semantic-ui-react';
 import { setUserWatchlist } from '../actions/user';
 import API from '../utils/API';
 
@@ -70,8 +70,22 @@ export default function TabPane(props) {
 
         <Card.Group itemsPerRow={3} stackable>
             {
-                notCompleted.length === 0 && props.tab === 'watchlist' ? <h3>Add some movies to your watchlist, by clicking the add to watchlist button on the movie page.</h3>
-                    : completed.length === 0 && props.tab === 'completed' ? <h3>Add movies to completed by click the complete button under the watchlist tab </h3>
+                notCompleted.length === 0 && props.tab === 'watchlist'
+                    ?
+                    <Container>
+                        <Message negative>
+                            <Message.Header>Nothing to display</Message.Header>
+                            <p>Add some movies to your watchlist, by clicking the add to watchlist button on the movie page.</p>
+                        </Message>
+                    </Container>
+                    : completed.length === 0 && props.tab === 'completed'
+                        ?
+                        <Container>
+                            <Message negative>
+                                <Message.Header>Nothing to display</Message.Header>
+                                <p> Add movies to completed by clicking the complete button under the watchlist tab. </p>
+                            </Message>
+                        </Container>
                         : props.tab === 'watchlist'
                             ?
                             notCompleted.map(el => (

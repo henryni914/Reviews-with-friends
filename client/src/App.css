@@ -4,12 +4,13 @@
   background-color: #f8f8ff;
 }
 
-.content {
-  /* min-height: 75vh; */
-}
-
 html {
   scroll-behavior: smooth;
+}
+
+.container {
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 #profile {

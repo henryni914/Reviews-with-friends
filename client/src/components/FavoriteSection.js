@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Card, Icon, Image, Reveal } from 'semantic-ui-react';
+import { Button, Card, Container, Icon, Image, Message, Reveal } from 'semantic-ui-react';
 import { setUserFavorites } from '../actions/user';
 import API from '../utils/API';
 
@@ -31,7 +31,13 @@ export default function CardExampleColumnCount() {
 
     return (
         <Card.Group stackable itemsPerRow={3}>
-            {favorites.length === 0 ? <h3>Add some movies to your favorites, by clicking the heart icon on the movie page.</h3>
+            {favorites.length === 0 ?
+                <Container>
+                    <Message negative>
+                        <Message.Header>Nothing to display</Message.Header>
+                        <p>Add some movies to your favorites, by clicking the heart icon on the movie page. </p>
+                    </Message>
+                </Container>
                 : favorites.map(el => (
                     <Card >
                         <Card.Header textAlign='center'>

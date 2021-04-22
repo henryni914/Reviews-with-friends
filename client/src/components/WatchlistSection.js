@@ -36,7 +36,7 @@ export default function Watchlist() {
                 ))}
             </Menu>
             {/* <Segment attached='bottom'>
-                
+          
             </Segment> */}
             {renderComponent(tab)}
         </Container>
