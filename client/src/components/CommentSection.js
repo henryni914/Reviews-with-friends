@@ -13,9 +13,10 @@ export default function CommentSection() {
     // Does each comment need to have its own state to toggle reply?
 
     const [text, setText] = useState("");
-    const [status, setStatus] = useState(false)
+    const [status, setStatus] = useState(false);
     const [textError, setTextError] = useState(false);
-    const [submitted, setSubmitted] = useState(false)
+    const [submitted, setSubmitted] = useState(false);
+    const [likedReviews, setLikedReviews] = useState([])
 
 
     function handleInputChange(event) {
@@ -23,6 +24,7 @@ export default function CommentSection() {
     }
     function handleFormSubmit(e) {
         e.preventDefault();
+        console.log(stateUser)
         // check if user has already submitted a review for this movie
         // user for now can only submit 1 review per movie for the time being
         let movieId = stateMovie.currentFilmId
@@ -75,16 +77,38 @@ export default function CommentSection() {
         }
 
         API.addUserLike(likeObj).then(res => {
-            // console.log(res)
+            getUserLikedReviews()
         })
     }
 
-    // useEffect(() => {
-    //     API.getMovieReviews(stateMovie.currentFilmId).then(res => {
-    //         dispatch(setReviews(res.data))
-    //     })
-    //     console.log('loading')
-    // }, [comments])
+    function removeFromLikes(id) {
+        let likeObj = {
+            UserId: stateUser.id,
+            ReviewId: id
+        }
+        // console.log(likeObj)
+        API.removeUserLike(likeObj)
+            .then(res => {
+                getUserLikedReviews()
+                console.log(res.data)
+            })
+    }
+
+    function getUserLikedReviews() {
+        API.getUserLikedReviews(stateUser.id).then(res => {
+            // filter through all users liked reviews and find all that are associated with current movie
+            const arr = res.data.filter(el => el.Review.MovieId === stateMovie.currentFilmId)
+            const postIdArr = []
+            for (let i = 0; i < arr.length; i++) {
+                postIdArr.push(arr[i].ReviewId)
+            }
+            setLikedReviews(postIdArr)
+        })
+    }
+
+    useEffect(() => {
+        getUserLikedReviews()
+    }, [comments])
 
     return (
         <>
@@ -109,13 +133,12 @@ export default function CommentSection() {
                                 <Comment.Actions>
                                     {/* thumbs down = filled in with color */}
                                     <Comment.Action>
-                                        {/* <Button> */}
-                                        <Icon name="thumbs up outline" onClick={() => addToLikes(el.id)} />
-                                        {/* </Button> */}
-                                        Like</Comment.Action>
-                                    {/* <Comment.Action>{el.likes} </Comment.Action> */}
-                                    {/* <Comment.Action><Icon name="thumbs down outline" />Downvote</Comment.Action> */}
-                                    {/* <Comment.Action>Save</Comment.Action> */}
+                                        {likedReviews.includes(el.id)
+                                            ? <Icon name="thumbs up" color='blue' onClick={() => removeFromLikes(el.id)} />
+                                            : <Icon name="thumbs up outline" onClick={() => addToLikes(el.id)} />
+                                        }
+                                        Like
+                                    </Comment.Action>
                                 </Comment.Actions>
                             </Comment.Content>
                         </Comment>

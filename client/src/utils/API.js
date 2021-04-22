@@ -102,8 +102,12 @@ export default {
     addUserLike: function (obj) {
         return axios.post(`/api/like`, obj)
     },
-    getMovieLikes: function (id) {
-        return axios.get(`/api/like/movie/` + id)
+    getUserLikedReviews: function (id) {
+        return axios.get(`/api/like/user/` + id)
+    },
+    removeUserLike: function (obj) {
+        // console.log(obj)
+        return axios.delete(`/api/like`, obj)
     }
-    
+
 };
