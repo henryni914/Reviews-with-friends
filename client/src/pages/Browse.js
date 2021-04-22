@@ -47,8 +47,8 @@ export default function Browse() {
 
     function setUpcoming(event, { activePage }) {
         setUpcomingPage(activePage)
-        setLoading(true)
-        setTimeout(() => setLoading(false), 500)
+        // setLoading(true)
+        // setTimeout(() => setLoading(false), 500)
     }
 
     function setTopRated(event, { activePage }) {
@@ -69,14 +69,14 @@ export default function Browse() {
         <Container className='browseContainer'>
 
             <h3 id="upcoming">Upcoming Movies...</h3>
-            <Segment>
+            {/* <Segment> */}
 
                 <Card.Group itemsPerRow={5} stackable>
                     {displayUpcoming.map(element => (
                         <>
-                            <Dimmer active={loading}>
+                            {/* <Dimmer active={loading}>
                                 <Loader>Loading</Loader>
-                            </Dimmer>
+                            </Dimmer> */}
                             <MovieCard
                                 key={element.id}
                                 id={element.id}
@@ -98,7 +98,7 @@ export default function Browse() {
                         href="#upcoming"
                     />
                 </Card.Group>
-            </Segment>
+            {/* </Segment> */}
 
 
             <h3 id="topRated">Top Rated Movies...</h3>

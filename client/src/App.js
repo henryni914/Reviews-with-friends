@@ -19,15 +19,11 @@ export default function App() {
       <Auth0Provider>
         <div className="App">
           <Nav />
-          <div className="content">
-            <Route exact path="/" component={Home} />
-            {/* Need to make content take up 100vh in SearchPage to fill up
-           empty space or else footer will rise ex. when no results*/}
-            <Route path="/results/q=:query" component={SearchPage} />
-            <Route path="/film/id=:filmId" component={MoviePage} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/browse" component={Browse} />
-          </div>
+          <Route exact path="/" component={Home} />
+          <Route path="/results/q=:query" component={SearchPage} />
+          <Route path="/film/id=:filmId" component={MoviePage} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/browse" component={Browse} />
           <section id='footer'>
             <Footer />
           </section>
