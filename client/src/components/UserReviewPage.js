@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilm } from '../actions/movies';
-import { Button, Divider, Feed, Form, Grid, Header, Icon, Input, Item } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Icon, Input, Item, Message } from 'semantic-ui-react';
 import { setUserReviews } from '../actions/user';
 import API from '../utils/API';
 
@@ -79,8 +79,14 @@ export default function UserReviews() {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {searchArr.length == 0 ?
-                    <h3>You haven't reviewed any movies yet.</h3>
+                {searchArr.length == 0
+                    ?
+                    <Container>
+                        <Message negative>
+                            <Message.Header>Nothing to display</Message.Header>
+                            <p>You haven't reviewed any movies yet.</p>
+                        </Message>
+                    </Container>
                     :
                     searchArr.map(ele =>
                     (

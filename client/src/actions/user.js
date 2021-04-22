@@ -59,3 +59,10 @@ export const addUserFavorite = (movie) => ({
     }
 });
 
+export const setUserLikedReviews = (arr) => ({
+    type: 'SET_LIKED_REVIEWS',
+    payload: {
+        reviews: arr
+    }
+})
+

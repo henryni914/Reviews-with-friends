@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import { useAuth0 } from '../utils/auth0context';
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, setUserReviews, setUserFavorites, setUserWatchlist, setNicknameAndJoin } from '../actions/user';
+import { setUser, setUserReviews, setUserFavorites, setUserWatchlist, setNicknameAndJoin, setUserLikedReviews } from '../actions/user';
 import { updateSearch } from '../actions/movies'
 import API from '../utils/API';
 const moment = require('moment')
@@ -62,17 +62,37 @@ export default function Nav() {
   //   })
   // };
 
+  function getUserReviews(id) {
+    API.getUserReviews(id).then(reviews =>
+      dispatch(setUserReviews(reviews.data)))
+  }
+
+  function getUserFavorites(id) {
+    API.getUserFavorites(id).then(favorites =>
+      dispatch(setUserFavorites(favorites.data)))
+  }
+
+  function getUserWatchlist(id) {
+    API.getUserWatchlist(id).then(watchlist =>
+      dispatch(setUserWatchlist(watchlist.data)))
+  }
+
+  function getUserLikedReviews(id) {
+    API.getUserLikedReviews(id).then(reviews => {
+      console.log(reviews.data)
+      dispatch(setUserLikedReviews(reviews.data))
+    })
+  }
+
   function findUserOrCreate(userInfo) {
     API.findOrCreateUser(userInfo).then(res => {
       dispatch(setUser(res.data[0]))
       if (res.data[1] === false) {
         console.log('user already exists')
-        API.getUserReviews(res.data[0].id).then(reviews =>
-          dispatch(setUserReviews(reviews.data)))
-        API.getUserFavorites(res.data[0].id).then(favorites =>
-          dispatch(setUserFavorites(favorites.data)))
-        API.getUserWatchlist(res.data[0].id).then(watchlist =>
-          dispatch(setUserWatchlist(watchlist.data)))
+        getUserReviews(res.data[0].id)
+        getUserFavorites(res.data[0].id)
+        getUserWatchlist(res.data[0].id)
+        getUserLikedReviews(res.data[0].id)
       } else {
         console.log('new user created')
         const userName = res.data[0].name

@@ -4,6 +4,7 @@ import UserReviews from '../components/UserReviewPage';
 import AccountSettings from '../components/AccountSettings';
 import FavoriteSection from '../components/FavoriteSection';
 import Watchlist from '../components/WatchlistSection';
+import LikedReviews from '../components/LikedReview';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserReviews, setUserFavorites } from '../actions/user';
 import { Container, Dropdown, Grid, Header, Icon, Input, Menu, Segment } from 'semantic-ui-react';
@@ -35,7 +36,7 @@ export default function Profile() {
                 return <FavoriteSection />
             }
             case "Liked Reviews": {
-                return "Replace with component here"
+                return <LikedReviews />
             }
         }
     };
