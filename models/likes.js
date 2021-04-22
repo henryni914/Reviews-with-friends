@@ -1,9 +1,8 @@
 module.exports = function (sequelize, DataTypes) {
     var Like = sequelize.define("Like", {
-        liked: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: 1
-        }
+        tmdbId: DataTypes.INTEGER,
+        reviewer: DataTypes.STRING,
+        title: DataTypes.STRING
     }, {
         timestamps: false
     });

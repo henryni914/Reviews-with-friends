@@ -41,7 +41,7 @@ export default function MoviePage() {
                 return <Cast info={results.credits} />
             }
             case "reviews": {
-                return <CommentSection />
+                return <CommentSection tmdbId={filmTmdbId} title={results.original_title} />
             }
         }
     };
@@ -105,7 +105,7 @@ export default function MoviePage() {
         setWatchId([])
     }
 
-    function getLikes (id) {
+    function getLikes(id) {
         API.findAllFavorites(id).then(res => {
             setLikes(res.data.length)
         })
@@ -148,7 +148,7 @@ export default function MoviePage() {
                 API.getMovieReviews(res.data[0].id).then(res => {
                     dispatch(setReviews(res.data))
                 })
-                // getLikes(res.data[0].id)
+                getLikes(res.data[0].id)
             })
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })

@@ -6,6 +6,10 @@ router
     .post(likeController.create)
     .delete(likeController.deleteUserLike)
 
+    router
+    .route("/:id")
+    .delete(likeController.deleteLike)
+
 router
     .route("/user/:id")
     .get(likeController.findAllUserLikes)

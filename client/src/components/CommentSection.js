@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setReviews } from '../actions/movies'
 import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-react';
 import API from "../utils/API"
+import { setUserLikedReviews } from '../actions/user';
 const moment = require('moment')
 
-export default function CommentSection() {
+export default function CommentSection(props) {
+    // console.log(props)
     const stateMovie = useSelector(state => state.movies)
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -65,13 +67,16 @@ export default function CommentSection() {
         setText("");
     }
 
-    function addToLikes(id) {
+    function addToLikes(id, nickname) {
         if (!stateUser.id) {
             console.log('no user logged in')
             return;
         }
 
         let likeObj = {
+            tmdbId: props.tmdbId,
+            reviewer: nickname,
+            title: props.title,
             UserId: stateUser.id,
             ReviewId: id
         }
@@ -103,11 +108,13 @@ export default function CommentSection() {
                 postIdArr.push(arr[i].ReviewId)
             }
             setLikedReviews(postIdArr)
+            dispatch(setUserLikedReviews(res.data))
         })
     }
 
     useEffect(() => {
         getUserLikedReviews()
+        // console.log(comments)
     }, [comments])
 
     return (
@@ -135,7 +142,7 @@ export default function CommentSection() {
                                     <Comment.Action>
                                         {likedReviews.includes(el.id)
                                             ? <Icon name="thumbs up" color='blue' onClick={() => removeFromLikes(el.id)} />
-                                            : <Icon name="thumbs up outline" onClick={() => addToLikes(el.id)} />
+                                            : <Icon name="thumbs up outline" onClick={() => addToLikes(el.id, el.User.nickname)} />
                                         }
                                         Like
                                     </Comment.Action>

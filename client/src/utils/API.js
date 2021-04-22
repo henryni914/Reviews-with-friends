@@ -108,6 +108,8 @@ export default {
     removeUserLike: function (obj) {
         // console.log(obj)
         return axios.delete(`/api/like`, obj)
+    },
+    removeLike: function (id) {
+        return axios.delete(`/api/like/` + id)
     }
-
 };

@@ -11,8 +11,7 @@ export default function userReducer(state = {
     watchlist: [],
     favorites: [],
     friends: [],
-    // following: [],
-    // followers: [],
+    likedReviews: [],
 }, action) {
     switch (action.type) {
         case 'SET_USER':
@@ -54,6 +53,11 @@ export default function userReducer(state = {
             return {
                 ...state,
                 watchlist: action.payload.userWatchlist
+            }
+        case 'SET_LIKED_REVIEWS':
+            return {
+                ...state,
+                likedReviews: action.payload.reviews
             }
         default:
             return state;
