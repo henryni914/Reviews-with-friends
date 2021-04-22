@@ -46,7 +46,7 @@ export default function CommentSection() {
         }
         // need to do validation to make sure the text field isn't empty
         // if empty display an error?
-    
+
         let replyObj = {
             post: text,
             createdAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -63,9 +63,28 @@ export default function CommentSection() {
         setText("");
     }
 
-    useEffect(() => {
-        // console.log(comments)
-    }, [comments])
+    function addToLikes(id) {
+        if (!stateUser.id) {
+            console.log('no user logged in')
+            return;
+        }
+
+        let likeObj = {
+            UserId: stateUser.id,
+            ReviewId: id
+        }
+
+        API.addUserLike(likeObj).then(res => {
+            // console.log(res)
+        })
+    }
+
+    // useEffect(() => {
+    //     API.getMovieReviews(stateMovie.currentFilmId).then(res => {
+    //         dispatch(setReviews(res.data))
+    //     })
+    //     console.log('loading')
+    // }, [comments])
 
     return (
         <>
@@ -74,7 +93,7 @@ export default function CommentSection() {
                     Comments
                 </Header>
                 {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
-                {comments.length < 1 ? <h3>Be the first to comment!</h3>
+                {comments.length === 0 ? <h3>Be the first to comment!</h3>
                     :
                     comments.map(el => (
                         <Comment key={el.id}>
@@ -89,7 +108,11 @@ export default function CommentSection() {
                                 <Comment.Text>{el.post}</Comment.Text>
                                 <Comment.Actions>
                                     {/* thumbs down = filled in with color */}
-                                    <Comment.Action><Icon name="thumbs up outline" />Like</Comment.Action>
+                                    <Comment.Action>
+                                        {/* <Button> */}
+                                        <Icon name="thumbs up outline" onClick={() => addToLikes(el.id)} />
+                                        {/* </Button> */}
+                                        Like</Comment.Action>
                                     {/* <Comment.Action>{el.likes} </Comment.Action> */}
                                     {/* <Comment.Action><Icon name="thumbs down outline" />Downvote</Comment.Action> */}
                                     {/* <Comment.Action>Save</Comment.Action> */}
@@ -103,9 +126,9 @@ export default function CommentSection() {
                 {/* <Rating icon='star' defaultRating={rating} maxRating={5} size='large' clearable onClick={handleStarClick} /> */}
                 <Form.TextArea placeholder="Enter review here..." value={text} onChange={handleInputChange} />
                 {status ? <h3>Please login to post a review.</h3>
-                :textError ? <h3>Please submit a review with more than 1 character.</h3>
-                    : submitted ? <h3>You have already reviewed this movie.</h3>
-                        : <></>
+                    : textError ? <h3>Please submit a review with more than 1 character.</h3>
+                        : submitted ? <h3>You have already reviewed this movie.</h3>
+                            : <></>
                 }
                 <Button content='Add Review' labelPosition='left' icon='edit' primary onClick={handleFormSubmit} />
             </Form>

@@ -83,7 +83,7 @@ export default {
     getUserFavorites: function (id) {
         return axios.get(`/api/favorite/user/` + id)
     },
-    
+
     // DB Watchlist functions
     addToWatchList: function (obj) {
         return axios.post(`/api/watchlist`, obj)
@@ -96,5 +96,14 @@ export default {
     },
     editUserWatchlist: function (id, obj) {
         return axios.put(`/api/watchlist/` + id, obj)
+    },
+
+    // DB Like functions 
+    addUserLike: function (obj) {
+        return axios.post(`/api/like`, obj)
+    },
+    getMovieLikes: function (id) {
+        return axios.get(`/api/like/movie/` + id)
     }
+    
 };

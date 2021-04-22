@@ -132,8 +132,6 @@ export default function UserReviews() {
                                                 </Button>
                                             </Item.Extra>
                                         </Item.Content>
-
-
                                     </>
                                 }
                             </Item>

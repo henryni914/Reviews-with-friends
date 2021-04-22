@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import API from '../utils/API';
-import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Popup, Segment } from 'semantic-ui-react';
+import { Button, Card, Container, Divider, Grid, Header, Icon, Image, Label, Menu, Segment } from 'semantic-ui-react';
 import Overview from '../components/OverviewTab';
 import Cast from '../components/CastTab';
 import CommentSection from '../components/CommentSection';
@@ -112,9 +112,9 @@ export default function MoviePage() {
     }
 
     useEffect(() => {
-        API.findProviders(currentFilm).then(res => {
-            console.log(res.data.results.US)
-        })
+        // API.findProviders(currentFilm).then(res => {
+        //     console.log(res.data.results.US)
+        // })
         API.findByMovieId(currentFilm).then(res => {
             setResults(res.data);
             setRelated(res.data.similar.results.slice(0, 5))
@@ -148,7 +148,7 @@ export default function MoviePage() {
                 API.getMovieReviews(res.data[0].id).then(res => {
                     dispatch(setReviews(res.data))
                 })
-                getLikes(res.data[0].id)
+                // getLikes(res.data[0].id)
             })
         });
         window.scrollTo({ top: 0, behavior: 'smooth' })
