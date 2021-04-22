@@ -11,7 +11,7 @@ export default function StepSection() {
         <Container>
             <Grid>
                 <Grid.Column textAlign='center'>
-                <Step.Group stackable='tablet' fluid widths={3} size='large'>
+                <Step.Group stackable fluid widths={3} size='large'>
                 <Step >
                     <Icon name='user outline' />
                     <Step.Content>

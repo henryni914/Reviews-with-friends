@@ -66,6 +66,10 @@ export default function Profile() {
         API.getUserReviews(stateUser.id).then(reviews => {
             dispatch(setUserReviews(reviews.data))
         })
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }, [tab])
 
     return (

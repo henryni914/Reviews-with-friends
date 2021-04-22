@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Container } from 'semantic-ui-react'
+import { Grid, Container, List } from 'semantic-ui-react'
 
 export default function About() {
 
@@ -8,17 +8,39 @@ export default function About() {
             <Grid columns='equal' stackable divided>
                 <Grid.Row>
                     <Grid.Column>
-                        <h1>Hello</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
+                        <h2>Features</h2>
+                        <List>
+                            <List.Item>
+                                <List.Header >Search & Browse</List.Header>
+                                <List.Description>
+                                    Users can use the search field in the navigation bar, or venture into the browse tab to find movies.
+                                </List.Description>
+                            </List.Item>
+                            <List.Item>
+                                <List.Header >Reviews</List.Header>
+                                <List.Description>
+                                    Users can submit their own review for a movie, by navigating to the movie's page.
+                                </List.Description>
+                            </List.Item>
+                        </List>
                     </Grid.Column>
 
                     <Grid.Column>
-                        <h2>World</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
+                        <h2>More Features</h2>
+                        <List>
+                            <List.Item>
+                                <List.Header >Watchlist</List.Header>
+                                <List.Description>
+                                  With the watchlist, users can manage movies that they have either completed or not completed.
+                                </List.Description>
+                            </List.Item>
+                            <List.Item>
+                                <List.Header >Favorites</List.Header>
+                                <List.Description>
+                                    The favorites feature allows users to track movies that they enjoy.
+                                </List.Description>
+                            </List.Item>
+                        </List>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

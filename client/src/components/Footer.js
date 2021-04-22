@@ -1,42 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Grid, Header, List, Segment } from 'semantic-ui-react';
 
-export default function Footer () {
+export default function Footer() {
 
-    return (
-        <Segment inverted vertical style={{ padding: '5em 0em' }}>
-        <Container>
-          <Grid divided inverted stackable>
-            <Grid.Row>
-              <Grid.Column width={3}>
-                <Header inverted as='h4' content='About' />
-                <List link inverted>
-                  <List.Item as='a'>Sitemap</List.Item>
-                  <List.Item as='a'>Contact Us</List.Item>
-                  <List.Item as='a'>Religious Ceremonies</List.Item>
-                  <List.Item as='a'>Gazebo Plans</List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <Header inverted as='h4' content='Services' />
-                <List link inverted>
-                  <List.Item as='a'>Banana Pre-Order</List.Item>
-                  <List.Item as='a'>DNA FAQ</List.Item>
-                  <List.Item as='a'>How To Access</List.Item>
-                  <List.Item as='a'>Favorite X-Men</List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={7}>
-                <Header as='h4' inverted>
-                  Footer Header
+  return (
+    <Segment inverted vertical style={{ padding: '5em 0em' }}>
+      <Container>
+        <Grid divided inverted stackable>
+          <Grid.Row>
+            <Grid.Column width={5}>
+              <Header inverted as='h4' content='About' />
+              <List link inverted>
+                <List.Item as={Link} to='/'>Home</List.Item>
+                <List.Item as={Link} to='/browse'>Browse</List.Item>
+                <List.Item as={Link} to='/profile'>Profile</List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <Header as='h4' inverted>
+                Notice
                 </Header>
-                <p>
-                  Extra space for a call to action inside the footer that could help re-engage users.
+              <p>
+                Enjoy the website, and please be respectful.
                 </p>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Container>
-      </Segment>
-    )
+                <p>© Copyright 2021</p>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
+    </Segment>
+  )
 }
