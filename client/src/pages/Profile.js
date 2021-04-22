@@ -98,7 +98,7 @@ export default function Profile() {
                     largescreen
                     widescreen
                     */}
-                    <Grid.Column width={10}>
+                    <Grid.Column stretched computer={13} tablet={11}>
                         <Header as='h2'>
                             {tab}
                             <Header.Subheader>
