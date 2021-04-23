@@ -15,17 +15,26 @@ export default function LikedReviews() {
     function storeId(id) {
         dispatch(setFilm(id));
     };
+
     function removeLike(id) {
         const updateArr = posts.filter(element => element.id !== id)
         API.removeLike(id).then(res => {
             setPosts(updateArr)
             dispatch(setUserLikedReviews(updateArr))
         })
-    }
+    };
 
-    // useEffect(() => {
-    //     console.log(posts)
-    // })
+    function getUserLikedReviews(id) {
+        API.getUserLikedReviews(id).then(reviews => {
+            setPosts(reviews.data)
+            // dispatch(setUserLikedReviews(reviews.data))
+        })
+    };
+
+
+    useEffect(() => {
+        getUserLikedReviews(stateUser.id)
+    }, [posts])
 
 
     return (

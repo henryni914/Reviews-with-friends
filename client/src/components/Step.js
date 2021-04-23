@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Container, Grid, Icon, Step } from 'semantic-ui-react';
-import LoginButton from './LoginButton';
 import { useAuth0 } from '../utils/auth0context';
 
 export default function StepSection() {

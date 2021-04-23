@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { Button, Icon, Input, Menu, Form } from 'semantic-ui-react';
+import { Icon, Input, Menu, Form } from 'semantic-ui-react';
 import LoginButton from '../components/LoginButton';
 import LogoutButton from '../components/LogoutButton';
 import { useAuth0 } from '../utils/auth0context';
@@ -79,7 +79,6 @@ export default function Nav() {
 
   function getUserLikedReviews(id) {
     API.getUserLikedReviews(id).then(reviews => {
-      console.log(reviews.data)
       dispatch(setUserLikedReviews(reviews.data))
     })
   }

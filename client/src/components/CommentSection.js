@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setReviews } from '../actions/movies'
-import { Button, Comment, Feed, Form, Header, Icon, Rating } from 'semantic-ui-react';
+import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react';
 import API from "../utils/API"
 import { setUserLikedReviews } from '../actions/user';
 const moment = require('moment')
 
 export default function CommentSection(props) {
-    // console.log(props)
     const stateMovie = useSelector(state => state.movies)
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [comments, setComments] = useState(stateMovie.reviews);
-    // Does each comment need to have its own state to toggle reply?
+    const [comments, setComments] = useState([]);
 
     const [text, setText] = useState("");
     const [status, setStatus] = useState(false);
@@ -30,30 +28,27 @@ export default function CommentSection(props) {
     }
     function handleFormSubmit(e) {
         e.preventDefault();
-        console.log(stateUser)
+        // console.log(stateUser)
         // check if user has already submitted a review for this movie
-        // user for now can only submit 1 review per movie for the time being
         let movieId = stateMovie.currentFilmId
         let hasCommented = comments.find(({ User }) => User.name === stateUser.name)
 
         if (!stateUser.id) {
-            console.log('no user logged in')
+            // console.log('no user logged in')
             setStatus(true)
             setTimeout(() => setStatus(false), 5000)
             return
         } else if (hasCommented) {
-            console.log(hasCommented)
+            // console.log(hasCommented)
             setSubmitted(true)
             setTimeout(() => setSubmitted(false), 5000)
             return
         } else if (text.length < 1) {
-            console.log("too short")
+            // console.log("too short")
             setTextError(true)
             setTimeout(() => setTextError(false), 5000)
             return
         }
-        // need to do validation to make sure the text field isn't empty
-        // if empty display an error?
 
         let replyObj = {
             post: text,
@@ -73,7 +68,7 @@ export default function CommentSection(props) {
 
     function addToLikes(id, nickname) {
         if (!stateUser.id) {
-            console.log('no user logged in')
+            // console.log('no user logged in')
             return;
         }
 
@@ -91,10 +86,10 @@ export default function CommentSection(props) {
     }
 
     function removeFromLikes(id) {
-        // id = reviewDbId
+        // id = review db id
         // find in likedReviews ReviewId === id then grab that likedReview id and pass to API to remove
         let post = likedReviews.find(({ ReviewId }) => ReviewId === id)
-        let updateArr = likedReviews.filter(el => el.id !== post.id)
+        // let updateArr = likedReviews.filter(el => el.id !== post.id)
         API.removeLike(post.id).then(res => {
             getUserLikedReviews()
         })
@@ -116,12 +111,18 @@ export default function CommentSection(props) {
         })
     }
 
+    function getMovieReviews(id) {
+        API.getMovieReviews(id).then(res => {
+            setComments(res.data)
+            dispatch(setReviews(res.data))
+        })
+    }
+
     useEffect(() => {
+        // console.log('getting comments')
         getUserLikedReviews()
-        // console.log(comments)
+        getMovieReviews(stateMovie.currentFilmId)
     }, [comments])
-    // console.log(likedReviews)
-    // console.log(comments)
 
     return (
         <>
@@ -130,8 +131,7 @@ export default function CommentSection(props) {
                     Comments
                 </Header>
                 {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
-                {comments.length === 0 ? <h3>Be the first to comment!</h3>
-                    :
+                {comments.length > 0 &&
                     comments.map(el => (
                         <Comment key={el.id}>
                             {/* <Comment.Avatar src={el.userAvatar} /> */}
@@ -150,12 +150,16 @@ export default function CommentSection(props) {
                                             ? <Icon name="thumbs up" color='blue' onClick={() => removeFromLikes(el.id)} />
                                             : <Icon name="thumbs up outline" onClick={() => addToLikes(el.id, el.User.nickname)} />
                                         }
-                                        Like
-                                    </Comment.Action>
+                                    Like
+                                </Comment.Action>
                                 </Comment.Actions>
                             </Comment.Content>
                         </Comment>
                     ))
+                }
+
+                {comments.length === 0 &&
+                    <h3>Be the first to comment!</h3>
                 }
             </Comment.Group>
             <Form reply>

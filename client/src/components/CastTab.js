@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Grid, GridColumn, Image, List } from 'semantic-ui-react';
 
 export default function CastTab(props) {
@@ -17,7 +17,7 @@ export default function CastTab(props) {
             let tmdbProfileUrl = "https://www.themoviedb.org/person/" + el.id + "?language=en-US";
             columns.push(
                 <List.Item key={el.id} href={tmdbProfileUrl} target="_blank">
-                    <Image avatar src={avatarUrl} rounded size='mini' alt={el.name}/>
+                    <Image avatar src={avatarUrl} rounded size='mini' alt={el.name} />
                     <List.Content>
                         <List.Header>{el.name}</List.Header>
                         <List.Description>as {el.character}</List.Description>
