@@ -17,6 +17,7 @@ export default function UserReviews() {
     const [post, setPost] = useState("");
     const [text, setText] = useState("");
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
+    const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
 
     function handleInputChange(event) {
         setSearch(event.target.value);
@@ -80,9 +81,7 @@ export default function UserReviews() {
 
     useEffect(() => {
         getUserReviews(user.id)
-    }, [reviews]);
-
-    const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
+    }, []);
 
     return (
 
@@ -91,7 +90,15 @@ export default function UserReviews() {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {searchArr.length > 0 &&
+                {reviews.length === 0 &&
+                    <Container>
+                        <Message negative>
+                            <Message.Header>Nothing to display</Message.Header>
+                            <p>You haven't reviewed any movies yet.</p>
+                        </Message>
+                    </Container>
+                }
+                {reviews.length > 0 &&
                     searchArr.map(ele =>
                     (
                         <>
@@ -148,14 +155,6 @@ export default function UserReviews() {
                             <Divider section />
                         </>
                     ))
-                }
-                {reviews.length === 0 &&
-                    <Container>
-                        <Message negative>
-                            <Message.Header>Nothing to display</Message.Header>
-                            <p>You haven't reviewed any movies yet.</p>
-                        </Message>
-                    </Container>
                 }
             </Item.Group >
         </>
