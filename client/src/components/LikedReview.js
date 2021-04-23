@@ -6,11 +6,11 @@ import { setFilm } from '../actions/movies';
 import { setUserLikedReviews } from '../actions/user'
 import API from '../utils/API';
 
-export default function LikedReviews() {
-
+export default function LikedReviews(props) {
+    // console.log(props)
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user)
-    const [posts, setPosts] = useState(stateUser.likedReviews)
+    const [posts, setPosts] = useState(props.reviews)
 
     function storeId(id) {
         dispatch(setFilm(id));
@@ -33,14 +33,17 @@ export default function LikedReviews() {
 
 
     useEffect(() => {
-        getUserLikedReviews(stateUser.id)
-    }, [posts])
+        // if (props.reviews.length !== 0) {
+        //     setPosts(stateUser.LikedReviews)
+        // }
+        // getUserLikedReviews(stateUser.id)
+    }, [])
 
 
     return (
         <Item.Group>
 
-            {posts.length === 0
+            {props.reviews.length === 0
                 ?
                 <Container>
                     <Message negative>

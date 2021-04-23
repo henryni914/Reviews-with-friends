@@ -22,7 +22,8 @@ export default function MoviePage() {
     const [favoriteId, setFavoriteId] = useState([]);
     const [watch, setWatch] = useState(false);
     const [watchId, setWatchId] = useState([]);
-    const [likes, setLikes] = useState(0)
+    const [likes, setLikes] = useState(0);
+    const [posts, setPosts] = useState([]);
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
@@ -43,7 +44,7 @@ export default function MoviePage() {
                 return <Cast info={results.credits} />
             }
             case "reviews": {
-                return <CommentSection tmdbId={filmTmdbId} title={results.original_title} />
+                return <CommentSection tmdbId={filmTmdbId} title={results.original_title} comments={posts} />
             }
         }
     };
@@ -107,6 +108,7 @@ export default function MoviePage() {
         setWatchId([])
     }
 
+    // Retrieves all likes according to current movie
     function getLikes(id) {
         API.findAllFavorites(id).then(res => {
             setLikes(res.data.length)
@@ -115,6 +117,7 @@ export default function MoviePage() {
 
     useEffect(() => {
         // console.log('running movie search')
+        // console.log(stateUser)
         // API.findProviders(currentFilm).then(res => {
         //     console.log(res.data.results.US)
         // })
@@ -145,11 +148,10 @@ export default function MoviePage() {
                 } else setWatch(false)
 
                 dispatch(setFilm(currentFilm, res.data[0].id))
-                if (res.data[1] === false) {
-                    // console.log('movie already exists')
-                } else 
-                // console.log('new movie entry created')
+
+                // Reviews for this movie
                 API.getMovieReviews(res.data[0].id).then(res => {
+                    setPosts(res.data)
                     dispatch(setReviews(res.data))
                 })
                 getLikes(res.data[0].id)
