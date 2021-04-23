@@ -123,9 +123,12 @@ export default function CommentSection(props) {
         // console.log(stateMovie)
         getMovieReviews(stateMovie.currentFilmId)
         // console.log(stateUser)
-        // if (props.comments.length !== 0) {
-        getUserLikedReviews()
-        // }
+        if (stateUser.email !== "") {
+            console.log('there is a user')
+            getUserLikedReviews()
+        } else {
+            console.log('no user so not getting likes')
+        }
         // getMovieReviews(stateMovie.currentFilmId)
 
     }, [])
@@ -137,7 +140,7 @@ export default function CommentSection(props) {
                     Comments
                 </Header>
                 {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
-                {comments.length === 0 ? <h3>Be the first to comment!</h3>
+                {props.comments.length === 0 ? <h3>Be the first to comment!</h3>
                     // comments.length > 0 &&
                     : comments.map(el => (
                         <Comment key={el.id}>
