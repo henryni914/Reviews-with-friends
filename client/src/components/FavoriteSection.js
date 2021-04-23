@@ -65,7 +65,8 @@ export default function CardExampleColumnCount(props) {
                             <p>Add some movies to your favorites, by clicking the heart icon on the movie page. </p>
                         </Message>
                     </Container>
-                    : display.map(el => (
+                    :
+                    display.map(el => (
                         <Card >
                             <Reveal animated='small fade' >
                                 <Reveal.Content visible>
@@ -97,14 +98,18 @@ export default function CardExampleColumnCount(props) {
                         </Card>
                     ))
                 }
-                < Pagination
-                    className={'paginationProfile'}
-                    activePage={page}
-                    firstItem={null}
-                    lastItem={null}
-                    totalPages={pages}
-                    onPageChange={handlePageChange}
-                />
+                {props.favorites.length === 0
+                    ? <></>
+                    :
+                    < Pagination
+                        className={'paginationProfile'}
+                        activePage={page}
+                        firstItem={null}
+                        lastItem={null}
+                        totalPages={pages}
+                        onPageChange={handlePageChange}
+                    />
+                }
             </Card.Group>
         </Container>
     )

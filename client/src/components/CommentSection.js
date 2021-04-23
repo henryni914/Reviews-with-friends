@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setReviews } from '../actions/movies'
-import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react';
+import { Button, Comment, Form, Header, Icon, Pagination } from 'semantic-ui-react';
 import API from "../utils/API"
 import { setUserLikedReviews } from '../actions/user';
 const moment = require('moment')
 
 export default function CommentSection(props) {
-    // console.log(props)
+    // console.log(props.comments)
     const stateMovie = useSelector(state => state.movies)
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [comments, setComments] = useState(props.comments);
+    const [comments, setComments] = useState([]);
     const [text, setText] = useState("");
     const [status, setStatus] = useState(false);
     const [textError, setTextError] = useState(false);
@@ -59,6 +59,7 @@ export default function CommentSection(props) {
         }
         API.createMovieReview(replyObj).then(res => {
             API.getMovieReviews(movieId).then(res => {
+                console.log(res.data)
                 dispatch(setReviews(res.data))
                 setComments(res.data)
             })
@@ -119,10 +120,12 @@ export default function CommentSection(props) {
     }
 
     useEffect(() => {
+        // console.log(stateMovie)
+        getMovieReviews(stateMovie.currentFilmId)
         // console.log(stateUser)
-        if (props.comments.length !== 0) {
-            getUserLikedReviews()
-        }
+        // if (props.comments.length !== 0) {
+        getUserLikedReviews()
+        // }
         // getMovieReviews(stateMovie.currentFilmId)
 
     }, [])
@@ -134,8 +137,9 @@ export default function CommentSection(props) {
                     Comments
                 </Header>
                 {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
-                {comments.length > 0 &&
-                    comments.map(el => (
+                {comments.length === 0 ? <h3>Be the first to comment!</h3>
+                    // comments.length > 0 &&
+                    : comments.map(el => (
                         <Comment key={el.id}>
                             {/* <Comment.Avatar src={el.userAvatar} /> */}
                             <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
@@ -161,9 +165,10 @@ export default function CommentSection(props) {
                     ))
                 }
 
-                {comments.length === 0 &&
+                {/* {
+                props.comments.length === 0 &&
                     <h3>Be the first to comment!</h3>
-                }
+                } */}
             </Comment.Group>
             <Form reply>
                 {/* <Rating icon='star' defaultRating={rating} maxRating={5} size='large' clearable onClick={handleStarClick} /> */}
