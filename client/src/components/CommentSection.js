@@ -18,7 +18,11 @@ export default function CommentSection(props) {
     const [status, setStatus] = useState(false);
     const [textError, setTextError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const [likedReviews, setLikedReviews] = useState([])
+    // likedReviews holds an array of the reviews that the user has liked for current movie.
+    const [likedReviews, setLikedReviews] = useState([]);
+    // likedReviewIds holds the IDs of the reviews that the user has liked for current movie.
+    // the ids are used to render the like button with an already liked state or not
+    const [likedReviewIds, setLikedReviewIds] = useState([]);
 
 
     function handleInputChange(event) {
@@ -87,27 +91,27 @@ export default function CommentSection(props) {
     }
 
     function removeFromLikes(id) {
-        let likeObj = {
-            UserId: stateUser.id,
-            ReviewId: id
-        }
-        // console.log(likeObj)
-        API.removeUserLike(likeObj)
-            .then(res => {
-                getUserLikedReviews()
-                console.log(res.data)
-            })
+        // id = reviewDbId
+        // find in likedReviews ReviewId === id then grab that likedReview id and pass to API to remove
+        let post = likedReviews.find(({ ReviewId }) => ReviewId === id)
+        let updateArr = likedReviews.filter(el => el.id !== post.id)
+        API.removeLike(post.id).then(res => {
+            getUserLikedReviews()
+        })
     }
 
     function getUserLikedReviews() {
         API.getUserLikedReviews(stateUser.id).then(res => {
             // filter through all users liked reviews and find all that are associated with current movie
             const arr = res.data.filter(el => el.Review.MovieId === stateMovie.currentFilmId)
-            const postIdArr = []
+            const postIdArr = [];
+            const moviePosts = [];
             for (let i = 0; i < arr.length; i++) {
-                postIdArr.push(arr[i].ReviewId)
+                postIdArr.push(arr[i].ReviewId) //arr[i].ReviewId
+                moviePosts.push(arr[i])
             }
-            setLikedReviews(postIdArr)
+            setLikedReviews(moviePosts)
+            setLikedReviewIds(postIdArr)
             dispatch(setUserLikedReviews(res.data))
         })
     }
@@ -116,6 +120,8 @@ export default function CommentSection(props) {
         getUserLikedReviews()
         // console.log(comments)
     }, [comments])
+    // console.log(likedReviews)
+    // console.log(comments)
 
     return (
         <>
@@ -140,7 +146,7 @@ export default function CommentSection(props) {
                                 <Comment.Actions>
                                     {/* thumbs down = filled in with color */}
                                     <Comment.Action>
-                                        {likedReviews.includes(el.id)
+                                        {likedReviewIds.includes(el.id)
                                             ? <Icon name="thumbs up" color='blue' onClick={() => removeFromLikes(el.id)} />
                                             : <Icon name="thumbs up outline" onClick={() => addToLikes(el.id, el.User.nickname)} />
                                         }

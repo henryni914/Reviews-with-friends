@@ -26,7 +26,9 @@ export default function MoviePage() {
     const tabs = ["overview", "cast", "reviews"];
     const [tab, setTab] = useState("overview");
     const backdrop = "https://image.tmdb.org/t/p/original" + results.backdrop_path;
-    const currentFilm = window.location.href.slice(30);
+    const startIndex = window.location.href.indexOf('=') + 1
+    const hrefLength = window.location.href.length
+    const currentFilm = window.location.href.slice(startIndex, hrefLength)
 
     const handleTabChange = page => {
         setTab(page)
