@@ -37,34 +37,10 @@ export default function Nav() {
       .catch(err => console.log(err));
   };
 
-  // Checks to see if user exists in DB. If not, add the user to the DB
-  // function userCheck(userInfo) {
-  //   API.findAll().then(res => {
-  //     // console.log('db res: ' + JSON.stringify(res.data))
-  //     const isUser = res.data.find(({ email }) => email === userInfo.email)
-  //     // console.log('is user ' + JSON.stringify(isUser))
-  //     // {"id":4,"name":"testing@testing.com","email":"testing@testing.com","dateJoined":null}
-  //     if (!isUser) {
-  //       API.create(userInfo).then(results => {
-  //         console.log('user created successfully :' + JSON.stringify(results.data))
-  //         dispatch(setUser(results.data))
-  //       })
-  //       // {"id":5,"name":"test123@testing.com","email":"test123@testing.com"}
-  //     } else {
-  //       // console.log('user exists :' + JSON.stringify(isUser))
-  //       dispatch(setUser(isUser))
-  //       // need to pull db information pertaining to user
-  //       // user's reviews
-  //       // user's watchlist
-  //       // user's favorites
-  //       // user's followed
-  //     }
-  //   })
-  // };
-
   function getUserReviews(id) {
-    API.getUserReviews(id).then(reviews =>
-      dispatch(setUserReviews(reviews.data)))
+    API.getUserReviews(id).then(reviews =>{
+      dispatch(setUserReviews(reviews.data))
+    })
   }
 
   function getUserFavorites(id) {
@@ -87,13 +63,13 @@ export default function Nav() {
     API.findOrCreateUser(userInfo).then(res => {
       dispatch(setUser(res.data[0]))
       if (res.data[1] === false) {
-        console.log('user already exists')
+        // console.log('user already exists')
         getUserReviews(res.data[0].id)
         getUserFavorites(res.data[0].id)
         getUserWatchlist(res.data[0].id)
         getUserLikedReviews(res.data[0].id)
       } else {
-        console.log('new user created')
+        // console.log('new user created')
         const userName = res.data[0].name
         const userNick = capitalizeFirstLetter(userName.substr(0, userName.indexOf('@')))
         function capitalizeFirstLetter(string) {
@@ -117,7 +93,6 @@ export default function Nav() {
       return;
     }
     if (user) {
-
       let userObj = {
         name: user.name,
         email: user.email
@@ -174,5 +149,31 @@ export default function Nav() {
     </>
   )
 }
+
+
+  // Checks to see if user exists in DB. If not, add the user to the DB
+  // function userCheck(userInfo) {
+  //   API.findAll().then(res => {
+  //     // console.log('db res: ' + JSON.stringify(res.data))
+  //     const isUser = res.data.find(({ email }) => email === userInfo.email)
+  //     // console.log('is user ' + JSON.stringify(isUser))
+  //     // {"id":4,"name":"testing@testing.com","email":"testing@testing.com","dateJoined":null}
+  //     if (!isUser) {
+  //       API.create(userInfo).then(results => {
+  //         console.log('user created successfully :' + JSON.stringify(results.data))
+  //         dispatch(setUser(results.data))
+  //       })
+  //       // {"id":5,"name":"test123@testing.com","email":"test123@testing.com"}
+  //     } else {
+  //       // console.log('user exists :' + JSON.stringify(isUser))
+  //       dispatch(setUser(isUser))
+  //       // need to pull db information pertaining to user
+  //       // user's reviews
+  //       // user's watchlist
+  //       // user's favorites
+  //       // user's followed
+  //     }
+  //   })
+  // };
 
 

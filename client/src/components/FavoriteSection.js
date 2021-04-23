@@ -7,11 +7,12 @@ import API from '../utils/API';
 
 const src = "https://image.tmdb.org/t/p/original/srYya1ZlI97Au4jUYAktDe3avyA.jpg"
 
-export default function CardExampleColumnCount() {
+export default function CardExampleColumnCount(props) {
+    // console.log(props.favorites)
 
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState(props.favorites);
     const [page, setPage] = useState(1)
     const pages = Math.floor(favorites.length / 9) + 1
     const display = favorites.slice(
@@ -47,7 +48,8 @@ export default function CardExampleColumnCount() {
     // }, [favorites])
 
     useEffect(() => {
-        getUserFavorites(stateUser.id)
+        // setFavorites(stateUser.favorites)
+        // getUserFavorites(stateUser.id)
         // console.log(favorites)
     }, [])
 
@@ -56,7 +58,7 @@ export default function CardExampleColumnCount() {
     return (
         <Container >
             <Card.Group stackable itemsPerRow={3}>
-                {favorites.length === 0 ?
+                {props.favorites.length === 0 ?
                     <Container>
                         <Message negative>
                             <Message.Header>Nothing to display</Message.Header>
@@ -65,14 +67,6 @@ export default function CardExampleColumnCount() {
                     </Container>
                     : display.map(el => (
                         <Card >
-                            <Card.Header textAlign='center'>
-                                {/* <i>{el.Movie.title}</i> */}
-                            </Card.Header>
-                            {/* link href={`/film/id=${el.Movie.tmdbID}`} */}
-                            {/* <div className={'ui fade reveal image'}>
-                            <Image src={el.Movie.image} className={'visible content'} />
-                            <Image src={el.Movie.image} className={'hidden content hiddenImg'}/>
-                        </div> */}
                             <Reveal animated='small fade' >
                                 <Reveal.Content visible>
                                     <Link to={`/film/id=${el.Movie.tmdbID}`}>

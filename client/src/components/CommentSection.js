@@ -7,11 +7,11 @@ import { setUserLikedReviews } from '../actions/user';
 const moment = require('moment')
 
 export default function CommentSection(props) {
+    // console.log(props)
     const stateMovie = useSelector(state => state.movies)
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [comments, setComments] = useState([]);
-
+    const [comments, setComments] = useState(props.comments);
     const [text, setText] = useState("");
     const [status, setStatus] = useState(false);
     const [textError, setTextError] = useState(false);
@@ -119,10 +119,13 @@ export default function CommentSection(props) {
     }
 
     useEffect(() => {
-        // console.log('getting comments')
-        getUserLikedReviews()
-        getMovieReviews(stateMovie.currentFilmId)
-    }, [comments])
+        // console.log(stateUser)
+        if (props.comments.length !== 0) {
+            getUserLikedReviews()
+        }
+        // getMovieReviews(stateMovie.currentFilmId)
+
+    }, [])
 
     return (
         <>

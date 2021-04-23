@@ -7,20 +7,24 @@ import { setUserReviews } from '../actions/user';
 import API from '../utils/API';
 
 
-export default function UserReviews() {
+export default function UserReviews(props) {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
-    const [reviews, setReviews] = useState([]);
+    const [reviews, setReviews] = useState(user.reviews);
     const [search, setSearch] = useState("");
+    const [searchArr, setSearchArr] = useState([]);
     // post references the DB id of the review
     const [post, setPost] = useState("");
     const [text, setText] = useState("");
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
-    const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
+    // const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
 
     function handleInputChange(event) {
-        setSearch(event.target.value);
+        let value = event.target.value
+        setSearch(value)
+        const arr = reviews.filter(element => element.Movie.title.toLowerCase().includes(value.toLowerCase()))
+        setSearchArr(arr)
     };
 
     function storeId(id) {
@@ -31,6 +35,7 @@ export default function UserReviews() {
         const updateArr = reviews.filter(element => element.id !== id)
         API.deleteMovieReview(id).then(res => {
             setReviews(updateArr)
+            setSearchArr(updateArr)
             dispatch(setUserReviews(updateArr))
         })
     };
@@ -75,6 +80,7 @@ export default function UserReviews() {
     function getUserReviews(id) {
         API.getUserReviews(id).then(reviews => {
             setReviews(reviews.data)
+            setSearchArr(reviews.data)
             dispatch(setUserReviews(reviews.data))
         })
     };
@@ -90,7 +96,7 @@ export default function UserReviews() {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {reviews.length === 0 &&
+                {props.reviews.length === 0 &&
                     <Container>
                         <Message negative>
                             <Message.Header>Nothing to display</Message.Header>
@@ -103,13 +109,6 @@ export default function UserReviews() {
                     (
                         <>
                             <Item key={ele.id}>
-                                {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                                <img
-                                    className='search-img'
-                                    src={ele.Movie.image}
-                                    alt={ele.Movie.title}
-                                ></img>
-                            </Link> */}
                                 {post === ele.id
                                     ?
                                     <Item.Content>
