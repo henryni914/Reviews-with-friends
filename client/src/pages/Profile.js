@@ -6,8 +6,8 @@ import FavoriteSection from '../components/FavoriteSection';
 import Watchlist from '../components/WatchlistSection';
 import LikedReviews from '../components/LikedReview';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserReviews, setUserFavorites } from '../actions/user';
-import { Container, Dropdown, Grid, Header, Icon, Input, Menu, Segment } from 'semantic-ui-react';
+import { setUserReviews } from '../actions/user';
+import { Container, Grid, Header, Menu } from 'semantic-ui-react';
 import API from '../utils/API';
 
 export default function Profile() {
@@ -119,65 +119,3 @@ export default function Profile() {
         </Container>
     )
 }
-
-// previous side menu
-{/* <Grid stackable>
-<Grid.Column width={4}>
-    <Menu vertical>
-
-        <Menu.Item>
-            Home
-            <Menu.Menu>
-                <Menu.Item
-                    name='search'
-                // active={activeItem === 'search'}
-                // onClick={this.handleItemClick}
-                >
-                    Search
-                </Menu.Item>
-                <Menu.Item
-                    name='add'
-                // active={activeItem === 'add'}
-                // onClick={this.handleItemClick}
-                >
-                    Add
-                </Menu.Item>
-                <Menu.Item
-                    name='about'
-                // active={activeItem === 'about'}
-                // onClick={this.handleItemClick}
-                >
-                    Remove
-                </Menu.Item>
-            </Menu.Menu>
-        </Menu.Item>
-
-        <Menu.Item
-            name='browse'
-        // active={activeItem === 'browse'}
-        // onClick={this.handleItemClick}
-        >
-            <Icon name='grid layout' />
-        Browse
-        </Menu.Item>
-        <Menu.Item
-            name='messages'
-        // active={activeItem === 'messages'}
-        // onClick={this.handleItemClick}
-        >
-            Messages
-        </Menu.Item>
-
-        <Dropdown item text='More'>
-            <Dropdown.Menu>
-                <Dropdown.Item icon='edit' text='Edit Profile' />
-                <Dropdown.Item icon='globe' text='Choose Language' />
-                <Dropdown.Item icon='settings' text='Account Settings' />
-            </Dropdown.Menu>
-        </Dropdown>
-    </Menu>
-</Grid.Column>
-<Grid.Column width={10}>
-    <h1>Hello</h1>
-</Grid.Column>
-</Grid> */}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setFilm } from '../actions/movies'
 
 export default function MovieItem(props) {
@@ -13,7 +13,7 @@ export default function MovieItem(props) {
         // Finds the current selected film inside the array and returns the movie id === selected id
         // let selected = storeMoviesArr.filter(element => element.id === id);
     }
-    
+
     return (
         <Item >
             <Link onClick={() => storeId(props.id)} to={`/film/id=${props.id}`} >

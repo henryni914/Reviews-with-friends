@@ -11,7 +11,7 @@ export default function CardExampleColumnCount() {
 
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [favorites, setFavorites] = useState(stateUser.favorites);
+    const [favorites, setFavorites] = useState([]);
     const [page, setPage] = useState(1)
     const pages = Math.floor(favorites.length / 9) + 1
     const display = favorites.slice(
@@ -32,15 +32,26 @@ export default function CardExampleColumnCount() {
         })
     };
 
-    useEffect(() => {
-        API.getUserFavorites(stateUser.id).then(res => {
+    function getUserFavorites(id) {
+        API.getUserFavorites(id).then(res => {
             setFavorites(res.data)
-            // dispatch(setUserFavorites(favorites.data))
+            dispatch(setUserFavorites(res.data))
         })
+    }
+
+    // useEffect(() => {
+    // API.getUserFavorites(stateUser.id).then(res => {
+    //     setFavorites(res.data)
+    //     dispatch(setUserFavorites(favorites.data))
+    // })
+    // }, [favorites])
+
+    useEffect(() => {
+        getUserFavorites(stateUser.id)
         // console.log(favorites)
     }, [])
 
-    console.log(display)
+    // console.log(display)
 
     return (
         <Container >

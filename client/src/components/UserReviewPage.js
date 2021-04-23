@@ -10,12 +10,12 @@ import API from '../utils/API';
 export default function UserReviews() {
 
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user)
-    const [reviews, setReviews] = useState(user.reviews)
+    const user = useSelector(state => state.user);
+    const [reviews, setReviews] = useState([]);
     const [search, setSearch] = useState("");
     // post references the DB id of the review
-    const [post, setPost] = useState("")
-    const [text, setText] = useState("")
+    const [post, setPost] = useState("");
+    const [text, setText] = useState("");
     // let searchResults = reviews.filter(element => element.name.toLowerCase().includes(search.toLowerCase()))
 
     function handleInputChange(event) {
@@ -38,18 +38,18 @@ export default function UserReviews() {
     function editPost(id, text) {
         setPost(id)
         setText(text)
-    }
+    };
 
     // When user clicks cancel, the review is set back to "" so there is no more text field
     function cancelEdit(original) {
         setPost("")
         // setText(original)
-    }
+    };
 
     // When user types in the text field while editing their review, this updates the state with the text in the text field
     function handleEdit(event) {
         setText(event.target.value);
-    }
+    };
 
     // When user clicks save, the current text inside the text field is passed through as well as the ID that references the review's ID in the DB
     function saveEdit(id) {
@@ -68,7 +68,19 @@ export default function UserReviews() {
         API.editMovieReview(id, edit).then(res => {
             dispatch(setUserReviews(updatedArr))
         })
-    }
+    };
+
+    // Retrieve user reviews
+    function getUserReviews(id) {
+        API.getUserReviews(id).then(reviews => {
+            setReviews(reviews.data)
+            dispatch(setUserReviews(reviews.data))
+        })
+    };
+
+    useEffect(() => {
+        getUserReviews(user.id)
+    }, [reviews]);
 
     const searchArr = reviews.filter(element => element.Movie.title.toLowerCase().includes(search.toLowerCase()))
 
@@ -79,26 +91,18 @@ export default function UserReviews() {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {searchArr.length == 0
-                    ?
-                    <Container>
-                        <Message negative>
-                            <Message.Header>Nothing to display</Message.Header>
-                            <p>You haven't reviewed any movies yet.</p>
-                        </Message>
-                    </Container>
-                    :
+                {searchArr.length > 0 &&
                     searchArr.map(ele =>
                     (
                         <>
                             <Item key={ele.id}>
                                 {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                            <img
-                                className='search-img'
-                                src={ele.Movie.image}
-                                alt={ele.Movie.title}
-                            ></img>
-                        </Link> */}
+                                <img
+                                    className='search-img'
+                                    src={ele.Movie.image}
+                                    alt={ele.Movie.title}
+                                ></img>
+                            </Link> */}
                                 {post === ele.id
                                     ?
                                     <Item.Content>
@@ -144,6 +148,14 @@ export default function UserReviews() {
                             <Divider section />
                         </>
                     ))
+                }
+                {reviews.length === 0 &&
+                    <Container>
+                        <Message negative>
+                            <Message.Header>Nothing to display</Message.Header>
+                            <p>You haven't reviewed any movies yet.</p>
+                        </Message>
+                    </Container>
                 }
             </Item.Group >
         </>

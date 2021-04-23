@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Card, Container, Icon, Image, Message, Reveal } from 'semantic-ui-react';
+import { Button, Card, Container, Image, Message, Reveal } from 'semantic-ui-react';
 import { setUserWatchlist } from '../actions/user';
 import API from '../utils/API';
 

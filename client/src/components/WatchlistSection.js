@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Menu, Segment } from 'semantic-ui-react'
-import API from '../utils/API';
+import { Container, Menu } from 'semantic-ui-react'
 import Tab from './WatchlistTab';
 
 export default function Watchlist() {

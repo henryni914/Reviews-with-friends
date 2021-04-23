@@ -51,7 +51,7 @@ export default function MoviePage() {
     function addToFavorite() {
 
         if (!stateUser.id) {
-            console.log('no user logged in')
+            // console.log('no user logged in')
             return;
         }
         let favoriteObj = {
@@ -80,7 +80,7 @@ export default function MoviePage() {
 
     function addToWatchlist() {
         if (!stateUser.id) {
-            console.log('no user logged in')
+            // console.log('no user logged in')
             return;
         }
         let obj = {
@@ -98,9 +98,9 @@ export default function MoviePage() {
 
     function removeFromWatchlist() {
         const updateArr = stateUser.favorites.filter(ele => ele.MovieId !== filmDbId)
-        console.log(watchId)
+        // console.log(watchId)
         API.deleteWatchlist(watchId.id).then(res => {
-            console.log(res);
+            // console.log(res);
         })
         dispatch(setUserWatchlist(updateArr))
         setWatch(false)
@@ -114,6 +114,7 @@ export default function MoviePage() {
     }
 
     useEffect(() => {
+        // console.log('running movie search')
         // API.findProviders(currentFilm).then(res => {
         //     console.log(res.data.results.US)
         // })
@@ -145,8 +146,9 @@ export default function MoviePage() {
 
                 dispatch(setFilm(currentFilm, res.data[0].id))
                 if (res.data[1] === false) {
-                    console.log('movie already exists')
-                } else console.log('new movie entry created')
+                    // console.log('movie already exists')
+                } else 
+                // console.log('new movie entry created')
                 API.getMovieReviews(res.data[0].id).then(res => {
                     dispatch(setReviews(res.data))
                 })

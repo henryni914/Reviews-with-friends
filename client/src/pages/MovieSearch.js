@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MovieItem from '../components/MovieItem';
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Divider, Grid, Item, Menu } from 'semantic-ui-react';
+import { Container, Divider, Grid, Item } from 'semantic-ui-react';
 import API from '../utils/API';
 import { updateSearch } from '../actions/movies';
 
@@ -11,7 +11,9 @@ export default function MovieDisplay() {
     const storeMovies = useSelector(state => state.movies);
     const resultsArr = storeMovies.searchResults;
     const [search, setSearch] = useState(storeMovies.search);
-    const currentSearch = window.location.href.slice(32);
+    const startIndex = window.location.href.indexOf('=') + 1
+    const hrefLength = window.location.href.length
+    const currentSearch = window.location.href.slice(startIndex, hrefLength);
 
     // ************
     // Need to save the search keyword and the result either to local storage or another method to keep state before page refresh

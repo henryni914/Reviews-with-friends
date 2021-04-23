@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Card, Container } from 'semantic-ui-react';
 import MovieCard from './MovieCard';
 import API from '../utils/API';
-// import { useDispatch, useSelector } from "react-redux";
-// import { setTopFive } from '../actions/movies';
 
 export default function PopularSection() {
 
@@ -48,5 +46,3 @@ export default function PopularSection() {
 
     )
 }
-
-{/* <MovieCard test = {stateMovies}/> */ }
