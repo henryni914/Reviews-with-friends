@@ -17,7 +17,8 @@ module.exports = function (sequelize, DataTypes) {
         Like.belongsTo(models.Review, {
             foreignKey: {
                 allowNull: false
-            }
+            },
+            onDelete: 'cascade'
         });
     };
 

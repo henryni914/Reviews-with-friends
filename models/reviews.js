@@ -24,6 +24,13 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false
             }
         });
+
+        // Reviews will have likes
+        Review.hasMany(models.Like, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
     };
     return Review;
 };

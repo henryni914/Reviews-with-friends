@@ -27,8 +27,10 @@ export default function UserReviews() {
     };
 
     function deleteReview(id) {
+        console.log(id)
         const updateArr = reviews.filter(element => element.id !== id)
         API.deleteMovieReview(id).then(res => {
+            console.log(res)
             setReviews(updateArr)
             dispatch(setUserReviews(updateArr))
         })
@@ -79,26 +81,19 @@ export default function UserReviews() {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {searchArr.length == 0
+                {searchArr.length !== 0
                     ?
-                    <Container>
-                        <Message negative>
-                            <Message.Header>Nothing to display</Message.Header>
-                            <p>You haven't reviewed any movies yet.</p>
-                        </Message>
-                    </Container>
-                    :
                     searchArr.map(ele =>
                     (
                         <>
                             <Item key={ele.id}>
                                 {/* <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                            <img
-                                className='search-img'
-                                src={ele.Movie.image}
-                                alt={ele.Movie.title}
-                            ></img>
-                        </Link> */}
+                                <img
+                                    className='search-img'
+                                    src={ele.Movie.image}
+                                    alt={ele.Movie.title}
+                                ></img>
+                            </Link> */}
                                 {post === ele.id
                                     ?
                                     <Item.Content>
@@ -144,6 +139,13 @@ export default function UserReviews() {
                             <Divider section />
                         </>
                     ))
+                    :
+                    <Container>
+                        <Message negative>
+                            <Message.Header>Nothing to display</Message.Header>
+                            <p>You haven't reviewed any movies yet.</p>
+                        </Message>
+                    </Container>
                 }
             </Item.Group >
         </>
