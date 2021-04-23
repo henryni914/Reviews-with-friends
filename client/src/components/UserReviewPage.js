@@ -96,64 +96,64 @@ export default function UserReviews(props) {
                 <Input icon='search' placeholder='Search by movie title...' value={search} onChange={handleInputChange} />
             </Form>
             <Item.Group>
-                {props.reviews.length === 0 &&
-                    <Container>
-                        <Message negative>
-                            <Message.Header>Nothing to display</Message.Header>
-                            <p>You haven't reviewed any movies yet.</p>
-                        </Message>
-                    </Container>
-                }
-                {reviews.length > 0 &&
-                    searchArr.map(ele =>
-                    (
-                        <>
-                            <Item key={ele.id}>
-                                {post === ele.id
-                                    ?
-                                    <Item.Content>
-                                        <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
-                                            <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
-                                        </Link>
-                                        <Item.Meta>{ele.createdAt}</Item.Meta>
-                                        <Form reply>
-                                            <Form.TextArea value={text} onChange={handleEdit} />
-                                            <Button content='Save' labelPosition='left' icon='edit' primary onClick={() => saveEdit(ele.id)} />
-                                            <Button content='Cancel' labelPosition='left' icon='edit' primary onClick={() => cancelEdit(ele.post)} />
-                                        </Form>
-                                    </Item.Content>
-                                    :
-                                    <>
-                                        <Item.Content >
+                {
+                    props.reviews.length === 0 ?
+                        <Container>
+                            <Message negative>
+                                <Message.Header>Nothing to display</Message.Header>
+                                <p>You haven't reviewed any movies yet.</p>
+                            </Message>
+                        </Container>
+                        :
+                        searchArr.map(ele =>
+                        (
+                            <>
+                                <Item key={ele.id}>
+                                    {post === ele.id
+                                        ?
+                                        <Item.Content>
                                             <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
                                                 <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
                                             </Link>
-                                            {ele.createdAt === ele.updatedAt && (
-                                                <Item.Meta><i>Posted: </i>{ele.createdAt}</Item.Meta>
-                                            )}
-                                            {ele.createdAt !== ele.updatedAt && (
-                                                <Item.Meta><i>Updated: </i>{ele.updatedAt}</Item.Meta>
-                                            )}
-                                            <Item.Description >
-                                                <p>{ele.post}</p>
-                                            </Item.Description>
-                                            <Item.Extra>
-                                                <Button animated='fade' floated='left' onClick={() => editPost(ele.id, ele.post)}>
-                                                    <Button.Content visible><Icon name='edit outline' /></Button.Content>
-                                                    <Button.Content hidden>Edit</Button.Content>
-                                                </Button>
-                                                <Button animated='fade' floated='left' onClick={() => deleteReview(ele.id)}>
-                                                    <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                                                    <Button.Content hidden>Delete</Button.Content>
-                                                </Button>
-                                            </Item.Extra>
+                                            <Item.Meta>{ele.createdAt}</Item.Meta>
+                                            <Form reply>
+                                                <Form.TextArea value={text} onChange={handleEdit} />
+                                                <Button content='Save' labelPosition='left' icon='edit' primary onClick={() => saveEdit(ele.id)} />
+                                                <Button content='Cancel' labelPosition='left' icon='edit' primary onClick={() => cancelEdit(ele.post)} />
+                                            </Form>
                                         </Item.Content>
-                                    </>
-                                }
-                            </Item>
-                            <Divider section />
-                        </>
-                    ))
+                                        :
+                                        <>
+                                            <Item.Content >
+                                                <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
+                                                    <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
+                                                </Link>
+                                                {ele.createdAt === ele.updatedAt && (
+                                                    <Item.Meta><i>Posted: </i>{ele.createdAt}</Item.Meta>
+                                                )}
+                                                {ele.createdAt !== ele.updatedAt && (
+                                                    <Item.Meta><i>Updated: </i>{ele.updatedAt}</Item.Meta>
+                                                )}
+                                                <Item.Description >
+                                                    <p>{ele.post}</p>
+                                                </Item.Description>
+                                                <Item.Extra>
+                                                    <Button animated='fade' floated='left' onClick={() => editPost(ele.id, ele.post)}>
+                                                        <Button.Content visible><Icon name='edit outline' /></Button.Content>
+                                                        <Button.Content hidden>Edit</Button.Content>
+                                                    </Button>
+                                                    <Button animated='fade' floated='left' onClick={() => deleteReview(ele.id)}>
+                                                        <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
+                                                        <Button.Content hidden>Delete</Button.Content>
+                                                    </Button>
+                                                </Item.Extra>
+                                            </Item.Content>
+                                        </>
+                                    }
+                                </Item>
+                                <Divider section />
+                            </>
+                        ))
                 }
             </Item.Group >
         </>
