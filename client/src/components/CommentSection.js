@@ -59,8 +59,8 @@ export default function CommentSection(props) {
         }
         API.createMovieReview(replyObj).then(res => {
             API.getMovieReviews(movieId).then(res => {
-                console.log(res.data)
-                dispatch(setReviews(res.data))
+                // console.log(res.data)
+                // dispatch(setReviews(res.data))
                 setComments(res.data)
             })
         })
@@ -140,7 +140,7 @@ export default function CommentSection(props) {
                     Comments
                 </Header>
                 {/* When rendering, add a function to check if the comment has replies, if so add a Comment.Group after the end of Comment.Content*/}
-                {props.comments.length === 0 ? <h3>Be the first to comment!</h3>
+                {comments.length === 0 ? <h3>Be the first to comment!</h3>
                     // comments.length > 0 &&
                     : comments.map(el => (
                         <Comment key={el.id}>
