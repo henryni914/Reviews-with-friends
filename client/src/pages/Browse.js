@@ -86,7 +86,7 @@ export default function Browse() {
                     lastItem={null}
                     totalPages={4}
                     onPageChange={setUpcoming}
-                    href="#upcoming"
+                    // href="#upcoming"
                 />
             </Card.Group>
 
@@ -109,7 +109,7 @@ export default function Browse() {
                     lastItem={null}
                     totalPages={4}
                     onPageChange={setTopRated}
-                    href="#topRated"
+                    // href="#topRated"
                 />
             </Card.Group>
 
@@ -132,7 +132,7 @@ export default function Browse() {
                     lastItem={null}
                     totalPages={4}
                     onPageChange={setNowPlaying}
-                    href="#nowPlaying"
+                    // href="#nowPlaying"
                 />
             </Card.Group>
         </Container>
