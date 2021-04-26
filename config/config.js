@@ -15,15 +15,19 @@ module.exports = {
         "dialect": "mysql"
     },
     "production": {
-        "username": process.env.RDS_USERNAME,
-        "password": process.env.RDS_PASSWORD,
-        "port": process.env.RDS_PORT,
-        "database": process.env.RDS_DATABASE,
-        "host": process.env.RDS_HOSTNAME,
-        "dialect": "mysql",
-        "dialectOptions": {
-            ssl: 'Amazon RDS'
-        },
-        "language": 'en'
+        "use_env_variable": "JAWSDB_URL",
+        "dialect": "mysql"
     }
+    // "production": {
+    //     "username": process.env.RDS_USERNAME,
+    //     "password": process.env.RDS_PASSWORD,
+    //     "port": process.env.RDS_PORT,
+    //     "database": process.env.RDS_DATABASE,
+    //     "host": process.env.RDS_HOSTNAME,
+    //     "dialect": "mysql",
+    //     "dialectOptions": {
+    //         ssl: 'Amazon RDS'
+    //     },
+    //     "language": 'en'
+    // }
 };
