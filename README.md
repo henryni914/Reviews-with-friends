@@ -4,6 +4,8 @@ Built with React and hosted on Heroku
 
 ![rwf-reviews](https://user-images.githubusercontent.com/58963267/116177968-c43bb880-a6e2-11eb-92a5-22faa3ba7d94.png)
 
+![rwf-movie](https://user-images.githubusercontent.com/58963267/116178413-8d19d700-a6e3-11eb-8fdb-798bb5f2f3a1.png)
+
 ![rwf-favorites](https://user-images.githubusercontent.com/58963267/116177405-bd607600-a6e1-11eb-8e95-c4c19ed97d64.png)
 
 ## Table of Contents
