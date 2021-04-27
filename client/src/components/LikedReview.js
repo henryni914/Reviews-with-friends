@@ -7,10 +7,9 @@ import { setUserLikedReviews } from '../actions/user'
 import API from '../utils/API';
 
 export default function LikedReviews(props) {
-    // console.log(props)
     const dispatch = useDispatch();
     const stateUser = useSelector(state => state.user)
-    const [posts, setPosts] = useState(props.reviews)
+    const [posts, setPosts] = useState([])
 
     function storeId(id) {
         dispatch(setFilm(id));
@@ -27,23 +26,22 @@ export default function LikedReviews(props) {
     function getUserLikedReviews(id) {
         API.getUserLikedReviews(id).then(reviews => {
             setPosts(reviews.data)
-            // dispatch(setUserLikedReviews(reviews.data))
+            dispatch(setUserLikedReviews(reviews.data))
         })
     };
 
 
     useEffect(() => {
-        // if (props.reviews.length !== 0) {
-        //     setPosts(stateUser.LikedReviews)
-        // }
-        // getUserLikedReviews(stateUser.id)
+        if (stateUser.email !== "") {
+            getUserLikedReviews(stateUser.id)
+        }
     }, [])
 
 
     return (
         <Item.Group>
 
-            {props.reviews.length === 0
+            {posts.length === 0
                 ?
                 <Container>
                     <Message negative>
@@ -58,15 +56,17 @@ export default function LikedReviews(props) {
                                 <Link onClick={() => storeId(ele.tmdbId)} to={`/film/id=${ele.tmdbId}`} >
                                     <Item.Header as='a' ><i>{ele.title}</i></Item.Header>
                                 </Link>
-                                <Item.Meta><i>Posted by: </i>{ele.reviewer}</Item.Meta>
+                                <Item.Meta><i>Posted by: </i>{ele.reviewer}
+                                    <Button animated='fade' floated='right' onClick={() => removeLike(ele.id)}>
+                                        <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
+                                        <Button.Content hidden>Delete</Button.Content>
+                                    </Button>
+                                </Item.Meta>
                                 <Item.Description >
                                     <p>{ele.Review.post}</p>
                                 </Item.Description>
                                 <Item.Extra>
-                                    <Button animated='fade' floated='left' onClick={() => removeLike(ele.id)}>
-                                        <Button.Content visible><Icon name='trash alternate outline' /></Button.Content>
-                                        <Button.Content hidden>Delete</Button.Content>
-                                    </Button>
+
                                 </Item.Extra>
                             </Item.Content>
                         </Item>

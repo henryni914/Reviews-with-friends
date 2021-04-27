@@ -7,7 +7,7 @@ import { setUserLikedReviews } from '../actions/user';
 const moment = require('moment')
 
 export default function CommentSection(props) {
-    // console.log(props.comments)
+    // console.log(props)
     const stateMovie = useSelector(state => state.movies)
     const stateUser = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -28,7 +28,6 @@ export default function CommentSection(props) {
     }
     function handleFormSubmit(e) {
         e.preventDefault();
-        // console.log(stateUser)
         // check if user has already submitted a review for this movie
         let movieId = stateMovie.currentFilmId
         let hasCommented = comments.find(({ User }) => User.name === stateUser.name)
@@ -69,7 +68,6 @@ export default function CommentSection(props) {
 
     function addToLikes(id, nickname) {
         if (!stateUser.id) {
-            // console.log('no user logged in')
             return;
         }
 
@@ -80,7 +78,7 @@ export default function CommentSection(props) {
             UserId: stateUser.id,
             ReviewId: id
         }
-
+        console.log(likeObj)
         API.addUserLike(likeObj).then(res => {
             getUserLikedReviews()
         })
@@ -120,17 +118,10 @@ export default function CommentSection(props) {
     }
 
     useEffect(() => {
-        // console.log(stateMovie)
         getMovieReviews(stateMovie.currentFilmId)
-        // console.log(stateUser)
         if (stateUser.email !== "") {
-            console.log('there is a user')
             getUserLikedReviews()
-        } else {
-            console.log('no user so not getting likes')
         }
-        // getMovieReviews(stateMovie.currentFilmId)
-
     }, [])
 
     return (
