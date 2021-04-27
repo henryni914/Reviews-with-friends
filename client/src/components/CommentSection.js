@@ -58,7 +58,6 @@ export default function CommentSection(props) {
         }
         API.createMovieReview(replyObj).then(res => {
             API.getMovieReviews(movieId).then(res => {
-                // console.log(res.data)
                 // dispatch(setReviews(res.data))
                 setComments(res.data)
             })
@@ -78,7 +77,6 @@ export default function CommentSection(props) {
             UserId: stateUser.id,
             ReviewId: id
         }
-        console.log(likeObj)
         API.addUserLike(likeObj).then(res => {
             getUserLikedReviews()
         })

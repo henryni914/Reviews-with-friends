@@ -51,7 +51,7 @@ export default function LikedReviews(props) {
                 </Container>
                 : posts.map(ele => (
                     <>
-                        <Item>
+                        <Item key={ele.id}>
                             <Item.Content >
                                 <Link onClick={() => storeId(ele.tmdbId)} to={`/film/id=${ele.tmdbId}`} >
                                     <Item.Header as='a' ><i>{ele.title}</i></Item.Header>

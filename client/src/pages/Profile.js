@@ -5,15 +5,15 @@ import AccountSettings from '../components/AccountSettings';
 import FavoriteSection from '../components/FavoriteSection';
 import Watchlist from '../components/WatchlistSection';
 import LikedReviews from '../components/LikedReview';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserReviews, setUserFavorites, setUserWatchlist, setUserLikedReviews } from '../actions/user';
+import { useSelector } from 'react-redux';
+// import { setUserReviews, setUserFavorites, setUserWatchlist, setUserLikedReviews } from '../actions/user';
 import { Container, Grid, Header, Menu } from 'semantic-ui-react';
 import API from '../utils/API';
 
 export default function Profile() {
 
     const stateUser = useSelector(state => state.user);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const tabs = ["Account Settings", "Reviews", "Watchlist", "Favorites", "Liked Reviews"];
     const [tab, setTab] = useState("Account Settings");
     const [reviews, setReviews] = useState([]);
@@ -71,7 +71,7 @@ export default function Profile() {
         // console.log('tab changing')
         // console.log(stateUser.id)
         if (stateUser.id) {
-            console.log('user id is here')
+            // console.log('user id is here')
             API.getUserReviews(stateUser.id).then(reviews => {
                 // console.log(reviews.data)
                 setReviews(reviews.data)
@@ -92,8 +92,6 @@ export default function Profile() {
                 setLikedReviews(reviews.data)
                 // dispatch(setUserLikedReviews(reviews.data))
             });
-        } else {
-            console.log('no id present')
         }
 
         window.scrollTo({
@@ -115,14 +113,6 @@ export default function Profile() {
                                     onClick={() => handleTabChange(ele)}
                                 />
                             ))}
-                            {/* <Dropdown item text='Display Options'>
-                                <Dropdown.Menu>
-                                    <Dropdown.Header>Text Size</Dropdown.Header>
-                                    <Dropdown.Item>Small</Dropdown.Item>
-                                    <Dropdown.Item>Medium</Dropdown.Item>
-                                    <Dropdown.Item>Large</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown> */}
                         </Menu>
                     </Grid.Column>
                     <Grid.Column stretched computer={13} tablet={11}>

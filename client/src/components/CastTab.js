@@ -2,9 +2,7 @@ import React from 'react';
 import { Grid, GridColumn, Image, List } from 'semantic-ui-react';
 
 export default function CastTab(props) {
-    // console.log('props', props.info)
     let castResults = props.info.cast;
-    // console.log(castResults)
 
     function renderGrid() {
         let renderArr = [], columns = [];
