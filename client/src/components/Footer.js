@@ -22,7 +22,7 @@ export default function Footer() {
                 Notice
                 </Header>
               <p>
-                Enjoy the website, and please be respectful.
+                Enjoy the website, and feel free to leave feedback or constructive criticism. The source code can be found <a href="https://github.com/henryni914/Reviews-with-friends" target="_blank">here</a>.
                 </p>
                 <p>© Copyright 2021</p>
             </Grid.Column>

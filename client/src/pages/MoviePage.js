@@ -116,8 +116,6 @@ export default function MoviePage() {
     }
 
     useEffect(() => {
-        // console.log('running movie search')
-        // console.log(stateUser)
         // API.findProviders(currentFilm).then(res => {
         //     console.log(res.data.results.US)
         // })

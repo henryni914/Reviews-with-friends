@@ -28,7 +28,7 @@ export default function AccountSettings() {
             } else {
                 // console.log('success, the name is unique!')
                 API.updateUserNickname(stateUser.id, { nickname: search }).then(res => {
-                    console.log(res.data)
+                    // console.log(res.data)
                 })
                 dispatch(setNickname(search))
                 setNicknameError(false)

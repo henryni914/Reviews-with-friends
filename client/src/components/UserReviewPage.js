@@ -111,7 +111,7 @@ export default function UserReviews(props) {
                                 <Item key={ele.id}>
                                     {post === ele.id
                                         ?
-                                        <Item.Content>
+                                        <Item.Content key={ele.id}>
                                             <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
                                                 <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
                                             </Link>
@@ -124,7 +124,7 @@ export default function UserReviews(props) {
                                         </Item.Content>
                                         :
                                         <>
-                                            <Item.Content >
+                                            <Item.Content key={ele.id}>
                                                 <Link onClick={() => storeId(ele.Movie.tmdbID)} to={`/film/id=${ele.Movie.tmdbID}`} >
                                                     <Item.Header as='a' ><i>{ele.Movie.title}</i></Item.Header>
                                                 </Link>
