@@ -1,6 +1,7 @@
 # Reviews With Friends
 
-Built with React and hosted on Heroku
+Movie review app built with React and hosted on Heroku. [Demo the app here](https://reviews-with-friends.herokuapp.com/)
+
 
 ![rwf-reviews](https://user-images.githubusercontent.com/58963267/116177968-c43bb880-a6e2-11eb-92a5-22faa3ba7d94.png)
 
@@ -61,6 +62,13 @@ Enjoy!
 
 
 ## Technologies
+
+[Auth0](https://auth0.com/)
+
+[Moment.js](https://momentjs.com/)
+
+[MySQL](https://www.mysql.com/)
+
 [React](https://reactjs.org/)
 
 [React Redux](https://react-redux.js.org/)
@@ -69,15 +77,11 @@ Enjoy!
 
 [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 
-[Moment.js](https://momentjs.com/)
-
-[MySQL](https://www.mysql.com/)
+[Semantic UI React](https://react.semantic-ui.com/)
 
 [Sequelize](https://sequelize.org/)
 
-[Semantic UI React](https://react.semantic-ui.com/)
-
-[Auth0](https://auth0.com/)
+[TMDB API](https://developers.themoviedb.org/3/getting-started/introduction)
 
 ## Contributing
 
