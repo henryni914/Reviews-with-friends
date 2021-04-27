@@ -71,6 +71,10 @@ Enjoy!
 
 [Moment.js](https://momentjs.com/)
 
+[MySQL](https://www.mysql.com/)
+
+[Sequelize](https://sequelize.org/)
+
 [Semantic UI React](https://react.semantic-ui.com/)
 
 [Auth0](https://auth0.com/)
